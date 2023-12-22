@@ -1,9 +1,41 @@
 <!-- Footer Start -->
 <footer class="bg-footer">
+    @auth
+    @else
+        <div class="py-5">
+            <div class="container">
+                <div class="row align-items-end">
+                    <div class="col-md-7">
+                        <div class="section-title">
+                            <div class="d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-bookmark fea icon-lg">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <div class="flex-1 ms-3">
+                                    <h4 class="fw-bold text-white mb-2">Explore a job now!</h4>
+                                    <p class="text-white-50 mb-0">Search all the open positions on the web. Get your own
+                                        personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-md-5 mt-4 mt-sm-0">
+                        <div class="text-md-end ms-5 ms-sm-0">
+                            <a href="job-apply.html" class="btn btn-primary me-1 my-1">Apply Now</a>
+                            <a href="contactus.html" class="btn btn-soft-primary my-1">Contact Us</a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </div><!--end div-->
+    @endauth
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="py-5">
+                <div class="py-5 footer-bar">
                     <div class="row align-items-center">
                         <div class="col-sm-3">
                             <div class="text-center text-sm-start">
@@ -14,19 +46,22 @@
                         <div class="col-sm-9 mt-4 mt-sm-0">
                             <ul class="list-unstyled footer-list terms-service text-center text-sm-end mb-0">
                                 <li class="list-inline-item my-2"><a href="index.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i>
+                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
                                         Home</a></li>
                                 <li class="list-inline-item my-2"><a href="services.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> How
+                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
+                                        How
                                         it works</a></li>
                                 <li class="list-inline-item my-2"><a href="job-post.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i>
+                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
                                         Create a job</a></li>
                                 <li class="list-inline-item my-2"><a href="aboutus.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="mdi mdi-circle-small"></i> About
+                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
+                                        About
                                         us</a></li>
                                 <li class="list-inline-item my-2"><a href="pricing.html"
-                                        class="text-foot fs-6 fw-medium"><i class="mdi mdi-circle-small"></i> Plans</a>
+                                        class="text-foot fs-6 fw-medium"><i class="fa-regular fa-circle"></i></i>
+                                        Plans</a>
                                 </li>
                             </ul>
                         </div><!--end col-->
@@ -42,13 +77,10 @@
                 <div class="col-sm-6">
                     <div class="text-sm-start">
                         <p class="mb-0 fw-medium">©
-                            <script type="text/javascript" id="www-widgetapi-script"
-                                src="https://www.youtube.com/s/player/31e0b6d9/www-widgetapi.vflset/www-widgetapi.js" async=""></script>
-                            <script id="iframe_api" src="https://www.youtube.com/iframe_api"></script>
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script>2023 Jobnova. Design with <i class="mdi mdi-heart text-danger"></i>
-                            by <a href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.
+                            </script> Skilltrack. Made with <i
+                                class="fa-solid fa-heart text-danger"></i></i>.
                         </p>
                     </div>
                 </div>
@@ -56,7 +88,7 @@
                 <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <ul class="list-unstyled social-icon foot-social-icon text-sm-end mb-0">
                         <li class="list-inline-item"><a href="https://1.envato.market/jobnova" target="_blank"
-                                class="rounded"><svg xmlns="http://w Fww.w3.org/2000/svg" width="24" height="24"
+                                class="rounded"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-shopping-cart fea icon-sm align-middle" title="Buy Now">
@@ -74,11 +106,12 @@
                                         d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32">
                                     </path>
                                 </svg></a></li>
-                        <li class="list-inline-item"><a href="http://linkedin.com/company/shreethemes" target="_blank"
-                                class="rounded"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-linkedin fea icon-sm align-middle" title="Linkedin">
+                        <li class="list-inline-item"><a href="http://linkedin.com/company/shreethemes"
+                                target="_blank" class="rounded"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-linkedin fea icon-sm align-middle"
+                                    title="Linkedin">
                                     <path
                                         d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
                                     </path>
@@ -118,3 +151,13 @@
     </div>
 </footer>
 <!-- Footer End -->
+
+<!-- Back to top -->
+<a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5"
+    style="display: block !important;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" class="feather feather-arrow-up fea icon-sm align-middle">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+    </svg></a>
+<!-- Back to top -->

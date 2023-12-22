@@ -1,7 +1,6 @@
 @section('title', 'Home')
 @extends('layout.master')
 @section('content')
-
     @include('layout.nav')
     <!-- Hero Start -->
     <section class="bg-half-170 d-table w-100 bg-primary" style="background: url('images/bg2.png') center;">
@@ -18,7 +17,7 @@
                                 <div class="mb-0">
                                     <div class="position-relative">
                                         <i data-feather="search"
-                                            class="fea icon-20 position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                                            class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                                         <input type="text" id="help" name="name"
                                             class="shadow rounded-pill bg-white ps-5" required=""
                                             placeholder="Search jobs & candidates ...">
@@ -141,16 +140,16 @@
                     <div class="tns-outer" id="tns1-ow">
                         <div class="tns-controls" aria-label="Carousel Navigation" tabindex="0"><button type="button"
                                 data-controls="prev" tabindex="-1" aria-controls="tns1"><i
-                                    class="fa-solid fa-chevron-left"></i></button><button type="button"
+                                    class="mdi mdi-chevron-left "></i></button><button type="button"
                                 data-controls="next" tabindex="-1" aria-controls="tns1"><i
-                                    class="fa-solid fa-chevron-right"></i></button></div>
+                                    class="mdi mdi-chevron-right"></i></button></div>
                         <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span
-                                class="current">1 to 5</span> of 7</div>
+                                class="current">2 to 6</span> of 7</div>
                         <div id="tns1-mw" class="tns-ovh">
                             <div class="tns-inner" id="tns1-iw">
                                 <div class="tiny-five-item  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                                    id="tns1" style="transform: translate3d(0%, 0px, 0px);">
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item0">
+                                    id="tns1" style="transform: translate3d(-14.2857%, 0px, 0px);">
+                                    <div class="tiny-slide tns-item" id="tns1-item0" aria-hidden="true" tabindex="-1">
                                         <div
                                             class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
                                             <div
@@ -271,7 +270,7 @@
                                         </div>
                                     </div><!--end col-->
 
-                                    <div class="tiny-slide tns-item" id="tns1-item5" aria-hidden="true" tabindex="-1">
+                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item5">
                                         <div
                                             class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
                                             <div
@@ -575,7 +574,7 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Here's why you'll love it Jobnova</h4>
+                        <h4 class="title mb-3">Here's why you'll love it Skilltrack</h4>
                         <p class="text-muted para-desc mx-auto mb-0">Search all the open positions on the web. Get your own
                             personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                     </div>
@@ -979,12 +978,4 @@
     </section><!--end section-->
     <!-- End -->
     @include('layout.footer')
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded fs-5" style="display: block">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="feather feather-arrow-up fa-regular fa-clock align-middle">
-            <line x1="12" y1="19" x2="12" y2="5"></line>
-            <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
-    </a>
 @endsection

@@ -1,0 +1,299 @@
+body::-webkit-scrollbar,
+.wrapper::-webkit-scrollbar {
+    display: none !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+li {
+    list-style: none !important;
+}
+
+textarea {
+    resize: none !important;
+}
+
+header .img-fluid {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+}
+
+.col-05 {
+    width: 5% !important;
+}
+
+.avatar.avatar-medium,
+.avatar.avatar-md-md {
+    object-fit: cover;
+}
+
+.accordion-collapse {
+    transition: 0.3s !important;
+}
+
+.btn {
+    border-radius: 2rem !important;
+}
+
+.rounder {
+    border-radius: 2rem !important;
+}
+
+.rounded-circle {
+    border-radius: 100% !important;
+}
+
+.wrapper {
+    padding: 0px 0px 30px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.wrapper a {
+    color: black;
+    transition: 0.3s;
+}
+
+.header-content-area a:hover,
+.account a:hover {
+    color: #3b82f6;
+    padding-left: 10px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 34px 30px 30px 30px;
+    background-color: #ffffff;
+    align-items: center;
+    align-self: center;
+    border-bottom: thin solid #ececec;
+}
+
+.user-account {
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.user-account:hover {
+    transition-duration: 0.2s;
+    transform: translateY(-3px);
+}
+
+.user-name {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.header-content-area {
+    padding: 30px 30px 30px;
+}
+
+.perfect-scroll {
+    height: 100vh;
+    width: 300px;
+    position: relative;
+}
+
+.header-border {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.has-children {
+    display: block;
+    position: relative;
+    padding: 13px 0;
+}
+
+.account {
+    margin: 15px 0;
+    padding: 30px 0 20px 0;
+    border-top: thin solid #ececec;
+}
+
+.account li {
+    padding: 13px 0;
+}
+
+.buttons-group {
+    display: inline-flex;
+    border-radius: 2rem;
+    border: 1px solid #dee2e6 !important;
+}
+
+.buttons-group .btn {
+    border: none !important;
+}
+
+.buttons-group .btn:hover {
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 2rem !important;
+    border: none !important;
+}
+
+/* Style the tab */
+.tab {
+    float: left;
+    background-color: #f1f1f1;
+    width: 20%;
+    height: 100vh;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    display: block;
+    color: black;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+    padding-left: 3rem;
+}
+
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #ccc;
+    padding-left: 3rem;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    width: 80%;
+    border-left: none;
+    height: 300px;
+}
+
+.white-space {
+    width: 100%;
+    height: 74px;
+    background: #3b82f6;
+}
+
+.table-head {
+    background-color: aliceblue;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+}
+
+.table-body {
+    height: 34vh;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+}
+
+.table-data {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.th,
+.td {
+    padding: 1rem;
+}
+
+.td {
+    padding: 0 1rem !important;
+}
+
+.td p {
+    margin: 0;
+}
+
+/* Scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 10px;
+}
+
+/* Scroll bar */
+
+.table-body .btn {
+    padding: 0.375rem 0.65rem !important;
+    font-weight: normal !important;
+    letter-spacing: normal !important;
+    font-size: 15px !important;
+}
+
+.collapse form {
+    margin: 10px 0px;
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+.accordion-body input {
+    width: 50% !important;
+}
+
+.lens {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* Admin Panel */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    z-index: -1;
+}
+
+.admin-nav-item {
+    padding: 1rem;
+    /* color: white; */
+    display: flex;
+    align-items: center;
+}
+
+.admin-nav-item span {
+    color: black;
+    font-weight: 500;
+}
+
+/* Admin Panel */
+
+.my-table nav {
+    display: flex;
+    justify-content: center;
+}
+
+.active {
+    background-color: #3b82f6 !important;
+    text-decoration: underline !important;
+}
+
+.active i, .active span {
+    color: white;
+}
