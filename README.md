@@ -10,7 +10,7 @@ A laravel project where you can either search through the jobs as a candidate or
 - [License](#license)
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your-username/your-project.git`
+1. Clone the repository: `git clone https://github.com/IkonicZach/laravel-job-searching-app`
 2. Install dependencies: `composer install && npm install`
 3. Copy the environment file: `cp .env.example .env`
 4. Generate application key: `php artisan key:generate`
