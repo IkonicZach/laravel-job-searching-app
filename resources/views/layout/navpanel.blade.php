@@ -13,7 +13,7 @@
     aria-labelledby="offcanvasWithBothOptionsLabel" style="transition: 0.3s; width: ">
     <div class="wrapper">
         <div class="header-top">
-            <a href="{{ route('employer.profile') }}" class="user-account">
+            <a href="{{ route('user.profile') }}" class="user-account">
                 <p class="btn btn-lg btn-icon btn-pills btn-primary m-0 me-2">
                     @auth
                         <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="img-fluid rounded-pill"
@@ -27,8 +27,8 @@
                         <h5 class="user-name"><span class="text-primary">{{ auth()->user()->name }}</span></h5>
                     @else
                         <div class="buttons-group">
-                            <a href="/user/login" class="btn">Sign in</a>
-                            <a href="/user/register/checkpoint" class="btn">Sign up</a>
+                            <a href="{{ route('user.login') }}" class="btn">Sign in</a>
+                            <a href="{{ route('user.register') }}" class="btn">Sign up</a>
                         </div>
                     @endauth
                     {{-- <p class="font-xs text-muted m-0">You have 2 new messages</p> --}}

@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function profile()
+    {
+        return view('user.profile');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -98,20 +103,23 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request)
     {
         try {
-            $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
-                'role' => $request->input('role'),
-            ]); // Create User
+            // $role = decrypt($request->input('role'));
+            // $user = User::create([
+            //     'name' => $request->get('name'),
+            //     'email' => $request->get('email'),
+            //     'password' => bcrypt($request->get('password')),
+            //     'role' => $role,
+            // ]); // Create User
 
-            auth()->login($user); // Login User
+            // auth()->login($user); // Login User
 
-            if ($request->role == "employer") {
-                return redirect()->route('employer.profile.setup');
-            } else {
-                return redirect('/jobs/listing');
-            }
+            // if ($role == "employer") {
+            //     return redirect()->route('employer.profile.setup');
+            // } elseif ($role == "candidate") {
+            //     return redirect('/jobs/listing');
+            // } else {
+            //     return redirect('/');
+            // }
         } catch (Exception $e) {
             return $e->getMessage();
         }

@@ -166,7 +166,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Business <br> Development</a>
+                                                <a href="#" class="title h5 text-">Business <br> Development</a>
                                                 <p class="text-muted mb-0 mt-3">74 Jobs</p>
                                             </div>
                                         </div>
@@ -187,7 +187,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Marketing &amp; <br>
+                                                <a href="#" class="title h5 text-">Marketing &amp; <br>
                                                     Communication</a>
                                                 <p class="text-muted mb-0 mt-3">20 Jobs</p>
                                             </div>
@@ -209,7 +209,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Project <br> Management</a>
+                                                <a href="#" class="title h5 text-">Project <br> Management</a>
                                                 <p class="text-muted mb-0 mt-3">35 Jobs</p>
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Customer <br> Service</a>
+                                                <a href="#" class="title h5 text-">Customer <br> Service</a>
                                                 <p class="text-muted mb-0 mt-3">46 Jobs</p>
                                             </div>
                                         </div>
@@ -264,7 +264,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Software <br> Engineering</a>
+                                                <a href="#" class="title h5 text-">Software <br> Engineering</a>
                                                 <p class="text-muted mb-0 mt-3">60 Jobs</p>
                                             </div>
                                         </div>
@@ -287,7 +287,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">Human Resource <br> HR</a>
+                                                <a href="#" class="title h5 text-">Human Resource <br> HR</a>
                                                 <p class="text-muted mb-0 mt-3">74 Jobs</p>
                                             </div>
                                         </div>
@@ -325,7 +325,7 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-dark">It &amp; <br> Networking</a>
+                                                <a href="#" class="title h5 text-">It &amp; <br> Networking</a>
                                                 <p class="text-muted mb-0 mt-3">20 Jobs</p>
                                             </div>
                                         </div>
@@ -365,7 +365,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Facebook</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Facebook</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -375,7 +375,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">Web Designer / Developer</a>
+                            <a href="job-detail-one.html" class="text- title h5">Web Designer / Developer</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -385,7 +385,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -399,7 +399,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Google</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Google</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -409,7 +409,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">Marketing Director</a>
+                            <a href="job-detail-one.html" class="text- title h5">Marketing Director</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -419,7 +419,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -433,7 +433,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Android</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Android</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -443,7 +443,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">Application Developer</a>
+                            <a href="job-detail-one.html" class="text- title h5">Application Developer</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -453,7 +453,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -467,7 +467,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Lenovo</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Lenovo</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -477,7 +477,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">Senior Product Designer</a>
+                            <a href="job-detail-one.html" class="text- title h5">Senior Product Designer</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -487,7 +487,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -501,7 +501,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Spotify</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Spotify</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -511,7 +511,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">C++ Developer</a>
+                            <a href="job-detail-one.html" class="text- title h5">C++ Developer</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -521,7 +521,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -535,7 +535,7 @@
                                     class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                 <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-dark">Linkedin</a>
+                                    <a href="employer-profile.html" class="h5 company text-">Linkedin</a>
                                     <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
                                             class="fa-regular fa-clock me-1"></i> 2 days ago</span>
                                 </div>
@@ -545,7 +545,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="job-detail-one.html" class="text-dark title h5">Php Developer</a>
+                            <a href="job-detail-one.html" class="text- title h5">Php Developer</a>
 
                             <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
                                     class="fa-solid fa-location-dot me-1"></i>Australia</span>
@@ -555,7 +555,7 @@
                                     <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
                                 </div>
 
-                                <span class="text-dark">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                             </div>
                         </div>
                     </div><!--end job post-->
@@ -596,10 +596,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">24/7 Support</a>
+                            <a href="#" class="title h5 text-">24/7 Support</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="#" class="btn btn-link primary text-">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -627,10 +627,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Tech &amp; Startup Jobs</a>
+                            <a href="#" class="title h5 text-">Tech &amp; Startup Jobs</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="#" class="btn btn-link primary text-">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -649,10 +649,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Quick &amp; Easy</a>
+                            <a href="#" class="title h5 text-">Quick &amp; Easy</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="#" class="btn btn-link primary text-">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -672,10 +672,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Save Time</a>
+                            <a href="#" class="title h5 text-">Save Time</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="#" class="btn btn-link primary text-">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -720,7 +720,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Google</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Google</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -734,7 +734,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Facebook</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Facebook</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -748,7 +748,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Android</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Android</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -762,7 +762,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Circle CI</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Circle CI</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -776,7 +776,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Lenovo</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Lenovo</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -790,7 +790,7 @@
                                         class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                     <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-dark">Linkedin</a>
+                                        <a href="employer-profile.html" class="h5 title text-">Linkedin</a>
                                         <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
                                     </div>
                                 </div>
@@ -837,7 +837,7 @@
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
                                             <rect x="3" y="4" width="18" height="18" rx="2"
                                                 ry="2"></rect>
                                             <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -848,21 +848,21 @@
                                             width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>5 min read</li>
                                 </ul>
 
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-dark">11 Tips to Help You
+                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">11 Tips to Help You
                                     Get New Clients Through Cold Calling</a>
 
                                 <ul
                                     class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
                                     <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-dark">Read Now <i
+                                            class="btn btn-link primary text-">Read Now <i
                                                 class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-dark">By</span> <a href="#"
+                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
                                             class="text-muted link-title">Google</a></li>
                                 </ul>
                             </div>
@@ -889,7 +889,7 @@
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
                                             <rect x="3" y="4" width="18" height="18" rx="2"
                                                 ry="2"></rect>
                                             <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -900,21 +900,21 @@
                                             width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>5 min read</li>
                                 </ul>
 
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-dark">DigitalOcean launches
+                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">DigitalOcean launches
                                     first Canadian data centre in Toronto</a>
 
                                 <ul
                                     class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
                                     <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-dark">Read Now <i
+                                            class="btn btn-link primary text-">Read Now <i
                                                 class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-dark">By</span> <a href="#"
+                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
                                             class="text-muted link-title">Facebook</a></li>
                                 </ul>
                             </div>
@@ -941,7 +941,7 @@
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
                                             <rect x="3" y="4" width="18" height="18" rx="2"
                                                 ry="2"></rect>
                                             <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -952,21 +952,21 @@
                                             width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-dark">
+                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
                                             <circle cx="12" cy="12" r="10"></circle>
                                             <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>5 min read</li>
                                 </ul>
 
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-dark">Using Banner Stands To
+                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">Using Banner Stands To
                                     Increase Trade Show Traffic</a>
 
                                 <ul
                                     class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
                                     <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-dark">Read Now <i
+                                            class="btn btn-link primary text-">Read Now <i
                                                 class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-dark">By</span> <a href="#"
+                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
                                             class="text-muted link-title">Linkedin</a></li>
                                 </ul>
                             </div>

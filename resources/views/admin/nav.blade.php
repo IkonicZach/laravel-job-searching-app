@@ -5,13 +5,21 @@
 </style>
 
 <div class="admin-nav">
-    <a href="{{ route('dashboard') }}" class="admin-nav-item @if (Route::currentRouteName() === 'admin.dashboard') active @endif">
+    <a href="{{ route('admin.dashboard') }}" class="admin-nav-item @if (Route::currentRouteName() === 'admin.dashboard') active @endif">
         <i class="fa-solid fa-chalkboard fs-5 col-3"></i>
         <span>Dashboard</span>
     </a>
     <a href="{{ route('user.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'user.index') active @endif">
         <i class="fa-solid fa-users fs-5 col-3"></i>
         <span>Users</span>
+    </a>
+    <a href="{{ route('role.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'role.index') active @endif">
+        <i class="fa-solid fa-gear fs-5 col-3"></i>
+        <span>User Roles</span>
+    </a>
+    <a href="{{ route('permission.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'permission.index') active @endif">
+        <i class="fa-solid fa-lock fs-5 col-3"></i>
+        <span>Permissions</span>
     </a>
     <a href="{{ route('category.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'category.index') active @endif">
         <i class="fa-solid fa-list fs-5 col-3"></i>

@@ -1,4 +1,4 @@
-@section('title', 'Users management')
+@section('title', 'Categories management')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
