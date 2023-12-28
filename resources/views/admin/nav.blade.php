@@ -9,13 +9,13 @@
         <i class="fa-solid fa-chalkboard fs-5 col-3"></i>
         <span>Dashboard</span>
     </a>
-    <a href="{{ route('user.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'user.index') active @endif">
+    <a href="" class="admin-nav-item @if (Route::currentRouteName() === 'user.index') active @endif">
         <i class="fa-solid fa-users fs-5 col-3"></i>
         <span>Users</span>
     </a>
     <a href="{{ route('role.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'role.index') active @endif">
         <i class="fa-solid fa-gear fs-5 col-3"></i>
-        <span>User Roles</span>
+        <span>Roles</span>
     </a>
     <a href="{{ route('permission.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'permission.index') active @endif">
         <i class="fa-solid fa-lock fs-5 col-3"></i>
@@ -29,7 +29,7 @@
         <i class="fa-solid fa-user-tie fs-5 col-3"></i>
         <span>Employers</span>
     </a>
-    <a href="{{ route('admin.companies') }}" class="admin-nav-item">
+    <a href="{{ route('company.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'company.index') active @endif">
         <i class="fa-solid fa-building fs-5 col-3"></i>
         <span>Companies</span>
     </a>

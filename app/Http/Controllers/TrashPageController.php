@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 
-class PermissionController extends Controller
+class TrashPageController extends Controller
 {
+
+    public function category()
+    {
+        $categories = Category::onlyTrashed()->get();
+        return view('admin.trash.categories', compact('categories'));
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $permissions = Permission::select('id', 'name')->paginate(5);
-        return view('admin.tabs.permissions', compact('permissions'));
     }
 
     /**
@@ -30,11 +34,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|min:3',
-        ]);
-        Permission::create($validated);
-        return redirect()->route('role.index');
+        //
     }
 
     /**
@@ -58,12 +58,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|min:3',
-        ]);
-        $permission = Permission::findOrFail($id);
-        $permission->update($validated);
-        return redirect()->route('permission.index');
+        //
     }
 
     /**

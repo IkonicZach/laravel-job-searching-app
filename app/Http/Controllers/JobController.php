@@ -108,7 +108,7 @@ class JobController extends Controller
         ]);
 
         // return $request->all();
-        return redirect('/jobs/listing');
+        return redirect()->route('job.index');
     }
 
     /**

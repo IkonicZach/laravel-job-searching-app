@@ -51,8 +51,7 @@
                                         <label class="form-label fw-semibold" for="img">Company Picture
                                             :</label>
                                         @if ($company->img)
-                                            <b>Uploaded File: <a
-                                                    href="{{ asset('uploads/' . $company->img) }}">{{ $company->img }}</a></b>
+                                            <b>Uploaded File: <a href="{{ asset('uploads/' . $company->img) }}">{{ $company->img }}</a></b>
                                         @endif
                                         <input type="file" name="img" id="img"
                                             class="form-control @error('img') is-invalid @enderror">

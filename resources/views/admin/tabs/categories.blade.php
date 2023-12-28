@@ -40,7 +40,11 @@
 
                 {{-- Categories table starts here --}}
                 <div class="col-12 my-table mt-5">
-                    <h3>All categories</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>All categories</h3>
+                        <a href="{{ route('trash.category') }}" class="btn btn-light">Trash Can <i
+                                class="fa-solid fa-trash-can"></i> </a>
+                    </div>
                     <div class="table-head row g-0">
                         <div class="th col-2"><b>#</b></div>
                         <div class="th col-5"><b>Name</b></div>

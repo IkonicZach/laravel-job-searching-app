@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyCreateRequest;
 use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Category;
@@ -9,14 +10,16 @@ use App\Models\Company;
 use App\Models\User;
 use Exception;
 
-class CompanyController extends Controller
+class AdminCompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.tabs.companies');
+        $companies = Company::all();
+        $categories = Category::select('id','name')->get();
+        return view('admin.tabs.companies', compact('companies', 'categories'));
     }
 
     /**
@@ -128,13 +131,21 @@ class CompanyController extends Controller
     public function destroy(string $id)
     {
         try {
-            // $company = Company::find($id);
-            // $company->delete();
-            // $message = "Deleted successfully!";
-            // $messageBody = "'$company->name' company has been deleted successfully!";
+            $company = Company::find($id);
+            $company->delete();
+            $message = "Deleted successfully!";
+            $messageBody = "'$company->name' company has been deleted successfully!";
 
-            // return redirect()->route('admin.company.index')->with('message', $message)->with('messageBody', $messageBody);
-            return "This is employer";
+            return redirect()->route('admin.company.index')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function restore(string $id)
+    {
+        try {
+            
         } catch (Exception $e) {
             return $e->getMessage();
         }

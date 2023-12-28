@@ -10,9 +10,11 @@
         </div>
         <div class="col-10">
             <div class="row shadow-lg p-5 m-3 me-5 w-100 rounder">
-
                 <div class="col-12 my-table">
-                    <h3>Companies list</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Companies list</h3>
+                        <a class="btn btn-light">Trash Can <i class="fa-solid fa-trash-can"></i> </a>
+                    </div>
                     <div class="table-head w-100 g-0">
                         <div class="th col-05"><b>#</b></div>
                         <div class="th col-3"><b>Name</b></div>
@@ -26,7 +28,7 @@
                         @if (!empty($companies))
                             @if (count($companies) > 0)
                                 @foreach ($companies as $company)
-                                    <!-- Category Delete Confirm Modal starts here -->
+                                    <!-- Company Delete Confirm Modal starts here -->
                                     <div class="modal fade" id="delete{{ $company->id }}" tabindex="-1"
                                         aria-labelledby="delete{{ $company->id }}Label" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -38,10 +40,10 @@
                                                             aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Are you sure you want to delete this category?
+                                                    Are you sure you want to delete this company?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('category.destroy', $company->id) }}"
+                                                    <form action="{{ route('company.destroy', $company->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -53,7 +55,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Category Delete Confirm Modal ends here -->
+                                    <!-- Company Delete Confirm Modal ends here -->
 
                                     {{-- Edit modal starts here  --}}
                                     <div class="modal fade" id="company{{ $company->id }}" data-bs-backdrop="static"
@@ -296,7 +298,7 @@
                                                     data-bs-target="#company{{ $company->id }}">
                                                     <i class="fa-solid fa-pen-to-square"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#delete{{ $company->id }}"
-                                                    class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></a>
+                                                    class="btn btn-primary"><i class="fa-solid fa-circle-minus"></i></a>
                                             </div>
                                         </div>
                                     </div>

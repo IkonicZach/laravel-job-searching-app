@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Model implements AuthenticatableContract
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use Authenticatable, HasFactory, Notifiable, HasApiTokens, HasRoles;
 
+    protected $rememberTokenName = 'remember_token';
     protected $fillable = [
         'role',
         'name',
@@ -28,6 +32,7 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'deleted_at',
+        'remember_token',
     ];
 
     public function company()

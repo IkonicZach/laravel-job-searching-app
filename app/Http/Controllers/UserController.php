@@ -7,6 +7,8 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -82,8 +84,15 @@ class UserController extends Controller
     public function login(UserLoginRequest $request)
     {
         try {
+            $remember = $request->has('remember');
             $credentials = $request->only('email', 'password');
-            if (auth()->attempt($credentials)) {
+
+            if (auth()->attempt($credentials, $remember)) {
+                // $user = Auth::user();
+                // $user->remember_token();
+                // $rememberToken = Auth::user()->getRememberToken();
+                // Cookie::make('remember_token', $rememberToken, 60 * 24 * 7); // Expires in 7 days
+
                 $request->session()->regenerate();
                 return redirect('/');
             } else {
@@ -103,23 +112,23 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request)
     {
         try {
-            // $role = decrypt($request->input('role'));
-            // $user = User::create([
-            //     'name' => $request->get('name'),
-            //     'email' => $request->get('email'),
-            //     'password' => bcrypt($request->get('password')),
-            //     'role' => $role,
-            // ]); // Create User
+            $role = decrypt($request->input('role'));
+            $user = User::create([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'password' => bcrypt($request->get('password')),
+                'role' => $role,
+            ]); // Create User
 
-            // auth()->login($user); // Login User
+            auth()->login($user); // Login User
 
-            // if ($role == "employer") {
-            //     return redirect()->route('employer.profile.setup');
-            // } elseif ($role == "candidate") {
-            //     return redirect('/jobs/listing');
-            // } else {
-            //     return redirect('/');
-            // }
+            if ($role == "employer") {
+                return redirect()->route('employer.profile.setup');
+            } elseif ($role == "candidate") {
+                return redirect('/jobs/listing');
+            } else {
+                return redirect('/');
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -128,7 +137,7 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         auth()->logout();
-
+        Cookie::queue(Cookie::forget('remember_token'));
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

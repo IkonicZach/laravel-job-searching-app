@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'eloquent.deleting: App\Models\Category' => [
+            'App\Listeners\CategoryDeletedListener',
+        ],
     ];
 
     /**

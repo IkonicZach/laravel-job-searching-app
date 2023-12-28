@@ -116,7 +116,7 @@
                         </ul>
 
                         <div class="mt-4">
-                            <a href="aboutus.html" class="btn btn-primary">About Us <i
+                            <a href="" class="btn btn-primary">About Us <i
                                     class="fa-solid fa-arrow-right align-middle"></i></a>
                         </div>
                     </div>

@@ -160,7 +160,7 @@
                                         <img src="{{ asset('uploads/' . $job->company->img) }}"
                                             class="avatar avatar-small rounded-circle shadow p-2 bg-white" alt="">
                                         <div class="ms-3">
-                                            <a href="/jobs/{{ $job->id }}/details"
+                                            <a href="{{route('job.show', $job->id)}}"
                                                 class="h5 title text-dark">{{ substr($job->title, 0, 30) }}</a>
                                             <small class="d-flex align-items-center"><i
                                                     class="fa-regular fa-building text-primary me-1"></i>
@@ -220,7 +220,7 @@
             </div>
         </div><!--end container-->
 
-        <div class="container mt-100 mt-60">
+        <div class="container mt-100 mt-60 mb-60">
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">

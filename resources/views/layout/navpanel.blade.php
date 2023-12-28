@@ -16,8 +16,12 @@
             <a href="{{ route('user.profile') }}" class="user-account">
                 <p class="btn btn-lg btn-icon btn-pills btn-primary m-0 me-2">
                     @auth
-                        <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="img-fluid rounded-pill"
-                            alt="">
+                        @if (auth()->user()->img == null)
+                            <img src="images/guest.jpg" class="img-fluid rounded-pill" alt="">
+                        @else
+                            <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="img-fluid rounded-pill"
+                                alt="">
+                        @endif
                     @else
                         <img src="images/guest.jpg" class="img-fluid rounded-pill" alt="">
                     @endauth
@@ -48,7 +52,7 @@
                             </li>
                             <li class="has-children"><span class="menu-expand"><i
                                         class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="job-grid.html">Browse Jobs</a>
+                                <a class="link" href="{{ route('job.index') }}">Browse Jobs</a>
                             </li>
                             <li class="has-children"><span class="menu-expand"><i
                                         class="fi-rr-angle-small-down"></i></span>
@@ -84,13 +88,15 @@
                 </div>
                 <div class="mobile-social-icon mb-50">
                     <h5 class="mb-25">Follow Us</h5>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt="jobhub"></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt="jobhub"></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt="jobhub"></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt="jobhub"></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt="jobhub"></a>
+                    <div class="row g-0 justify-content-between align-items-center">
+                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/facebook.svg') }}"></a>
+                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/instagram.svg') }}"></a>
+                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/twitter.svg') }}"></a>
+                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/discord.svg') }}"></a>
+                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/telegram.svg') }}"></a>
+                    </div>
                 </div>
-                <div class="site-copyright">Copyright 2022 © JobHub. <br>Designed by AliThemes.</div>
+                <div class="site-copyright text-muted text-center py-5">Copyright 2023 © Skilltrack.</div>
             </div>
         </div>
     </div>

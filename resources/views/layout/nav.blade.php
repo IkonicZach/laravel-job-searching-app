@@ -48,8 +48,12 @@
                 <button type="button" class="btn btn-sm btn-icon btn-pills btn-primary" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                     @auth
-                        <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="img-fluid rounded-pill"
-                            alt="">
+                        @if (auth()->user()->img == null)
+                            <img src="{{ asset('images/guest.jpg') }}" class="img-fluid rounded-pill" alt="">
+                        @else
+                            <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="img-fluid rounded-pill"
+                                alt="">
+                        @endif
                     @else
                         <img src="{{ asset('images/guest.jpg') }}" class="img-fluid rounded-pill" alt="">
                     @endauth
@@ -62,7 +66,7 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu nav-right nav-light">
 
-                <li><a href="{{ route('job.listing') }}" class="sub-menu-item">Jobs</a></li>
+                <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
 
                 <li class="has-submenu parent-menu-item">
                     <a href="javascript:void(0)">Employers</a><span class="menu-arrow"></span>
@@ -84,7 +88,7 @@
 
                 <li><a href="/blog" class="sub-menu-item">Blog</a></li>
 
-                <li><a href="/contact" class="sub-menu-item">Contact Us</a></li>
+                <li><a href="{{ route('contact.index') }}" class="sub-menu-item">Contact Us</a></li>
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div>

@@ -27,15 +27,15 @@
                                     class="avatar avatar-md-md rounded-circle shadow rounder bg-white">
                                 <div class="ms-3">
                                     <h5>{{ $user->company->name }}</h5>
-                                    <span class="text-muted d-flex align-items-center"><i data-feather="map-pin"
-                                            class="fea icon-sm me-1"></i>{{ $user->company->city }},
+                                    <span class="text-muted d-flex align-items-center"><i
+                                            class="fa-solid fa-location-dot me-1"></i>{{ $user->company->city }},
                                         {{ $user->company->country }}</span>
                                 </div>
                             </div>
 
                             <div class="mt-4 mt-md-0">
                                 <a href="#" class="btn btn-sm btn-primary me-1">Follow</a>
-                                <a href="{{route('job.create')}}" class="btn btn-sm btn-primary me-1">Post Job</a>
+                                <a href="{{ route('job.create') }}" class="btn btn-sm btn-primary me-1">Post Job</a>
                                 <a href="job-grid-one.html" class="btn btn-sm btn-soft-primary">See Jobs</a>
                                 <a href="{{ route('company.edit', $user->company->id) }}"
                                     class="btn btn-sm btn-primary me-1">Edit company
@@ -92,8 +92,7 @@
 
                                     <div class="ms-3">
                                         <h6>Lenovo</h6>
-                                        <span class="text-muted d-flex align-items-center"><i data-feather="map-pin"
-                                                class="fea icon-sm me-1"></i>Australia</span>
+                                        <span class="text-muted d-flex align-items-center"><i class="fa-solid fa-location-dot me-1"></i></i>Australia</span>
                                     </div>
                                 </div>
                             </div>
@@ -181,8 +180,8 @@
 
                                     <div class="ms-3">
                                         <h6>Lenovo</h6>
-                                        <span class="text-muted d-flex align-items-center"><i data-feather="map-pin"
-                                                class="fea icon-sm me-1"></i>India</span>
+                                        <span class="text-muted d-flex align-items-center"><i
+                                                class="fa-solid fa-location-dot me-1"></i>India</span>
                                     </div>
                                 </div>
                             </div>
@@ -330,8 +329,7 @@
 
                         <ul
                             class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
-                            <li class="text-muted d-inline-flex align-items-center"><i data-feather="map-pin"
-                                    class="fea icon-sm me-1 align-middle"></i>Pakistan</li>
+                            <li class="text-muted d-inline-flex align-items-center"><i class="fa-solid fa-location-dot me-1"></i>Pakistan</li>
                             <li class="list-inline-item text-primary fw-medium">6 Jobs</li>
                         </ul>
                     </div>

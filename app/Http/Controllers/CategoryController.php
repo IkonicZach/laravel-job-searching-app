@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -43,7 +44,7 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index')->with('message', $message)->with('messageBody', $messageBody);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -82,7 +83,7 @@ class CategoryController extends Controller
 
             return back()->with('message', $message)->with('messageBody', $messageBody);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -95,11 +96,42 @@ class CategoryController extends Controller
         try {
             $category = Category::find($id);
             $category->delete();
+
             $message = "Deleted successfully!";
             $messageBody = "'$category->name' category has been deleted successfully!";
 
             return redirect()->route('category.index')->with('message', $message)->with('messageBody', $messageBody);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function restore(string $id)
+    {
+        try {
+            $category = Category::withTrashed()->findOrFail($id);
+            $category->restore();
+
+            $message = "Restored successfully!";
+            $messageBody = "'$category->name' category has been restored successfully!";
+
+            return redirect()->route('trash.index')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function delete(string $id)
+    {
+        try {
+            $category = Category::withTrashed()->findOrFail($id);
+            $category->forceDelete();
+
+            $message = "Permanently deleted successfully!";
+            $messageBody = "'$category->name' category has been permanently deleted!";
+
+            return redirect()->route('category.index')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }

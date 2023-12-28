@@ -56,8 +56,8 @@
                         </div>
                     </div>
 
-                    <div class="col-12 row align-items-center">
-                        <small class="text-muted col-8">Already have an account? <a href="">login</a>.</small>
+                    <div class="col-12 row g-0 align-items-center">
+                        <small class="text-muted col-8">Already have an account? <a href="{{route('user.login')}}">login</a>.</small>
                         <button type="submit" class="btn btn-light col-4">Register</button>
                     </div>
                 </div>

@@ -12,6 +12,7 @@
                         <form action="{{ route('employer.profile.doSetup') }}" method="POST" enctype="multipart/form-data"
                             class="rounded shadow p-4" autocomplete="off" novalidate>
                             @csrf
+                            @METHOD('PUT')
                             <div class="row">
                                 <div class="col-12">
                                     <input type="hidden" value="{{ Auth::id() }}" name="id">
