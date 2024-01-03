@@ -89,7 +89,7 @@ class EmployerController extends Controller
                 'city' => $request->input('city'),
                 'img' => $imageName ?? null,
             ]);
-            return redirect()->route('company.create');
+            return redirect()->route('employer.company.create');
         } catch (Exception $e) {
             return 'Error: ' . $e->getMessage();
         }

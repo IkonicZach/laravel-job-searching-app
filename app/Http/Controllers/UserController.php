@@ -117,12 +117,14 @@ class UserController extends Controller
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => bcrypt($request->get('password')),
-                'role' => $role,
+                // 'role' => $role,
             ]); // Create User
 
             auth()->login($user); // Login User
 
             if ($role == "employer") {
+                $employer = User::findOrFail($user->id);
+                $user->assignRole($role);
                 return redirect()->route('employer.profile.setup');
             } elseif ($role == "candidate") {
                 return redirect('/jobs/listing');

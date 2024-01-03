@@ -9,7 +9,7 @@
         <i class="fa-solid fa-chalkboard fs-5 col-3"></i>
         <span>Dashboard</span>
     </a>
-    <a href="" class="admin-nav-item @if (Route::currentRouteName() === 'user.index') active @endif">
+    <a href="{{ route('user-management.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'user-management.index') active @endif">
         <i class="fa-solid fa-users fs-5 col-3"></i>
         <span>Users</span>
     </a>
@@ -29,7 +29,7 @@
         <i class="fa-solid fa-user-tie fs-5 col-3"></i>
         <span>Employers</span>
     </a>
-    <a href="{{ route('company.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'company.index') active @endif">
+    <a href="{{ route('company-management.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'company-management.index') active @endif">
         <i class="fa-solid fa-building fs-5 col-3"></i>
         <span>Companies</span>
     </a>

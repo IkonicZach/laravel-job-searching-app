@@ -7,13 +7,14 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Model implements AuthenticatableContract
 {
-    use Authenticatable, HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use Authenticatable, HasFactory, Notifiable, HasApiTokens, HasRoles, SoftDeletes;
 
     protected $rememberTokenName = 'remember_token';
     protected $fillable = [

@@ -42,6 +42,16 @@ header .img-fluid {
     border-radius: 2rem !important;
 }
 
+.btn-primary:hover {
+    background-color: transparent !important;
+    color: #3b82f6 !important;
+}
+
+.btn-danger:hover {
+    background-color: transparent !important;
+    color: #ef4444 !important;
+}
+
 .rounder {
     border-radius: 2rem !important;
 }

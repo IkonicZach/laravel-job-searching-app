@@ -27,8 +27,6 @@ class AdminCompanyController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id', 'name')->get();
-        return view('employer.company.create', compact('categories'));
     }
 
     /**
@@ -36,34 +34,6 @@ class AdminCompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        try {
-            if ($request->hasFile('img')) {
-                $imageName = time() . '.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $imageName);
-            }
-            $company = Company::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'img' => $imageName ?? null,
-                'bio' => $request->input('bio'),
-                'category_id' => $request->input('category_id'),
-                'size' => $request->input('size'),
-                'country' => $request->input('country'),
-                'city' => $request->input('city'),
-                'address' => $request->input('address'),
-                'socials' => $request->input('socials'),
-                'created_by' => $request->input('created_by'),
-            ]);
-
-            $user = auth()->user(); // Getting current user
-            $user->company_id = $company->id; // Update the user's company_id
-            $user->position = $request->input('position');
-            $user->save();
-            return redirect('/');
-
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
     }
 
     /**
@@ -79,13 +49,6 @@ class AdminCompanyController extends Controller
      */
     public function edit(string $id)
     {
-        try {
-            $categories = Category::select('id', 'name')->get();
-            $company = Company::with('createdBy')->findOrFail($id);
-            return view('employer.company.edit', compact('company', 'categories'));
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
     }
 
     /**

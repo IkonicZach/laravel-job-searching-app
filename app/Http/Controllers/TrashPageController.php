@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class TrashPageController extends Controller
 {
@@ -13,6 +13,12 @@ class TrashPageController extends Controller
     {
         $categories = Category::onlyTrashed()->get();
         return view('admin.trash.categories', compact('categories'));
+    }
+
+    public function permission()
+    {
+        $permissions = Permission::onlyTrashed()->get();
+        return view('admin.trash.permissions', compact('permissions'));
     }
     /**
      * Display a listing of the resource.

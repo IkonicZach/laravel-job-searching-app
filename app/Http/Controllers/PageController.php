@@ -30,12 +30,7 @@ class PageController extends Controller
     {
         return view('admin.index');
     }
-
-    public function dashboard()
-    {
-        return view('admin.tabs.dashboard');
-    }
-
+    
     public function categories()
     {
     }

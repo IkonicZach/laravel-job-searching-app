@@ -15,7 +15,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#permissionCreate"><i
                                 class="fa-solid fa-plus"></i> New permission</a>
-                        <a class="btn btn-light">Trash Can <i class="fa-solid fa-trash-can"></i></a>
+                        <a href="{{ route('trash.permission') }}" class="btn btn-light">Trash Can <i
+                                class="fa-solid fa-trash-can"></i></a>
                     </div>
                 </div>
 
@@ -61,6 +62,49 @@
                         @if (!empty($permissions))
                             @if (count($permissions) > 0)
                                 @foreach ($permissions as $permission)
+                                    <!-- Permission Assign Modal Starts -->
+                                    <div class="modal fade" id="permissionAssign{{ $permission->id }}" tabindex="-1"
+                                        data-bs-backdrop="static" aria-labelledby="permissionAssignLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content p-5">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="permissionAssignLabel">Assign To Role
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{ route('permission.assign', $permission->id) }}"
+                                                    class="needs-validation" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <h4 class="fs-5">Roles</h4>
+                                                        @foreach ($roles as $role)
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    role="switch"
+                                                                    id="role{{ $role->id }}"
+                                                                    name="roles[]" value="{{ $role->name }}"
+                                                                    @foreach ($role->permissions as $role_permission)
+                                                                        @if ($permission->name == $role_permission->name)
+                                                                            checked
+                                                                        @endif @endforeach>
+                                                                <label class="form-check-label"
+                                                                    for="role{{ $role->id }}">{{ $role->name }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Assign</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Permission Assign Modal Starts -->
+
                                     <!-- Permission Delete Confirm Modal starts here -->
                                     <div class="modal fade" id="delete{{ $permission->id }}" tabindex="-1"
                                         aria-labelledby="delete{{ $permission->id }}Label" aria-hidden="true">
@@ -92,7 +136,8 @@
 
                                     <!-- Permission Edit Modal Starts -->
                                     <div class="modal fade" id="permissionEdit{{ $permission->id }}" tabindex="-1"
-                                        data-bs-backdrop="static" aria-labelledby="permissionEditLabel" aria-hidden="true">
+                                        data-bs-backdrop="static" aria-labelledby="permissionEditLabel"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content p-5">
                                                 <div class="modal-header">
@@ -129,13 +174,16 @@
 
                                     <div class="table-data w-100 align-items-center g-0">
                                         <div class="td col-1">
-                                            <p>{{ $i }}.</p>
+                                            <p>{{ $permission->id }}.</p>
                                         </div>
                                         <div class="td col-5">
                                             <p>{{ $permission->name }}</p>
                                         </div>
                                         <div class="td col-6">
                                             <div class="d-flex">
+                                                <a class="btn btn-primary me-1" data-bs-toggle="modal"
+                                                    data-bs-target="#permissionAssign{{ $permission->id }}">
+                                                    <i class="fa-solid fa-user-plus"></i></a>
                                                 <a class="btn btn-primary me-1" data-bs-toggle="modal"
                                                     data-bs-target="#permissionEdit{{ $permission->id }}">
                                                     <i class="fa-solid fa-pen-to-square"></i></a>

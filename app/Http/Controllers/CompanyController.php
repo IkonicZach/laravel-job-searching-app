@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('admin.tabs.companies');
+        // return view('admin.tabs.companies');
     }
 
     /**
@@ -113,9 +113,9 @@ class CompanyController extends Controller
             // return $request->all();
             $user = User::with('company')->findOrFail($id);
             if ($user->company_id == null) {
-                return redirect()->route('company.index');
+                return redirect()->route('employer.company.index');
             } else {
-                return redirect()->route('company.profile', $user->id);
+                return redirect()->route('employer.company.profile', $user->id);
             }
         } catch (Exception $e) {
             return $e->getMessage();

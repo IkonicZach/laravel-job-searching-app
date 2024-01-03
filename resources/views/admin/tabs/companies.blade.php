@@ -262,8 +262,7 @@
                                                         <div class="row mt-5">
                                                             <button type="button" class="btn btn-secondary col-2"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <a href="{{ route('company.edit', $company->id) }}"
-                                                                class="btn btn-light col-5">Reset</a>
+                                                            <a class="btn btn-light col-5">Reset</a>
                                                             <input type="submit" class="btn btn-primary col-5"
                                                                 value="Confirm Changes">
                                                         </div>
