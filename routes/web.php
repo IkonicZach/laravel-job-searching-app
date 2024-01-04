@@ -4,11 +4,15 @@ use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TrashPageController;
 use App\Http\Controllers\UserController;
@@ -19,7 +23,7 @@ Route::get('/', function () {
 });
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']);
 
-Route::get('blog', [PageController::class, 'blog']);
+Route::resource('blog', BlogController::class);
 Route::get('contact', [PageController::class, 'contact'])->name('contact.index');
 Route::resource('job', JobController::class)->only('index', 'show');
 
@@ -38,7 +42,7 @@ Route::get('/user/profile', [UserController::class, 'profile'])->name('user.prof
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //
-Route::middleware(['check.candidate.role', 'auth'])->prefix('employer')->group(function () {
+Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function () {
     Route::get('/profile', [EmployerController::class, 'profile'])->name('employer.profile');
     Route::get('/profile/setup', [EmployerController::class, 'setup'])->name('employer.profile.setup');
     Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
@@ -49,12 +53,23 @@ Route::middleware(['check.candidate.role', 'auth'])->prefix('employer')->group(f
 });
 // ---------------------------------------- Employer routes ---------------------------------------- //
 
+// ---------------------------------------- Candidate routes ---------------------------------------- //
+Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(function () {
+    Route::get('/profile', [CandidateController::class, 'profile'])->name('candidate.profile');
+    Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
+    Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
+
+    Route::resource('resume', ResumeController::class);
+});
+// ---------------------------------------- Candidate routes ---------------------------------------- //
+
 // ---------------------------------------- Admin routes ---------------------------------------- //
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+
     Route::resource('/user-management', \App\Http\Controllers\Admin\UserController::class);
     Route::post('/user/{id}/assign', [\App\Http\Controllers\Admin\UserController::class, 'assign'])->name('user.assign');
 
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('/role', RoleController::class);
     Route::post('/role/{id}/assign', [RoleController::class, 'assign'])->name('role.assign');
     Route::delete('/role/{roleId}/revoke/{permissionId}', [RoleController::class, 'revoke'])->name('role.revoke');
@@ -72,6 +87,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::post('/subcategory/{id}/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
     Route::resource('/subcategory', SubcategoryController::class)->except('store');
     Route::post('/subcategory/{id}/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
+
+    Route::resource('skill', SkillController::class);
 
     Route::resource('/company-management', AdminCompanyController::class);
     // Route::get('/admin.company', [AdminCompanyController::class, 'index'])->name('admin.company.index');

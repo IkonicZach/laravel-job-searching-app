@@ -2,19 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Model implements AuthenticatableContract
+class User extends Authenticatable
 {
-    use Authenticatable, HasFactory, Notifiable, HasApiTokens, HasRoles, SoftDeletes;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
     protected $rememberTokenName = 'remember_token';
     protected $fillable = [
@@ -29,6 +25,7 @@ class User extends Model implements AuthenticatableContract
         'phone',
         'country',
         'city',
+        'skills',
         'preferred_category',
         'created_at',
         'updated_at',
@@ -39,5 +36,10 @@ class User extends Model implements AuthenticatableContract
     public function company()
     {
         return $this->hasOne(Company::class, 'created_by');
+    }
+
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
     }
 }

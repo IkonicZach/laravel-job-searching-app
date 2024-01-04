@@ -303,12 +303,61 @@ header .img-fluid {
     justify-content: center;
 }
 
-.active {
+.tab .active {
     background-color: #3b82f6 !important;
-    text-decoration: underline !important;
 }
 
 .active i,
 .active span {
     color: white;
+}
+
+.dashboard-card-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-card {
+    width: 32%;
+    margin-top: 1rem;
+    color: #3b82f6;
+    display: flex;
+    height: 30vh;
+    border-radius: 2rem;
+    font-size: 2.5rem !important;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.05);
+}
+
+.dashboard-card i {
+    font-size: 2.5rem;
+}
+
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 1px;
+}
+
+.accordion-header {
+    background-color: #f1f1f1;
+    border-radius: 2rem;
+    padding: 10px 1rem;
+    cursor: pointer;
+}
+
+.accordion-content {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.accordion-nav {
+    display: flex;
+    justify-content: space-between;
 }

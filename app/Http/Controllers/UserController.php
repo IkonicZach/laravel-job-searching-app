@@ -88,13 +88,20 @@ class UserController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (auth()->attempt($credentials, $remember)) {
-                // $user = Auth::user();
+                $user = Auth::user();
                 // $user->remember_token();
                 // $rememberToken = Auth::user()->getRememberToken();
                 // Cookie::make('remember_token', $rememberToken, 60 * 24 * 7); // Expires in 7 days
 
                 $request->session()->regenerate();
-                return redirect('/');
+                if ($user->hasRole('employer')) {
+                    return redirect()->route('user.profile');
+                } elseif ($user->hasRole('candidate')) {
+                    return redirect()->route('job.index');
+                } else {
+                    return redirect()->route('admin.dashboard');
+                }
+
             } else {
                 return back()->withErrors(['email' => 'Invalid credentials! Try again.']);
             }
@@ -117,19 +124,18 @@ class UserController extends Controller
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => bcrypt($request->get('password')),
-                // 'role' => $role,
             ]); // Create User
 
             auth()->login($user); // Login User
 
             if ($role == "employer") {
-                $employer = User::findOrFail($user->id);
                 $user->assignRole($role);
                 return redirect()->route('employer.profile.setup');
             } elseif ($role == "candidate") {
-                return redirect('/jobs/listing');
+                $user->assignRole($role);
+                return redirect()->route('candidate.profile.setup');
             } else {
-                return redirect('/');
+                return redirect()->route('admin.dashboard');
             }
         } catch (Exception $e) {
             return $e->getMessage();

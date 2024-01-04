@@ -16,11 +16,6 @@ class PageController extends Controller
         return view('contact.index');
     }
 
-    public function blog()
-    {
-        return view('blog.index');
-    }
-
     public function job()
     {
         return view('job.index');

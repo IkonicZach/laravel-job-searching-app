@@ -23,27 +23,35 @@
                 <div class="col-12">
                     <div class="position-relative">
                         <div class="candidate-cover">
-                            <img src="images/hero/bg5.jpg" class="img-fluid rounded shadow" alt="">
+                            <img src="{{ asset('images/hero/bg5.jpg') }}" class="img-fluid rounded shadow" alt="">
                         </div>
                         <div class="candidate-profile d-flex align-items-end justify-content-between mx-2">
-                            <div class="d-flex align-items-end">
-                                <img src="{{ asset('uploads/' . auth()->user()->img) }}"
-                                    class="rounded-pill shadow border border-3 avatar avatar-medium" alt="">
+                            <div class="d-flex align-items-end w-100 justify-content-between">
+                                <div class="d-flex align-items-end">
+                                    <img src="{{ asset('uploads/' . auth()->user()->img) }}"
+                                        class="rounded-pill shadow border border-3 avatar avatar-medium" alt="">
 
-                                <div class="ms-2">
-                                    <h5 class="mb-0">{{ auth()->user()->name }}</h5>
-                                    <p class="text-muted mb-0">Web Designer</p>
+                                    <div class="ms-2">
+                                        <h5 class="mb-0">{{ auth()->user()->name }}</h5>
+                                        <p class="text-muted mb-0">Web Designer</p>
+                                    </div>
                                 </div>
 
-                                <div class="ms-2">
-                                    <a href="{{ route('company.profile', auth()->user()->id) }}"
-                                        class="btn btn-primary">Your Company</a>
+                                <div>
+                                    @role('employer')
+                                        <a href="{{ route('company.profile', auth()->user()->id) }}"
+                                            class="btn btn-primary">Your
+                                            Company</a>
+                                    @endrole
+
+                                    @role('candidate')
+                                        <a href="{{ route('resume.create') }}" class="btn btn-primary">Your
+                                            Resume</a>
+                                    @endrole
+                                    <a href="/" class="btn btn-sm btn-icon btn-pills btn-soft-primary"><i
+                                            class="fa-solid fa-gear"></i></a>
                                 </div>
                             </div>
-
-                            <a href="candidate-profile-setting.html"
-                                class="btn btn-sm btn-icon btn-pills btn-soft-primary"><i data-feather="settings"
-                                    class="icons"></i></a>
                         </div>
                     </div>
                 </div><!--end col-->

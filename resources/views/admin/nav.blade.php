@@ -33,6 +33,10 @@
         <i class="fa-solid fa-building fs-5 col-3"></i>
         <span>Companies</span>
     </a>
+    <a href="{{ route('skill.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'skill.index') active @endif">
+        <i class="fa-solid fa-building fs-5 col-3"></i>
+        <span>Skills</span>
+    </a>
     <a class="admin-nav-item">
         <i class="fa-solid fa-id-card fs-5 col-3"></i>
         <span>Job Posts</span>
