@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('cities', ['Florida', 'Osaka', 'Yangon', 'Seoul', 'Birmingham']);
             $view->with('fields', ['Artificial Intelligence', 'Bioinformatics', 'Computer Engineering', 'Computer Graphics', 'Computer Science', 'Computer Networks', 'Cybersecurity', 'Data Science', 'Database Management', 'Digital Media', 'Game Development', 'Geographic Information Systems (GIS)', 'Health Informatics', 'Information Systems', 'Information Technology', 'Machine Learning', 'Mobile Computing', 'Network Administration', 'Robotics', 'Software Engineering', 'Systems Analysis', 'Web Development']);
             $view->with('languages', ['Burmese', 'Chinese', 'English', 'Japanese', 'Korean']);
+            $view->with('employment_types', ['Full-time', 'Part-time', 'Freelance', 'Remote', 'Hourly-basics', 'Fixed-price']);
         });
     }
 }

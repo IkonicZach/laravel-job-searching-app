@@ -20,7 +20,6 @@ class JobController extends Controller
             'Full-time',
             'Part-time',
             'Freelance',
-            'Remote',
             'Hourly-basics',
             'Fixed-price',
         ];
@@ -144,6 +143,29 @@ class JobController extends Controller
 
     public function search(Request $request)
     {
+        $employment_types = [
+            'Full-time',
+            'Part-time',
+            'Freelance',
+            'Hourly-basics',
+            'Fixed-price',
+        ];
+
+        $employmentTypeCounts = DB::table('jobs')
+            ->select('employment_type', DB::raw('count(*) as count'))
+            ->whereIn('employment_type', $employment_types)
+            ->groupBy('employment_type')
+            ->get();
+
+        $allEmploymentTypeCounts = [];
+        
+        foreach ($employment_types as $type) {
+            $count = $employmentTypeCounts->firstWhere('employment_type', $type);
+            $allEmploymentTypeCounts[$type] = $count ? $count->count : 0;
+        }
+
+        $categories = Category::select('id', 'name')->get();
+
         $query = Job::query();
         $query->join('companies', 'jobs.company_id', '=', 'companies.id');
 
@@ -158,6 +180,8 @@ class JobController extends Controller
             'jobs.created_at as created_at',
             'companies.id as company_id',
             'companies.name',
+            'jobs.min_salary',
+            'jobs.max_salary',
         ]);
 
         if ($request->filled('search')) {
@@ -184,11 +208,11 @@ class JobController extends Controller
         }
 
         if ($request->filled('employment_type')) {
-            $query->whereIn('jobs.employment_type', $request->input('employment_type'));
+            $query->where('jobs.employment_type', $request->input('employment_type'));
         }
 
-        $jobs = $query->get();
-        return view('job.results', compact('jobs'));
-        // return dd($jobs);
+        $jobs = $query->paginate(10);
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts'));
+        // return $request->all();
     }
 }

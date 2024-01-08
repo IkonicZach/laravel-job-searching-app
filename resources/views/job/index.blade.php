@@ -21,7 +21,8 @@
     <section class="section p-0">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 col-12">
+                {{-- Search Filter Starts Here  --}}
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card bg-white p-4 rounded shadow sticky-bar">
                         <!-- SEARCH -->
                         <form action="{{ route('job.search') }}" method="GET">
@@ -43,7 +44,7 @@
                             <!-- Categories -->
                             <div class="mt-4">
                                 <h6 class="mb-0">Categories</h6>
-                                <select class="form-select form-control border mt-2" id="category" name="category">
+                                <select class="form-select form-control border mt-2" id="category" name="category_id">
                                     <option selected disabled value="">Choose
                                         Category</option>
                                     @foreach ($categories as $category)
@@ -57,7 +58,7 @@
                             <div class="mt-4">
                                 <h6 class="mb-0">Sub-categories</h6>
                                 <select class="form-select form-control border mt-2" aria-label="Default select example"
-                                    id="subcategory" name="subcategory">
+                                    id="subcategory_id" name="subcategory_id">
                                     <option selected disabled value="">Choose Sub-category</option>
                                 </select>
                             </div>
@@ -92,12 +93,11 @@
                             <!-- Type Start -->
                             <div class="mt-4">
                                 <h6>Job Types</h6>
-
                                 @foreach ($allEmploymentTypeCounts as $type => $count)
                                     <div class="d-flex justify-content-between mt-2">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="{{ $type }}"
-                                                name="employement_type" id="{{ $type }}">
+                                                name="employment_type" id="{{ $type }}">
                                             <label class="form-check-label"
                                                 for="{{ $type }}">{{ $type }}</label>
                                         </div>
@@ -150,11 +150,14 @@
                             </div>
                         </form>
                     </div>
-                </div><!--end col-->
+                </div>
+                {{-- Search Filter Starts Here  --}}
 
-                <div class="col-lg-8 col-md-6 col-12">
+                {{-- Jobs Listing Starts Here  --}}
+                <div class="col-lg-9 col-md-6 col-12">
                     <div class="row g-4">
                         <a href="{{ route('job.create') }}" class="btn btn-primary mt-5">Post a job</a>
+                        <a href="{{ route('job.index') }}" class="btn btn-light w-auto">Refresh</a>
                         @foreach ($jobs as $job)
                             <div class="col-12">
                                 <div
@@ -198,28 +201,9 @@
                             </div><!--end col-->
                         @endforeach
                     </div><!--end row-->
-
                     {{ $jobs->links() }}
-                    {{-- <div class="row">
-                        <div class="col-12 mt-4 pt-2">
-                            <ul class="pagination justify-content-center mb-0">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true"><i class="mdi mdi-chevron-left fs-6"></i></span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true"><i class="mdi mdi-chevron-right fs-6"></i></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div><!--end col-->
-                    </div><!--end row--> --}}
                 </div>
+                {{-- Jobs Listing Ends Here  --}}
             </div>
         </div><!--end container-->
 
