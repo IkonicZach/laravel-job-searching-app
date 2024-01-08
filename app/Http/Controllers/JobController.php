@@ -25,14 +25,6 @@ class JobController extends Controller
             'Fixed-price',
         ];
 
-        $countries = [
-            'name' => ['United States', 'Japan', 'Myanmar', 'South Korea', 'United Kingdom'],
-        ];
-
-        $cities = [
-            'name' => ['Florida', 'Osaka', 'Yangon', 'Seoul', 'Birmingham'],
-        ];
-
         // Query to get the counts of each employment type
         $employmentTypeCounts = DB::table('jobs')
             ->select('employment_type', DB::raw('count(*) as count'))
@@ -49,7 +41,7 @@ class JobController extends Controller
 
         $categories = Category::select('id', 'name')->get();
         $jobs = Job::paginate(10);
-        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'countries', 'cities'));
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts'));
     }
 
     /**
@@ -148,5 +140,55 @@ class JobController extends Controller
     {
         $job = Job::find($id);
         return view('job.apply', compact('job'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = Job::query();
+        $query->join('companies', 'jobs.company_id', '=', 'companies.id');
+
+        $query->select([
+            'jobs.id as id',
+            'jobs.title',
+            'jobs.category_id',
+            'jobs.subcategory_id',
+            'jobs.country',
+            'jobs.city',
+            'jobs.employment_type',
+            'jobs.created_at as created_at',
+            'companies.id as company_id',
+            'companies.name',
+        ]);
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('jobs.title', 'like', '%' . $request->input('search') . '%')
+                    ->orWhere('companies.name', 'like', '%' . $request->input('search') . '%');
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->where('jobs.category_id', $request->input('category'));
+        }
+
+        if ($request->filled('subcategory')) {
+            $query->where('jobs.subcategory_id', $request->input('subcategory'));
+        }
+
+        if ($request->filled('country')) {
+            $query->where('jobs.country', $request->input('country'));
+        }
+
+        if ($request->filled('city')) {
+            $query->where('jobs.city', $request->input('city'));
+        }
+
+        if ($request->filled('employment_type')) {
+            $query->whereIn('jobs.employment_type', $request->input('employment_type'));
+        }
+
+        $jobs = $query->get();
+        return view('job.results', compact('jobs'));
+        // return dd($jobs);
     }
 }

@@ -24,128 +24,131 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="card bg-white p-4 rounded shadow sticky-bar">
                         <!-- SEARCH -->
-                        <div>
+                        <form action="{{ route('job.search') }}" method="GET">
+                            @csrf
                             <h6 class="mb-0">Search Properties</h6>
 
+                            <!-- SEARCH -->
                             <div class="search-bar mt-2">
                                 <div id="itemSearch2" class="menu-search mb-0">
-                                    <form role="search" method="get" id="searchItemform2" class="searchform">
-                                        <input type="text" class="form-control rounded border" name="s"
-                                            id="searchItem2" placeholder="Search...">
-                                        <input type="submit" id="searchItemsubmit2" value="Search">
+                                    <div class="searchform" style="position: relative">
+                                        <input type="text" class="form-control rounded border" name="search"
+                                            placeholder="Search...">
                                         <i class="fa-solid fa-magnifying-glass lens"></i>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- SEARCH -->
+                            <!-- SEARCH -->
 
-                        <!-- Categories -->
-                        <div class="mt-4">
-                            <h6 class="mb-0">Categories</h6>
-                            <select class="form-select form-control border mt-2" id="category" name="category_id">
-                                <option selected disabled value="">Choose
-                                    Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <!-- Categories -->
+                            <!-- Categories -->
+                            <div class="mt-4">
+                                <h6 class="mb-0">Categories</h6>
+                                <select class="form-select form-control border mt-2" id="category" name="category">
+                                    <option selected disabled value="">Choose
+                                        Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- Categories -->
 
-                        <!-- Sub-ategories -->
-                        <div class="mt-4">
-                            <h6 class="mb-0">Sub-categories</h6>
-                            <select class="form-select form-control border mt-2" aria-label="Default select example"
-                                id="subcategory_id" name="subcategory_id">
-                                <option selected disabled value="">Choose Sub-category</option>
-                            </select>
-                        </div>
-                        <!-- Sub-categories -->
+                            <!-- Sub-categories -->
+                            <div class="mt-4">
+                                <h6 class="mb-0">Sub-categories</h6>
+                                <select class="form-select form-control border mt-2" aria-label="Default select example"
+                                    id="subcategory" name="subcategory">
+                                    <option selected disabled value="">Choose Sub-category</option>
+                                </select>
+                            </div>
+                            <!-- Sub-categories -->
 
-                        <!-- Country -->
-                        <div class="mt-4">
-                            <h6 class="mb-0">Country</h6>
-                            <select class="form-select form-control border mt-2" aria-label="Default select example">
-                                @foreach ($countries['name'] as $country)
-                                    <option value="{{ $country }}">{{ $country }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <!-- Country -->
+                            <!-- Country -->
+                            <div class="mt-4">
+                                <h6 class="mb-0">Country</h6>
+                                <select class="form-select form-control border mt-2" name="country">
+                                    <option value="" disabled selected>Choose Country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country }}">{{ $country }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- Country -->
 
-                        <!-- City -->
-                        <div class="mt-4">
-                            <h6 class="mb-0">Country</h6>
-                            <select class="form-select form-control border mt-2" aria-label="Default select example">
-                                @foreach ($cities['name'] as $city)
-                                    <option value="{{ $city }}">{{ $city }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <!-- City -->
+                            <!-- City -->
+                            <div class="mt-4">
+                                <h6 class="mb-0">City</h6>
+                                <select class="form-select form-control border mt-2" name="city">
+                                    <option value="" disabled selected>Choose City</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city }}">{{ $city }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- City -->
 
-                        <!-- Type Start -->
-                        <div class="mt-4">
-                            <h6>Job Types</h6>
+                            <!-- Type Start -->
+                            <div class="mt-4">
+                                <h6>Job Types</h6>
 
-                            @foreach ($allEmploymentTypeCounts as $type => $count)
-                                <div class="d-flex justify-content-between mt-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="{{ $type }}">
-                                        <label class="form-check-label"
-                                            for="{{ $type }}">{{ $type }}</label>
-                                    </div>
-                                    <span class="badge bg-soft-primary rounded-pill">{{ $count }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                        <!-- Type End -->
-
-                        <!-- Salary -->
-                        <div class="mt-4">
-                            <h6 class="mb-0">Salary</h6>
-
-                            <ul class="list-unstyled mt-2 mb-0">
-                                <li class="mt-1">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                                id="rent">
-                                            <label class="form-check-label" for="rent">10k - 15k</label>
+                                @foreach ($allEmploymentTypeCounts as $type => $count)
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="{{ $type }}"
+                                                name="employement_type" id="{{ $type }}">
+                                            <label class="form-check-label"
+                                                for="{{ $type }}">{{ $type }}</label>
                                         </div>
+                                        <span class="badge bg-soft-primary rounded-pill">{{ $count }}</span>
                                     </div>
-                                </li>
+                                @endforeach
+                            </div>
+                            <!-- Type End -->
 
-                                <li class="mt-1">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                                id="buy">
-                                            <label class="form-check-label" for="buy">15k - 25k</label>
+                            <!-- Salary -->
+                            <div class="mt-4">
+                                <h6 class="mb-0">Salary</h6>
+
+                                <ul class="list-unstyled mt-2 mb-0">
+                                    <li class="mt-1">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" checked type="radio"
+                                                    name="flexRadioDefault" id="rent">
+                                                <label class="form-check-label" for="rent">10k - 15k</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
 
-                                <li class="mt-1">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                                id="sell">
-                                            <label class="form-check-label" for="sell">more than 25K</label>
+                                    <li class="mt-1">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" checked type="radio"
+                                                    name="flexRadioDefault" id="buy">
+                                                <label class="form-check-label" for="buy">15k - 25k</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Salary -->
+                                    </li>
 
-                        <div class="mt-4">
-                            <a href="#" class="btn btn-primary w-100">Apply Filter</a>
-                        </div>
+                                    <li class="mt-1">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" checked type="radio"
+                                                    name="flexRadioDefault" id="sell">
+                                                <label class="form-check-label" for="sell">more than 25K</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Salary -->
+
+                            <div class="mt-4">
+                                <input type="submit" class="btn btn-primary w-100" value="Apply Filter">
+                            </div>
+                        </form>
                     </div>
                 </div><!--end col-->
 
@@ -160,7 +163,7 @@
                                         <img src="{{ asset('uploads/' . $job->company->img) }}"
                                             class="avatar avatar-small rounded-circle shadow p-2 bg-white" alt="">
                                         <div class="ms-3">
-                                            <a href="{{route('job.show', $job->id)}}"
+                                            <a href="{{ route('job.show', $job->id) }}"
                                                 class="h5 title text-dark">{{ substr($job->title, 0, 30) }}</a>
                                             <small class="d-flex align-items-center"><i
                                                     class="fa-regular fa-building text-primary me-1"></i>

@@ -21,23 +21,21 @@
         <i class="fa-solid fa-lock fs-5 col-3"></i>
         <span>Permissions</span>
     </a>
+    <a href="{{ route('company-management.index') }}"
+        class="admin-nav-item @if (Route::currentRouteName() === 'company-management.index') active @endif">
+        <i class="fa-solid fa-building fs-5 col-3"></i>
+        <span>Companies</span>
+    </a>
     <a href="{{ route('category.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'category.index') active @endif">
         <i class="fa-solid fa-list fs-5 col-3"></i>
         <span>Categories</span>
     </a>
-    <a class="admin-nav-item">
-        <i class="fa-solid fa-user-tie fs-5 col-3"></i>
-        <span>Employers</span>
-    </a>
-    <a href="{{ route('company-management.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'company-management.index') active @endif">
-        <i class="fa-solid fa-building fs-5 col-3"></i>
-        <span>Companies</span>
-    </a>
     <a href="{{ route('skill.index') }}" class="admin-nav-item @if (Route::currentRouteName() === 'skill.index') active @endif">
-        <i class="fa-solid fa-building fs-5 col-3"></i>
+        <i class="fa-solid fa-screwdriver-wrench fs-5 col-3"></i>
         <span>Skills</span>
     </a>
-    <a class="admin-nav-item">
+    <a href="{{ route('job-management.index') }}"
+        class="admin-nav-item @if (Route::currentRouteName() === 'job-management.index') active @endif">
         <i class="fa-solid fa-id-card fs-5 col-3"></i>
         <span>Job Posts</span>
     </a>

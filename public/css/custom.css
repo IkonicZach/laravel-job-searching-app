@@ -183,10 +183,10 @@ header .img-fluid {
 
 
 /* Create an active/current "tab button" class */
-.tab button.active {
+/* .tab button.active {
     background-color: #ccc;
     padding-left: 3rem;
-}
+} */
 
 /* Style the tab content */
 .tabcontent {
@@ -286,7 +286,6 @@ header .img-fluid {
 
 .admin-nav-item {
     padding: 1rem;
-    /* color: white; */
     display: flex;
     align-items: center;
 }
@@ -303,7 +302,7 @@ header .img-fluid {
     justify-content: center;
 }
 
-.tab .active {
+.admin-nav .active {
     background-color: #3b82f6 !important;
 }
 
@@ -353,11 +352,11 @@ header .img-fluid {
 
 .accordion-content {
     display: none;
-    border: 1px solid #ddd;
     padding: 10px;
 }
 
 .accordion-nav {
     display: flex;
     justify-content: space-between;
+    font-weight: bold;
 }

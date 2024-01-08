@@ -26,10 +26,12 @@ Route::get('/get-subcategories', [JobController::class, 'getSubcategories']);
 Route::resource('blog', BlogController::class);
 Route::get('contact', [PageController::class, 'contact'])->name('contact.index');
 Route::resource('job', JobController::class)->only('index', 'show');
+Route::get('/search', [JobController::class, 'search'])->name('job.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
     Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
+    Route::get('/trash/job', [TrashPageController::class, 'job'])->name('trash.job');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //
@@ -90,7 +92,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::resource('skill', SkillController::class);
 
-    Route::resource('/company-management', AdminCompanyController::class);
+    Route::resource('company-management', AdminCompanyController::class);
+
+    Route::resource('job-management', \App\Http\Controllers\Admin\JobController::class);
     // Route::get('/admin.company', [AdminCompanyController::class, 'index'])->name('admin.company.index');
     // Route::put('/company/{id}/update', [AdminCompanyController::class, 'update'])->name('admin.company.update');
     // Route::delete('/admin/company/{id}/destroy', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
