@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\File;
 
 class Resume extends Model
 {
@@ -49,11 +50,30 @@ class Resume extends Model
         'deleted_at',
     ];
 
+    protected $dates = ['deleted_at'];
+
+    public function delete()
+    {
+        // Delete associated photo from storage
+        $photoPath = public_path('uploads/resume/') . $this->img;
+        if (File::exists($photoPath)) {
+            File::delete($photoPath);
+        }
+
+        // Continue with the regular delete
+        parent::delete();
+    }
+
     protected $casts = [
-        'skills' => 'json',
+        'skills' => 'array',
     ];
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function resume_skills()
+    {
+        return $this->belongsToMany(Skill::class, 'resume_skill');
     }
 }

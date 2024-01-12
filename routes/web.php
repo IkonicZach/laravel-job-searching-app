@@ -40,7 +40,7 @@ Route::post('/user/login', [UserController::class, 'login'])->name('user.login')
 Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
 Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //
@@ -61,7 +61,14 @@ Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(functi
     Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
     Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
 
-    Route::resource('resume', ResumeController::class);
+    Route::get('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
+    Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
+    
+    Route::get('/resume/trash', [ResumeController::class, 'trash'])->name('resume.trash');
+    Route::post('/resume/{id}/restore', [ResumeController::class, 'restore'])->name('resume.restore');
+    Route::delete('/resume/{id}/delete', [ResumeController::class, 'delete'])->name('resume.delete');
+    Route::get('/resume/{id}/download', [ResumeController::class, 'downloadPdf'])->name('resume.download');
+    Route::resource('resume', ResumeController::class, ['parameters' => ['resume' => 'id']]);
 });
 // ---------------------------------------- Candidate routes ---------------------------------------- //
 

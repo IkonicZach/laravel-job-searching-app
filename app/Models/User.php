@@ -19,6 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'img',
+        'bio',
         'company_id',
         'position',
         'age',
@@ -36,6 +37,11 @@ class User extends Authenticatable
     public function company()
     {
         return $this->hasOne(Company::class, 'created_by');
+    }
+
+    public function user_skill()
+    {
+        return $this->belongsToMany(Skill::class, 'user_skill')->withPivot('proficiency');
     }
 
     public function resumes()

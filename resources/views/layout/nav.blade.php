@@ -72,7 +72,7 @@
 
                 <li><a href="" class="sub-menu-item">Candidates</a></li>
 
-                <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blog</a></li>
+                {{-- <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blog</a></li> --}}
 
                 <li><a href="{{ route('contact.index') }}" class="sub-menu-item">Contact Us</a></li>
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CandidateCreateRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\User;
@@ -78,17 +77,30 @@ class CandidateController extends Controller
         }
     }
 
-    public function doSetup(CandidateCreateRequest $request)
+    public function doSetup(Request $request)
     {
         try {
             $id = $request->input('id');
             $user = User::find($id);
+            $skills = $request->input('skills', []);
+            $proficiency = $request->input('proficiency', []);
+
+            $syncData = [];
+
+            foreach ($skills as $skillId) {
+                $syncData[$skillId] = ['proficiency' => $proficiency[$skillId] ?? 50];
+            }
+
+            $user->user_skill()->sync($syncData);
+
             if ($request->hasFile('img')) {
                 $imageName = time() . '.' . $request->img->extension();
                 $request->img->move(public_path('uploads'), $imageName);
             }
+
             $user->update([
                 'img' => $imageName ?? null,
+                'bio' => $request->input('bio'),
                 'phone' => $request->input('phone'),
                 'preferred_category' => $request->input('preferred_category'),
                 'age' => $request->input('age'),
@@ -96,7 +108,10 @@ class CandidateController extends Controller
                 'city' => $request->input('city'),
                 'skills' => $request->input('skills', []),
             ]);
+            // $user->user_skill()->sync($request->input('skills', []), $request->input('proficiency', []));
+
             return redirect()->route('job.index');
+            // return $request->all();
         } catch (Exception $e) {
             return 'Error: ' . $e->getMessage();
         }

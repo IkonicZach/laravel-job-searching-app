@@ -40,6 +40,21 @@ header .img-fluid {
 
 .btn {
     border-radius: 2rem !important;
+    text-transform: capitalize !important;
+}
+
+.icon-btn {
+    border-radius: 100% !important;
+    padding: 8px 12px !important;
+    outline: none;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.icon-btn.btn-light {
+    color: #1e293b !important;
+    border: 1px solid #dee2e6 !important;
 }
 
 .btn-primary:hover {
@@ -356,7 +371,5 @@ header .img-fluid {
 }
 
 .accordion-nav {
-    display: flex;
-    justify-content: space-between;
     font-weight: bold;
 }

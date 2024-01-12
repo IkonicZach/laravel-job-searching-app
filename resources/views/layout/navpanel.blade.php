@@ -13,7 +13,7 @@
     aria-labelledby="offcanvasWithBothOptionsLabel" style="transition: 0.3s; width: ">
     <div class="wrapper">
         <div class="header-top">
-            <a href="{{ route('user.profile') }}" class="user-account">
+            <a @auth href="{{ route('user.profile', auth()->user()->id) }}" @endauth class="user-account">
                 <p class="btn btn-lg btn-icon btn-pills btn-primary m-0 me-2">
                     @auth
                         @if (auth()->user()->img == null)

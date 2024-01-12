@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Models\Skill;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,9 +14,10 @@ use Illuminate\Support\Facades\Cookie;
 class UserController extends Controller
 {
 
-    public function profile()
+    public function profile(string $id)
     {
-        return view('user.profile');
+        $user = User::with('resumes', 'user_skill')->findOrFail($id);
+        return view('user.profile', compact('user'));
     }
     /**
      * Display a listing of the resource.
@@ -95,7 +97,7 @@ class UserController extends Controller
 
                 $request->session()->regenerate();
                 if ($user->hasRole('employer')) {
-                    return redirect()->route('user.profile');
+                    return redirect()->route('user.profile', $user->id);
                 } elseif ($user->hasRole('candidate')) {
                     return redirect()->route('job.index');
                 } else {

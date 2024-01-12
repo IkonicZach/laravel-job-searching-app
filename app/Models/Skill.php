@@ -15,4 +15,13 @@ class Skill extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_skill')->withPivot('proficiency');
+    }
+    public function resumes()
+    {
+        return $this->belongsToMany(Resume::class, 'resume_skill');
+    }
 }
