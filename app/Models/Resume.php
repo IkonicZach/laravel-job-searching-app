@@ -13,6 +13,7 @@ class Resume extends Model
 
     protected $fillable = [
         'user_id',
+        'title',
         'name',
         'age',
         'img',
@@ -52,6 +53,10 @@ class Resume extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $casts = [
+        'skills' => 'array',
+    ];
+
     public function delete()
     {
         // Delete associated photo from storage
@@ -64,9 +69,6 @@ class Resume extends Model
         parent::delete();
     }
 
-    protected $casts = [
-        'skills' => 'array',
-    ];
     public function user()
     {
         return $this->belongsTo(User::class);

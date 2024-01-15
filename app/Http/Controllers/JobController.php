@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobApplyRequest;
 use App\Http\Requests\JobRequest;
+use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\Subcategory;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,9 +41,10 @@ class JobController extends Controller
             $allEmploymentTypeCounts[$type] = $count ? $count->count : 0;
         }
 
+        $user = auth()->user();
         $categories = Category::select('id', 'name')->get();
         $jobs = Job::paginate(10);
-        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts'));
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
     }
 
     /**
@@ -135,10 +139,26 @@ class JobController extends Controller
         //
     }
 
-    public function apply(string $id)
+    public function apply(JobApplyRequest $request, string $id)
     {
-        $job = Job::find($id);
-        return view('job.apply', compact('job'));
+        try {
+            $resumeName = time() . '.' . $request->resume_path->extension();
+            $request->resume_path->move(public_path('downloads/resume'), $resumeName);
+            
+            Application::create([
+                'user_id' => $request->input('user_id'),
+                'job_id' => $id,
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'resume_path' => $resumeName,
+            ]);
+            $message = "Applied successfully!";
+            $messageBody = "You have successfully applied the job.";
+            return redirect()->route('job.index')->with(compact('message', 'messageBody'));
+            // return $request->all();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function search(Request $request)
@@ -158,7 +178,7 @@ class JobController extends Controller
             ->get();
 
         $allEmploymentTypeCounts = [];
-        
+
         foreach ($employment_types as $type) {
             $count = $employmentTypeCounts->firstWhere('employment_type', $type);
             $allEmploymentTypeCounts[$type] = $count ? $count->count : 0;

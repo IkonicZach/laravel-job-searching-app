@@ -21,8 +21,20 @@ header .img-fluid {
     object-fit: cover;
 }
 
+.w-30 {
+    width: 30% !important;
+}
+
 .w-35 {
     width: 35% !important;
+}
+
+.w-65 {
+    width: 65% !important;
+}
+
+.w-70 {
+    width: 70% !important;
 }
 
 .col-05 {
@@ -372,4 +384,13 @@ header .img-fluid {
 
 .accordion-nav {
     font-weight: bold;
+}
+
+.apply-img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 100%;
+    background-color: #3b82f6;
 }

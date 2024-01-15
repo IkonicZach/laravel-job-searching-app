@@ -18,6 +18,16 @@
                             @method('PUT')
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
+                            <div class="row rounder shadow-lg p-5 mb-3 col-6">
+                                <label for="title" class="fw-bold h5">Resume Name</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    name="title" id="title" placeholder="Name your resume:"
+                                    value="{{ $resume->title }}">
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            
                             {{-- Personal Informations Starts  --}}
                             <div class="row rounder shadow-lg p-5 mb-3 ">
                                 <div class="d-flex align-items-center">
@@ -30,6 +40,7 @@
                                     <b class="d-block">Uploaded Image:
                                         <a href="{{ asset('uploads/resume/' . $resume->img) }}">{{ $resume->img }}</a>
                                     </b>
+
                                     <input type="file" class="form-control @error('img') is-invalid @enderror"
                                         name="img" id="img">
                                     @error('img')
@@ -111,7 +122,8 @@
                             <div class="row rounder shadow-lg p-5 mb-3 ">
                                 <div class="d-flex align-items-center">
                                     <h5>Education</h5>
-                                    <small class="ms-1">(<span class="text-danger">*</span> fields are required!)</small>
+                                    <small class="ms-1">(<span class="text-danger">*</span> fields are
+                                        required!)</small>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label fw-bold" for="education_status">Education Status <span

@@ -35,12 +35,18 @@ class Job extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
     }
 }

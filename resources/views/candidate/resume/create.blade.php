@@ -12,12 +12,22 @@
                             class="bg-light">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <div class="row rounder shadow-lg p-5 mb-3 col-6">
+                                <label for="title" class="fw-bold h5">Resume Name</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    name="title" id="title" placeholder="Name your resume:"
+                                    value="{{ old('title') }}">
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             {{-- Personal Informations Starts  --}}
                             <div class="row rounder shadow-lg p-5 mb-3 ">
                                 <div class="d-flex align-items-center">
                                     <h5>Personal Informations</h5>
-                                    <small class="ms-1">(<span class="text-danger">*</span> fields are required!)</small>
+                                    <small class="ms-1">(<span class="text-danger">*</span> fields are
+                                        required!)</small>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label fw-bold" for="img">Your picture <span
@@ -103,12 +113,14 @@
                             <div class="row rounder shadow-lg p-5 mb-3 ">
                                 <div class="d-flex align-items-center">
                                     <h5>Education</h5>
-                                    <small class="ms-1">(<span class="text-danger">*</span> fields are required!)</small>
+                                    <small class="ms-1">(<span class="text-danger">*</span> fields are
+                                        required!)</small>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label fw-bold" for="education_status">Education Status <span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control form-select @error('education_status') is-invalid @enderror"
+                                    <select
+                                        class="form-control form-select @error('education_status') is-invalid @enderror"
                                         name="education_status" id="education_status">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Undergraduated" @if (old('education_status') == 'Undergraduated') selected @endif>
@@ -117,9 +129,11 @@
                                             Graduated</option>
                                         <option value="University" @if (old('education_status') == 'University') selected @endif>
                                             University</option>
-                                        <option value="College" @if (old('education_status') == 'College') selected @endif>College
+                                        <option value="College" @if (old('education_status') == 'College') selected @endif>
+                                            College
                                         </option>
-                                        <option value="High School" @if (old('education_status') == 'High School') selected @endif>High
+                                        <option value="High School" @if (old('education_status') == 'High School') selected @endif>
+                                            High
                                             School</option>
                                         <option value="Middle School" @if (old('education_status') == 'Middle School') selected @endif>
                                             Middle School</option>
@@ -167,7 +181,8 @@
                                 </div>
 
                                 <div class="col-6 mb-3">
-                                    <label class="form-label fw-semibold" for="graduation_date">Graduation Date:</label>
+                                    <label class="form-label fw-semibold" for="graduation_date">Graduation
+                                        Date:</label>
                                     <input type="date"
                                         class="form-control @error('graduation_date') is-invalid @enderror"
                                         name="graduation_date" id="graduation_date"
@@ -245,7 +260,81 @@
                             </div>
                             {{-- Experiences Ends  --}}
 
-                            {{-- Skills Starts  --}}
+                            {{-- <div class="row rounder shadow-lg p-5 mb-3" id="experience-container">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5>Experiences</h5>
+                                    <a class="btn btn-light icon-link" onclick="addExperience()">
+                                        <i class="fa-solid fa-plus"></i>Add Experience
+                                    </a>
+                                </div>
+                                <div class="row experience">
+                                    <label class="form-label fw-bold">Experience 1</label>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label fw-bold" for="job_title">Job Title</label>
+                                        <input type="text"
+                                            class="form-control @error('job_title') is-invalid @enderror"
+                                            name="job_title[]" id="job_title" placeholder="Name of the job"
+                                            value="{{ old('job_title') }}">
+                                        @error('job_title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label fw-bold" for="company_name">Company Name</label>
+                                        <input type="text"
+                                            class="form-control @error('company_name') is-invalid @enderror"
+                                            name="company_name[]" id="company_name"
+                                            placeholder="Name of the company you worked for"
+                                            value="{{ old('company_name') }}">
+                                        @error('company_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-bold" for="location">Company's Location</label>
+                                        <input type="text"
+                                            class="form-control @error('location') is-invalid @enderror" name="location"
+                                            id="location" placeholder="Location of your company"
+                                            value="{{ old('location') }}">
+                                        @error('location')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label fw-semibold" for="start_date">Start Date</label>
+                                        <input type="date"
+                                            class="form-control @error('start_date') is-invalid @enderror"
+                                            name="start_date" id="start_date" value="{{ old('start_date') }}">
+                                        @error('start_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label fw-semibold" for="end_date">End Date</label>
+                                        <input type="date"
+                                            class="form-control @error('end_date') is-invalid @enderror" name="end_date"
+                                            id="end_date" value="{{ old('end_date') }}">
+                                        @error('end_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold" for="job_description">Responsibilies &
+                                            Achievements</label>
+                                        <textarea class="form-control @error('job_description') is-invalid @enderror" name="job_description"
+                                            id="job_description" rows="5" placeholder="Describe your job">{{ old('job_description') }}</textarea>
+                                        @error('job_description')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div> --}}
+
                             <div class="row rounder shadow-lg p-5 mb-3 ">
                                 <h5>Skills</h5>
                                 <div class="accordion">
@@ -352,7 +441,8 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <label class="form-label fw-bold" for="technologies_used">Technologies Used</label>
+                                    <label class="form-label fw-bold" for="technologies_used">Technologies
+                                        Used</label>
                                     <input type="text"
                                         class="form-control @error('technologies_used') is-invalid @enderror"
                                         name="technologies_used" id="technologies_used"
@@ -390,7 +480,8 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <label class="form-label fw-bold" for="award_issuing_org">Issuing Organization</label>
+                                    <label class="form-label fw-bold" for="award_issuing_org">Issuing
+                                        Organization</label>
                                     <input type="text"
                                         class="form-control @error('award_issuing_org') is-invalid @enderror"
                                         name="award_issuing_org" id="award_issuing_org"
@@ -418,7 +509,8 @@
                                 <div class="col-12">
                                     <select class="form-control form-select @error('languages') is-invalid @enderror"
                                         name="languages" id="languages">
-                                        <option value="" disabled selected>Choose languages you preferred</option>
+                                        <option value="" disabled selected>Choose languages you preferred
+                                        </option>
                                         @foreach ($languages as $language)
                                             <option value="{{ $language }}"
                                                 @if (old('languages') == $language) selected @endif>{{ $language }}
@@ -453,4 +545,22 @@
         </div><!--end container-->
     </section><!--end section-->
     <!-- Job apply form End -->
+    <script>
+        let experienceCount = 1;
+
+        function addExperience() {
+            experienceCount++;
+
+            let clonedExperience = document.querySelector('.experience').cloneNode(true);
+            clonedExperience.querySelector('.form-label').innerText = 'Experience ' + experienceCount;
+
+            // Clear the values in the cloned experience
+            clonedExperience.querySelectorAll('input, textarea').forEach(element => {
+                element.value = '';
+            });
+
+            document.getElementById('experience-container').appendChild(clonedExperience);
+        }
+        }
+    </script>
 @endsection

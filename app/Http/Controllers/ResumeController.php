@@ -54,6 +54,7 @@ class ResumeController extends Controller
             }
 
             $resume = Resume::create([
+                'title' => $request->input('title'),
                 'user_id' => $request->input('user_id'),
                 'name' => $request->input('name'),
                 'age' => $request->input('age'),
@@ -145,10 +146,10 @@ class ResumeController extends Controller
             }
 
             $resume->update([
+                'title' => $request->input('title'),
                 'user_id' => $request->input('user_id'),
                 'name' => $request->input('name'),
                 'age' => $request->input('age'),
-                'img' => $imageName,
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'linkedin' => $request->input('linkedin'),
@@ -183,6 +184,8 @@ class ResumeController extends Controller
             $message = 'Update successfully';
             $messageBody = 'Your resume has been updated successfully!';
             return redirect()->route('user.profile', $request->user_id)->with(compact('message', 'messageBody'));
+
+            // return $request->img;
         } catch (Exception $e) {
             return $e->getMessage();
         }

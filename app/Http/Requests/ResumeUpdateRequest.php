@@ -22,6 +22,7 @@ class ResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
+            'title' => ['required', 'regex:/^[^\s]+$/'],
             'user_id' => 'required',
             'name' => 'required',
             'age' => 'required',
@@ -64,5 +65,12 @@ class ResumeUpdateRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'title.regex' => 'The title should not contain spaces or tabs.',
+        ];
     }
 }

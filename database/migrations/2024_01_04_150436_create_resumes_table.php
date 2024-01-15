@@ -14,26 +14,29 @@ return new class extends Migration
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('title');
             $table->string('name');
+            $table->integer('age');
+            $table->string('img');
             $table->string('email')->unique()->nullable();
             $table->integer('phone')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string('address');
+            $table->mediumText('address');
             $table->string('education_status');
             $table->string('degree')->nullable();
             $table->string('institution_name')->nullable();
             $table->string('major')->nullable();
-            $table->dateTime('graduation_date')->nullable();
+            $table->date('graduation_date')->nullable();
             $table->string('job_title');
             $table->string('company_name');
             $table->string('location')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->mediumText('job_description')->nullable();
-            $table->string('skills');
+            $table->longText('skills');
             $table->string('certificate')->nullable();
             $table->string('certificate_issuing_org')->nullable();
-            $table->dateTime('obtained_date')->nullable();
+            $table->date('obtained_date')->nullable();
             $table->mediumText('goals');
             $table->string('project_name')->nullable();
             $table->string('project_description')->nullable();
@@ -41,9 +44,9 @@ return new class extends Migration
             $table->string('project_role')->nullable();
             $table->string('award')->nullable();
             $table->string('award_issuing_org')->nullable();
-            $table->dateTime('received_date')->nullable();
+            $table->date('received_date')->nullable();
             $table->string('languages');
-            $table->string('hobbies')->nullable();
+            $table->mediumText('hobbies')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

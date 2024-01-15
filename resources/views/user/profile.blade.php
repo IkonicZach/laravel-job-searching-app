@@ -35,29 +35,39 @@
                                                 class="fa-solid fa-trash-can"></i></a>
                                     </div>
                                 </div>
-                                <?php $i = 1; ?>
-                                <ul class="list-group list-group-flush">
-                                    @foreach ($user->resumes as $resume)
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <a href="{{ route('resume.show', $resume->id) }}">Resume {{ $i }}</a>
-                                            <div class="d-flex">
-                                                <a href="{{ route('resume.download', $resume->id) }}"
-                                                    class="btn btn-primary icon-link fw-normal me-1"
-                                                    style="font-size: 12px !important">
-                                                    <i class="fa-solid fa-download"></i> Download
-                                                </a>
-                                                <form action="{{ route('resume.destroy', $resume->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="icon-btn btn-light">
-                                                        <i class="fa-solid fa-circle-minus"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        <?php $i++; ?>
-                                    @endforeach
-                                </ul>
+                                @if ($user->resumes()->count() > 0)
+                                    <ul class="list-group list-group-flush">
+                                        @foreach ($user->resumes as $resume)
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="{{ route('resume.show', $resume->id) }}">{{ $resume->title }}</a>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('resume.download', $resume->id) }}"
+                                                        class="btn btn-primary icon-link fw-normal me-1"
+                                                        style="font-size: 12px !important">
+                                                        <i class="fa-solid fa-download"></i> Download
+                                                    </a>
+                                                    <form action="{{ route('resume.destroy', $resume->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="icon-btn btn-light">
+                                                            <i class="fa-solid fa-circle-minus"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
+                                        <div class="row justify-content-center text-center">
+                                            <h3 class="text-muted col-12">No resume here</h3>
+                                            <a href="{{ route('resume.create') }}"
+                                                class="btn btn-primary icon-link col-5"><i
+                                                    class="fa-regular fa-plus me-1"></i>Make one</a>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

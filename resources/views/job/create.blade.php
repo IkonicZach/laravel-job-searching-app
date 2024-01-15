@@ -214,7 +214,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold" for="deadline">Choose deadline:</label>
-                                    <input type="datetime-local" class="@error('deadline') is-invalid @enderror"
+                                    <input type="datetime" class="form-control @error('deadline') is-invalid @enderror"
                                         name="deadline" id="deadline" value="{{ old('deadline') }}">
                                     @error('deadline')
                                         <div class="invalid-feedback">{{ $message }}</div>

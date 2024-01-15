@@ -1,4 +1,4 @@
-@section('title', 'Build Resume')
+@section('title', 'Resume Details')
 @extends('layout.master')
 @section('content')
     <!-- Job apply form Start -->
@@ -7,9 +7,10 @@
             <div class="row justify-content-center">
                 <div class="col-8">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Your resume</h3>
+                        <h3>{{ $resume->title }}.pdf</h3>
                         <div class="d-flex">
-                            <a href="{{ route('resume.download', $resume->id) }}" class="btn btn-primary icon-link me-1">Download
+                            <a href="{{ route('resume.download', $resume->id) }}"
+                                class="btn btn-primary icon-link me-1">Download
                                 as
                                 pdf <i class="fa-solid fa-download"></i></a>
                             <a href="{{ route('resume.edit', $resume->id) }}" class="icon-btn btn-light">

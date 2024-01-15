@@ -61,7 +61,7 @@ Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(functi
     Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
     Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
 
-    Route::get('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
+    Route::post('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
     Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
     
     Route::get('/resume/trash', [ResumeController::class, 'trash'])->name('resume.trash');

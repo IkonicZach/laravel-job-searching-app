@@ -23,6 +23,7 @@ class ResumeCreateRequest extends FormRequest
     {
 
         $rules = [
+            'title' => ['required', 'regex:/^[^\s]+$/'],
             'user_id' => 'required',
             'name' => 'required',
             'age' => 'required',
@@ -65,5 +66,13 @@ class ResumeCreateRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'img.required' => 'You must upload a profile picture.',
+            'title.regex' => 'The title should not contain spaces or tabs.',
+        ];
     }
 }
