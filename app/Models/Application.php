@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Application extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'user_id',
@@ -18,6 +19,11 @@ class Application extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
 
     public function user()
     {

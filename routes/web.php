@@ -27,6 +27,7 @@ Route::resource('blog', BlogController::class);
 Route::get('contact', [PageController::class, 'contact'])->name('contact.index');
 Route::resource('job', JobController::class)->only('index', 'show');
 Route::get('/search', [JobController::class, 'search'])->name('job.search');
+Route::get('/mail/test', [PageController::class, 'mail']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
@@ -63,7 +64,7 @@ Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(functi
 
     Route::post('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
     Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
-    
+
     Route::get('/resume/trash', [ResumeController::class, 'trash'])->name('resume.trash');
     Route::post('/resume/{id}/restore', [ResumeController::class, 'restore'])->name('resume.restore');
     Route::delete('/resume/{id}/delete', [ResumeController::class, 'delete'])->name('resume.delete');

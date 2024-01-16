@@ -1,6 +1,13 @@
 @section('title', 'Setup Account')
 @extends('layout.master')
 @section('content')
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
     <!-- Job apply form Start -->
     <section class="section bg-light">
         <div class="container">
@@ -17,18 +24,17 @@
                                 <div class="col-12">
                                     <input type="hidden" value="{{ Auth::id() }}" name="id">
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold" for="phone">Upload Profile Picture
+                                        <label class="form-label fw-semibold" for="img">Upload Profile Picture
                                             :</label>
                                         <input type="file" name="img" id="img"
-                                            class="form-control @error('img') is-invalid @enderror"
-                                            value="{{ old('img') }}">
+                                            class="form-control @error('img') is-invalid @enderror">
                                         @error('img')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold" for="phone">Your Phone :</label>
-                                        <input type="tel" name="phone" id="phone"
+                                        <input type="number" name="phone" id="phone"
                                             class="form-control @error('phone') is-invalid @enderror" placeholder="Phone :"
                                             value="{{ old('phone') }}">
                                         @error('phone')

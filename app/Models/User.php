@@ -34,6 +34,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
+    
     public function company()
     {
         return $this->hasOne(Company::class, 'created_by');

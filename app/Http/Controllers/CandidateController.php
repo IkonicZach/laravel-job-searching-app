@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CandidateCreateRequest;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\User;
@@ -77,7 +78,7 @@ class CandidateController extends Controller
         }
     }
 
-    public function doSetup(Request $request)
+    public function doSetup(CandidateCreateRequest $request)
     {
         try {
             $id = $request->input('id');

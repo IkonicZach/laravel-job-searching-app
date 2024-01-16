@@ -113,7 +113,7 @@
                 <div class="col-lg-8 col-md-7 col-12">
                     <h5 class="mb-4">Introduction:</h5>
 
-                    <p class="text-muted">{{ $user->bio }}</p>
+                    <p class="text-muted">{!! nl2br(e($user->bio)) !!}</p>
 
                     <h5 class="mt-4">Skills:</h5>
                     <div class="row">

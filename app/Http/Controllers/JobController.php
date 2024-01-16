@@ -8,8 +8,10 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\Subcategory;
+use App\Notifications\JobApplicationNotification;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
@@ -144,14 +146,18 @@ class JobController extends Controller
         try {
             $resumeName = time() . '.' . $request->resume_path->extension();
             $request->resume_path->move(public_path('downloads/resume'), $resumeName);
-            
-            Application::create([
+
+            $user = Auth::user();
+            $application = Application::create([
                 'user_id' => $request->input('user_id'),
                 'job_id' => $id,
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'resume_path' => $resumeName,
             ]);
+
+            $application->notify(new JobApplicationNotification($application));
+
             $message = "Applied successfully!";
             $messageBody = "You have successfully applied the job.";
             return redirect()->route('job.index')->with(compact('message', 'messageBody'));

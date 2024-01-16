@@ -2,28 +2,28 @@
 @extends('layout.master')
 @section('content')
     <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="p-5 shadow-lg rounded w-35">
+        <div class="p-5 shadow-lg rounded w-40">
             <form method="POST" action="{{ route('user.store') }}">
                 @csrf
-                <div class="row g-0">
+                <div class="row">
                     <div class="col-6 mb-3">
-                        <label class="form-label" for="name">Name</label>
+                        <label class="form-label fw-bold" for="name">Name</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name">
+                            name="name" value="{{ old('name') }}">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-6 mb-3">
-                        <label class="form-label" for="email">Email</label>
+                        <label class="form-label fw-bold" for="email">Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                            name="email">
+                            name="email" value="{{ old('email') }}">
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12 mb-3">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label fw-bold" for="password">Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
                             name="password">
                         @error('password')
@@ -31,11 +31,11 @@
                         @enderror
                     </div>
                     <div class="col-12 mb-3">
-                        <label class="form-label" for="password_confirmation">Confirm Password</label>
+                        <label class="form-label fw-bold" for="password_confirmation">Confirm Password</label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                     </div>
                     <div class="col-12">
-                        <label for="form-label">What do you register for?</label>
+                        <label for="form-label fw-bold">What do you register for?</label>
                         <div class="row">
                             <div class="col-6">
                                 <input class="form-check-input @error('role') is-invalid @enderror" type="radio"
@@ -57,7 +57,8 @@
                     </div>
 
                     <div class="col-12 row g-0 align-items-center">
-                        <small class="text-muted col-8">Already have an account? <a href="{{route('user.login')}}">login</a>.</small>
+                        <small class="text-muted col-8">Already have an account? <a
+                                href="{{ route('user.login') }}">login</a>.</small>
                         <button type="submit" class="btn btn-light col-4">Register</button>
                     </div>
                 </div>

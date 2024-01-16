@@ -38,6 +38,11 @@ class PageController extends Controller
         $companies = Company::with('category')->get();
         return view('admin.tabs.companies', compact('companies', 'countries', 'cities', 'categories'));
     }
+    
+    public function mail()
+    {
+        return view('mails.job-application-noti');
+    }
 
     public function error404()
     {
