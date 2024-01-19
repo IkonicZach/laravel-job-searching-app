@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -19,9 +20,11 @@ class User extends Authenticatable
         'email',
         'password',
         'img',
+        'cover',
         'bio',
         'company_id',
         'position',
+        'birthday',
         'age',
         'phone',
         'country',
@@ -33,12 +36,20 @@ class User extends Authenticatable
         'deleted_at',
         'remember_token',
     ];
+    protected $casts = [
+        'birthday' => 'date',
+    ];
+
+    public function getAge()
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+    }
 
     public function routeNotificationForMail()
     {
         return $this->email;
     }
-    
+
     public function company()
     {
         return $this->hasOne(Company::class, 'created_by');

@@ -98,7 +98,7 @@ class SubcategoryController extends Controller
             $message = "Deleted successfully!";
             $messageBody = "'$category->name' sub-category has been deleted successfully!";
 
-            return redirect('/admin')->with('message', $message)->with('messageBody', $messageBody);
+            return redirect()->route('category.index')->with('message', $message)->with('messageBody', $messageBody);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

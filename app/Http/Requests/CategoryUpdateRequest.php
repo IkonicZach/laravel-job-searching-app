@@ -22,7 +22,7 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:25',
+            'name' => 'required|string',
             'updated_by' => 'required|numeric',
         ];
     }

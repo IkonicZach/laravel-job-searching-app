@@ -223,7 +223,7 @@
                                             <p>{{ $cat->name }}</p>
                                         </div>
                                         <div class="td col-4">
-                                            <p>{{ $cat->category->name }}</p>
+                                            <p>{{ $cat->category->name ?? '' }}</p>
                                         </div>
                                         <div class="td col-3">
                                             <div class="d-flex">

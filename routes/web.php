@@ -28,11 +28,16 @@ Route::get('contact', [PageController::class, 'contact'])->name('contact.index')
 Route::resource('job', JobController::class)->only('index', 'show');
 Route::get('/search', [JobController::class, 'search'])->name('job.search');
 Route::get('/mail/test', [PageController::class, 'mail']);
+Route::resource('/candidate', CandidateController::Class)->only('index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
     Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
     Route::get('/trash/job', [TrashPageController::class, 'job'])->name('trash.job');
+    // Route::resource('/candidate', CandidateController::Class)->except('index', 'show');
+    Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
+    Route::put('/user/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //
@@ -41,7 +46,6 @@ Route::post('/user/login', [UserController::class, 'login'])->name('user.login')
 Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
 Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //
@@ -58,9 +62,10 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
 
 // ---------------------------------------- Candidate routes ---------------------------------------- //
 Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(function () {
-    Route::get('/profile', [CandidateController::class, 'profile'])->name('candidate.profile');
+    // Route::get('/profile', [CandidateController::class, 'profile'])->name('candidate.profile');
     Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
     Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
+    Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
 
     Route::post('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
     Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
@@ -96,7 +101,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::post('/subcategory/{id}/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
     Route::resource('/subcategory', SubcategoryController::class)->except('store');
-    Route::post('/subcategory/{id}/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
+    Route::delete('/subcategory/{id}/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
 
     Route::resource('skill', SkillController::class);
 

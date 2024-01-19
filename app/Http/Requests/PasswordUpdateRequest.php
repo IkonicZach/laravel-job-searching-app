@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class PasswordUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'created_by' => 'required|numeric',
+            'old_password' => ['required', 'string', function ($attribute, $value, $fail) {
+                if (!\Hash::check($value, auth()->user()->password)) {
+                    $fail('The current password is incorrect.');
+                }
+            }],
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
 }

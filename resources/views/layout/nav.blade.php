@@ -70,7 +70,7 @@
 
                 <li><a href="" class="sub-menu-item">Employers</a></li>
 
-                <li><a href="" class="sub-menu-item">Candidates</a></li>
+                <li><a href="{{ route('candidate.index') }}" class="sub-menu-item">Candidates</a></li>
 
                 {{-- <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blog</a></li> --}}
 

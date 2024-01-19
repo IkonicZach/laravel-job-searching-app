@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CandidateController extends Controller
 {
@@ -16,7 +17,8 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
+        $candidates = User::role('candidate')->with('user_skill')->paginate(12);
+        return view('candidate.listing', compact('candidates'));
     }
 
     /**
@@ -56,7 +58,62 @@ class CandidateController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $skills = $request->input('skills', []);
+        $proficiency = $request->input('proficiency', []);
+
+        $syncData = [];
+
+        foreach ($skills as $skillId) {
+            $syncData[$skillId] = ['proficiency' => $proficiency[$skillId] ?? 50];
+        }
+
+        $user->user_skill()->sync($syncData);
+
+        if ($request->hasFile('img')) {
+            // Delete old photo from storage
+            $imagePath = public_path('uploads/') . $user->img;
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            // Update new photo
+            $imageName = time() . '.' . $request->img->extension();
+            $request->img->move(public_path('uploads'), $imageName);
+            $user->img = $imageName;
+        }
+
+        if ($request->hasFile('cover')) {
+            // Delete old photo from storage
+            $coverPath = public_path('uploads/') . $user->cover;
+            if (File::exists($coverPath)) {
+                File::delete($coverPath);
+            }
+
+            // Update new photo
+            $coverName = time() . '_cover' . $request->cover->extension();
+            $request->cover->move(public_path('uploads'), $coverName);
+            $user->cover = $coverName;
+        }
+
+        $user->update([
+            'name' => $request->input('name') ?? $user->name,
+            'bio' => $request->input('bio') ?? $user->bio,
+            'phone' => $request->input('phone') ?? $user->phone,
+            'position' => $request->input('position') ?? $user->position,
+            'preferred_category' => $request->input('preferred_category') ?? $user->preferred_category,
+            'birthday' => $request->input('birthday') ?? $user->birthday,
+            'age' => $user->age,
+            'country' => $request->input('country') ?? $user->country,
+            'city' => $request->input('city') ?? $user->city,
+            'skills' => $request->input('skills', []) ?? $user->skills,
+        ]);
+
+        $message = "Updated Successfully!";
+        $messageBody = "Your account has been updated successfully!";
+
+        return back()->with(compact('message', 'messageBody'));
     }
 
     /**
@@ -97,14 +154,26 @@ class CandidateController extends Controller
             if ($request->hasFile('img')) {
                 $imageName = time() . '.' . $request->img->extension();
                 $request->img->move(public_path('uploads'), $imageName);
+            } else {
+                $imageName = null;
+            }
+
+            if ($request->hasFile('cover')) {
+                $coverName = time() . '_cover.' . $request->cover->extension();
+                $request->cover->move(public_path('uploads'), $coverName);
+            } else {
+                $coverName = null;
             }
 
             $user->update([
                 'img' => $imageName ?? null,
+                'cover' => $coverName ?? null,
                 'bio' => $request->input('bio'),
                 'phone' => $request->input('phone'),
+                'position' => $request->input('position'),
                 'preferred_category' => $request->input('preferred_category'),
-                'age' => $request->input('age'),
+                'birthday' => $request->input('birthday'),
+                'age' => $user->age,
                 'country' => $request->input('country'),
                 'city' => $request->input('city'),
                 'skills' => $request->input('skills', []),
@@ -112,7 +181,6 @@ class CandidateController extends Controller
             // $user->user_skill()->sync($request->input('skills', []), $request->input('proficiency', []));
 
             return redirect()->route('job.index');
-            // return $request->all();
         } catch (Exception $e) {
             return 'Error: ' . $e->getMessage();
         }

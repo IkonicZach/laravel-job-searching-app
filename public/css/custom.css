@@ -398,3 +398,45 @@ header .img-fluid {
     border-radius: 100%;
     background-color: #3b82f6;
 }
+
+.candidate-cover {
+    position: relative !important;
+}
+
+.file-button {
+    position: absolute !important;
+    opacity: 0;
+    top: 6rem;
+    left: 11rem;
+    transition: 0.3s;
+    z-index: 1;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    z-index: 0.5;
+    transition: 0.3s;
+}
+
+.candidate-profile .file-button {
+    top: 2.2rem;
+    left: 2.3rem;
+}
+
+.candidate-cover:hover .file-button, .candidate-profile:hover .file-button {
+    opacity: 1;
+}
+
+.candidate-cover:hover .backdrop, .candidate-profile:hover .backdrop {
+    opacity: 0.2;
+}
+
+.file-button input {
+    display: none;
+}

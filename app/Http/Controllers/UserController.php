@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Models\Category;
 use App\Models\Skill;
 use App\Models\User;
 use Exception;
@@ -152,5 +154,31 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function settings(string $id)
+    {
+        $user = User::with('user_skill')->findOrFail($id);
+        if (auth()->user()->id != $user->id) {
+            abort(403);
+        }
+
+        $categories = Category::select('id', 'name')->get();
+        $skills = Skill::select('id', 'name')->orderBy('name')->get();
+        return view('user.settings', compact('user', 'categories', 'skills'));
+    }
+
+    public function passwordUpdate(PasswordUpdateRequest $request, string $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        $message = "Updated Successfully!";
+        $messageBody = "Your password has been updated successfully!";
+
+        return back()->with(compact('message', 'messageBody'));
     }
 }

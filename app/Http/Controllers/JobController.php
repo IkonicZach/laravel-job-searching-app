@@ -113,8 +113,9 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
+        $user = Auth::user();
         $job = Job::with(['subcategory', 'category', 'company'])->findOrFail($id);
-        return view('job.details', compact('job'));
+        return view('job.details', compact('job', 'user'));
     }
 
     /**

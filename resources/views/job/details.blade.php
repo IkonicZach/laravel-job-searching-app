@@ -106,6 +106,90 @@
                         </ul>
                     </div>
 
+                    @auth
+                        <!-- Modal -->
+                        <div class="modal fade" id="jobApplyModal{{ $job->id }}" tabindex="-1"
+                            aria-labelledby="jobApplyModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                            <div class="modal-dialog" style="max-width: 650px">
+                                <div class="modal-content p-5">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Your info</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="row col-12 mb-3">
+                                        <div class="col-2">
+                                            <img src="{{ asset('uploads/' . auth()->user()->img) }}" class="apply-img"
+                                                alt="">
+                                        </div>
+                                        <div class="col-10">
+                                            <b>{{ $user->name }}</b>
+                                            <p class="m-0">{{ $user->job ?? '--' }}</p>
+                                            <p class="text-muted m-0">{{ $user->city }}, {{ $user->country }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('job.apply', $job->id) }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                        <div class="row">
+                                            <label for="email" class="form-label fw-bold">Your Email</label>
+                                            <input type="email" name="email" id="email"
+                                                class="form-control @error('email') is-invalid @enderror mb-3"
+                                                placeholder="Enter the email we can contact..." value="{{ $user->email }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
+                                            <label for="phone" class="form-label fw-bold">Your Phone</label>
+                                            <input type="tel" name="phone" id="phone"
+                                                class="form-control @error('phone') is-invalid @enderror mb-3"
+                                                placeholder="Enter the phone we can contact..." value="{{ $user->phone }}">
+                                            @error('phone')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
+                                            <label for="resume_path" class="form-label fw-bold">Upload Resume
+                                                <small class="text-muted fw-normal">(PDF | 5MB)</small></label>
+                                            <input type="file" name="resume_path" id="resume_path"
+                                                class="form-control @error('resume_path') is-invalid @enderror">
+                                            @error('resume_path')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="text-muted col-12 mb-3"><span class="text-danger">*</span> Be
+                                                sure to
+                                                include an updated resume.</small>
+                                            <div class="d-flex justify-content-end">
+                                                <input type="submit" class="btn btn-primary" value="Submit Application">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Modal -->
+                        <div class="modal fade" id="jobApplyModal{{ $job->id }}" tabindex="-1"
+                            aria-labelledby="jobApplyModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content p-5">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Please be authenticated to apply jobs.</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center pt-4">
+                                        <a href="{{ route('user.login') }}" class="btn btn-primary me-1">Login</a>
+                                        <a href="{{ route('user.register') }}" class="btn btn-light">Register</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endauth
+
                     <div class="mt-4">
                         <h5>Job Description: </h5>
                         <p style="white-space: pre-wrap"> {!! nl2br(e($job->description)) !!}</p>
@@ -121,7 +205,8 @@
 
 
                         <div class="mt-4">
-                            <a href="/jobs/{{ $job->id }}/apply" class="btn btn-outline-primary">Apply Now <i
+                            <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"
+                                class="btn btn-outline-primary @role('employer') disabled @endrole"">Apply Now <i
                                     class="fa-regular fa-paper-plane"></i></a>
                         </div>
                     </div>

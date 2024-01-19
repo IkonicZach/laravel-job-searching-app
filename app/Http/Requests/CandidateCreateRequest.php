@@ -23,15 +23,14 @@ class CandidateCreateRequest extends FormRequest
     {
         return [
             'img' => 'required|image|mimes:jpeg,png|max:2048',
+            'cover' => 'image|mimes:jpeg,png|max:2048',
+            'position' => 'required|max:30',
             'phone' => 'required',
             'bio' => 'min:50',
-            'age' => 'required|numeric',
             'preferred_category' => 'required',
             'country' => 'required',
             'city' => 'required',
             'skills' => 'array',
-            // 'proficiency' => 'array',
-            // 'proficiency.*' => 'numeric|min:1|max:5',
         ];
     }
 

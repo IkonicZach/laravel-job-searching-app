@@ -17,7 +17,7 @@
             display: inline-block !important;
         }
     </style>
-    <section class="section">
+    <section style="paddin-top: 30px !important" class="section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -28,32 +28,40 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4>Your resume</h4>
                                     <div>
-                                        <a href="{{ route('resume.create') }}"
-                                            class="btn btn-light icon-link @if ($user->resumes()->count() >= 3) disabled @endif"><i
-                                                class="fa-regular fa-plus me-1"></i>New Resume</a>
-                                        <a href="{{ route('resume.trash') }}" class="icon-btn btn-light"><i
-                                                class="fa-solid fa-trash-can"></i></a>
+                                        @if (auth()->user()->id == request()->route()->id)
+                                            <a href="{{ route('resume.create') }}"
+                                                class="btn btn-light icon-link @if ($user->resumes()->count() >= 3) disabled @endif"><i
+                                                    class="fa-regular fa-plus me-1"></i>New Resume</a>
+                                            @if (auth()->user()->id == request()->route()->id)
+                                                <a href="{{ route('resume.trash') }}" class="icon-btn btn-light"><i
+                                                        class="fa-solid fa-trash-can"></i></a>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                                 @if ($user->resumes()->count() > 0)
                                     <ul class="list-group list-group-flush">
                                         @foreach ($user->resumes as $resume)
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="{{ route('resume.show', $resume->id) }}">{{ $resume->title }}</a>
+                                                <a href="{{ route('resume.show', $resume->id) }}"
+                                                    class="text-primary icon-link"><i class="fa-regular fa-file"></i>
+                                                    {{ $resume->title }}</a>
                                                 <div class="d-flex">
                                                     <a href="{{ route('resume.download', $resume->id) }}"
                                                         class="btn btn-primary icon-link fw-normal me-1"
                                                         style="font-size: 12px !important">
                                                         <i class="fa-solid fa-download"></i> Download
                                                     </a>
-                                                    <form action="{{ route('resume.destroy', $resume->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="icon-btn btn-light">
-                                                            <i class="fa-solid fa-circle-minus"></i>
-                                                        </button>
-                                                    </form>
+                                                    @if (auth()->user()->id == request()->route()->id)
+                                                        <form action="{{ route('resume.destroy', $resume->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="icon-btn btn-light">
+                                                                <i class="fa-solid fa-circle-minus"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </li>
                                         @endforeach
@@ -62,9 +70,11 @@
                                     <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
                                         <div class="row justify-content-center text-center">
                                             <h3 class="text-muted col-12">No resume here</h3>
-                                            <a href="{{ route('resume.create') }}"
-                                                class="btn btn-primary icon-link col-5"><i
-                                                    class="fa-regular fa-plus me-1"></i>Make one</a>
+                                            @if (auth()->user()->id == request()->route()->id)
+                                                <a href="{{ route('resume.create') }}"
+                                                    class="btn btn-primary icon-link col-5"><i
+                                                        class="fa-regular fa-plus me-1"></i>Make one</a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endif
@@ -75,7 +85,13 @@
 
                     <div class="position-relative">
                         <div class="candidate-cover">
-                            <img src="{{ asset('images/hero/bg5.jpg') }}" class="img-fluid rounded shadow" alt="">
+                            @if ($user->cover == null)
+                                <img src="{{ asset('images/banner.jpg') }}" class="img-fluid rounded shadow"
+                                    style="object-position: top">
+                            @else
+                                <img src="{{ asset('uploads/' . $user->cover) }}" class="img-fluid rounded shadow"
+                                    style="object-position: top">
+                            @endif
                         </div>
                         <div class="candidate-profile d-flex align-items-end justify-content-between mx-2">
                             <div class="d-flex align-items-end w-100 justify-content-between">
@@ -85,7 +101,7 @@
 
                                     <div class="ms-2">
                                         <h5 class="mb-0">{{ $user->name }}</h5>
-                                        <p class="text-muted mb-0">Web Designer</p>
+                                        <p class="text-muted mb-0">{{ $user->position }}</p>
                                     </div>
                                 </div>
 
@@ -94,12 +110,7 @@
                                         <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">Your
                                             Company</a>
                                     @endrole
-
-                                    @role('candidate')
-                                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resumeShow">Your
-                                            Resume</a>
-                                    @endrole
-                                    <a href="/" class="btn btn-sm icon-btn btn-pills btn-soft-primary"><i
+                                    <a href="{{ route('user.settings', $user->id) }}" class="btn btn-light icon-btn h5"><i
                                             class="fa-solid fa-gear"></i></a>
                                 </div>
                             </div>
@@ -175,7 +186,7 @@
 
                     @if (auth()->user()->id != request()->route()->id)
                         <div class="p-4 rounded shadow mt-4">
-                            <h5>Get in touch !</h5>
+                            <h5>Contact <span class="text-primary">{{ $user->name }}</span> !</h5>
                             <form class="mt-4" method="post" name="myForm" onsubmit="return validateForm()">
                                 <p class="mb-0" id="error-msg"></p>
                                 <div id="simple-msg"></div>
@@ -185,7 +196,7 @@
                                             <label class="form-label fw-semibold">Your Name <span
                                                     class="text-danger">*</span></label>
                                             <input name="name" id="name" type="text" class="form-control"
-                                                placeholder="Name :">
+                                                placeholder="Name :" value="{{ auth()->user()->id }}">
                                         </div>
                                     </div>
 
@@ -194,7 +205,7 @@
                                             <label class="form-label fw-semibold">Your Email <span
                                                     class="text-danger">*</span></label>
                                             <input name="email" id="email" type="email" class="form-control"
-                                                placeholder="Email :">
+                                                placeholder="Email :" value="{{ auth()->user()->email }}">
                                         </div>
                                     </div><!--end col-->
 
@@ -237,11 +248,13 @@
                                 <span class="fw-medium">{{ $user->email }}</span>
                             </div>
 
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="d-inline-flex align-items-center text-muted fw-medium"><i
-                                        class="fa-solid fa-gift me-2"></i> D.O.B.:</span>
-                                <span class="fw-medium">31st Dec, 1996</span>
-                            </div>
+                            @if ($user->birthday != null)
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <span class="d-inline-flex align-items-center text-muted fw-medium"><i
+                                            class="fa-solid fa-gift me-2"></i> D.O.B.:</span>
+                                    <span class="fw-medium">{{ $user->birthday->format('d-M-Y') }}</span>
+                                </div>
+                            @endif
 
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <span class="d-inline-flex align-items-center text-muted fw-medium"><i
@@ -283,13 +296,15 @@
                             </div>
 
                             <div class="p-3 rounded shadow bg-white mt-2">
-                                <div class="d-flex align-items-center mb-2">
-                                    <i data-feather="file-text" class="fea icon-md"></i>
-                                    <h6 class="mb-0 ms-2">calvin-carlo-resume.pdf</h6>
-                                </div>
-
-                                <a href="images/calvin-carlo-resume.pdf" class="btn btn-primary w-100" download><i
-                                        data-feather="download" class="fea icon-sm me-1"></i> Download CV</a>
+                                @role('candidate')
+                                    <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#resumeShow">
+                                        @if (auth()->user()->id == request()->route()->id)
+                                            Your Resume
+                                        @else
+                                            <i class="fa-solid fa-download"></i> Download CV
+                                        @endif
+                                    </a>
+                                @endrole
                             </div>
                         </div>
                     </div>

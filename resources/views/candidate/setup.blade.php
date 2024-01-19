@@ -23,23 +23,77 @@
                             <div class="row">
                                 <div class="col-12">
                                     <input type="hidden" value="{{ Auth::id() }}" name="id">
+
+                                    <div class="candidate-cover">
+                                        <img src="{{ asset('images/hero/bg5.jpg') }}" class="img-fluid rounded shadow"
+                                            alt="">
+                                        <div class="file-button">
+                                            <label for="cover" class="btn btn-light"><i
+                                                    class="fa-solid fa-plus"></i>Upload Cover Photo</label>
+                                            <input type="file" name="cover" id="cover"
+                                                class="form-control @error('cover') is-invalid @enderror">
+                                            @error('cover')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="backdrop"></div>
+                                    </div>
+                                    <div class="candidate-profile d-flex align-items-end justify-content-between mx-2">
+                                        <div class="d-flex align-items-end w-100 justify-content-between">
+                                            <div class="d-flex align-items-end">
+                                                <div class="rounded-pill shadow border border-3 ">
+                                                    <img src="{{ asset('images/guest.jpg') }}"
+                                                        class="rounded-pill avatar avatar-medium" alt="">
+                                                    <div class="file-button">
+                                                        <label for="img" class="btn btn-light icon-btn"><i
+                                                                class="fa-solid fa-plus"></i></label>
+                                                        <input type="file" name="img" id="img"
+                                                            class="form-control @error('img') is-invalid @enderror">
+                                                        @error('img')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="backdrop rounded-pill shadow border border-3"
+                                                        style="width: 116px"></div>
+                                                </div>
+                                                <div class="ms-2">
+                                                    <h5 class="mb-0">{{ auth()->user()->name }}</h5>
+                                                    <p class="text-muted mb-0">Positiion</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold" for="img">Upload Profile Picture
-                                            :</label>
-                                        <input type="file" name="img" id="img"
-                                            class="form-control @error('img') is-invalid @enderror">
-                                        @error('img')
+                                        <label class="form-label fw-semibold" for="position">Your Position :</label>
+                                        <input type="text" name="position" id="position"
+                                            class="form-control @error('position') is-invalid @enderror"
+                                            placeholder="Your preferred position:" value="{{ old('position') }}">
+                                        @error('position')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-semibold" for="phone">Your Phone :</label>
-                                        <input type="number" name="phone" id="phone"
-                                            class="form-control @error('phone') is-invalid @enderror" placeholder="Phone :"
-                                            value="{{ old('phone') }}">
-                                        @error('phone')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="phone">Your Phone :</label>
+                                            <input type="number" name="phone" id="phone"
+                                                class="form-control @error('phone') is-invalid @enderror"
+                                                placeholder="Phone :" value="{{ old('phone') }}">
+                                            @error('phone')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="birthday">Date of Birth :</label>
+                                            <input type="date" name="birthday" id="birthday"
+                                                class="form-control @error('birthday') is-invalid @enderror"
+                                                placeholder="Your preferred position:" value="{{ old('birthday') }}">
+                                            @error('birthday')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="mb-3">
@@ -51,36 +105,25 @@
                                         @enderror
                                     </div>
 
-                                    {{-- Category and age starts here  --}}
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <label class="form-label fw-semibold" for="category">Your Preferred Industry
-                                                :</label>
-                                            <select
-                                                class="form-control form-select @error('preferred_category') is-invalid @enderror"
-                                                name="preferred_category" id="category">
-                                                <option disabled selected>Industry</option>
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}"
-                                                        @if (old('preferred_category') == $category->id) selected @endif>
-                                                        {{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('preferred_category')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="form-label fw-semibold">Your Age :</label>
-                                            <input type="number" name="age" id="age"
-                                                class="form-control @error('age') is-invalid @enderror" placeholder="Age :"
-                                                min="1" max="100" value="{{ old('age') }}">
-                                            @error('age')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                    {{-- Category starts here  --}}
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold" for="category">Your Preferred Industry
+                                            :</label>
+                                        <select
+                                            class="form-control form-select @error('preferred_category') is-invalid @enderror"
+                                            name="preferred_category" id="category">
+                                            <option disabled selected>Industry</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    @if (old('preferred_category') == $category->id) selected @endif>
+                                                    {{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('preferred_category')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    {{-- Positiion and age ends here  --}}
+                                    {{-- Category ends here  --}}
 
                                     {{-- Country city selection starts here  --}}
                                     <div class="row mb-3">
@@ -96,7 +139,8 @@
                                                     <option value="Japan"
                                                         @if (old('country') == 'Japan') selected @endif>Japan</option>
                                                     <option value="Singapore"
-                                                        @if (old('country') == 'Singapore') selected @endif>Singapore</option>
+                                                        @if (old('country') == 'Singapore') selected @endif>Singapore
+                                                    </option>
                                                 </select>
                                                 @error('country')
                                                     <div class="invalid-feedback">{{ $message }}</div>
