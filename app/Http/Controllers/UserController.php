@@ -6,6 +6,7 @@ use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\Category;
+use App\Models\Job;
 use App\Models\Skill;
 use App\Models\User;
 use Exception;
@@ -180,5 +181,38 @@ class UserController extends Controller
         $messageBody = "Your password has been updated successfully!";
 
         return back()->with(compact('message', 'messageBody'));
+    }
+
+    public function bookmark($id)
+    {
+        try {
+            $user = auth()->user();
+            $job = Job::findOrFail($id);
+
+            // Toggle the bookmark status
+            $user->bookmarkedJobs()->toggle($job);
+
+            $message = $user->bookmarkedJobs->contains($job)
+            ? 'Bookmarked successfully!'
+            : 'Unbookmarked successfully!';
+
+            $messageBody = $user->bookmarkedJobs->contains($job)
+            ? 'Job bookmarked successfully!'
+            : 'Job unbookmarked successfully!';
+
+            return back()->with(compact('message', 'messageBody'));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getBookmarkedJobs()
+    {
+        $user = auth()->user();
+        $bookmarkedJobs = $user->bookmarkedJobs;
+        
+        $count = count($bookmarkedJobs);
+
+        return $count;
     }
 }

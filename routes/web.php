@@ -38,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
     Route::put('/user/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
+
+    Route::post('/bookmark/{id}', [UserController::class, 'bookmark'])->name('job.bookmark');
+    Route::get('/bookmarks', [UserController::class, 'getBookmarkedJobs'])->name('user.bookmark');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //

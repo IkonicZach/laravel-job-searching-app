@@ -46,7 +46,11 @@ class JobController extends Controller
         $user = auth()->user();
         $categories = Category::select('id', 'name')->get();
         $jobs = Job::paginate(10);
-        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
+
+        $bookmarkedJobs = $user->bookmarkedJobs;
+        $count = count($bookmarkedJobs);
+
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user', 'count'));
     }
 
     /**

@@ -281,9 +281,13 @@
                                     </div>
 
                                     <div class="mt-3 mt-md-0">
-                                        <a href="#"
-                                            class="btn btn-sm btn-icon btn-pills btn-soft-primary bookmark"><i
-                                                class="fa-regular fa-bookmark"></i></a>
+                                        <form action="{{ route('job.bookmark', $job->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="btn btn-sm btn-icon btn-pills @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif bookmark"><i
+                                                    class="fa-regular fa-bookmark"></i></button>
+                                        </form>
                                         <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"
                                             class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">Apply
                                             Now</a>

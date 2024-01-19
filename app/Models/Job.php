@@ -30,6 +30,12 @@ class Job extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'job_user', 'job_id', 'user_id')->withTimestamps();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

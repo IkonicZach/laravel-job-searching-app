@@ -54,6 +54,19 @@
                                         class="fi-rr-angle-small-down"></i></span>
                                 <a class="link" href="{{ route('job.index') }}">Browse Jobs</a>
                             </li>
+                            <li class="has-children">
+                                <span class="menu-expand">
+                                    <i class="fi-rr-angle-small-down"></i>
+                                </span>
+                                <a class="link position-relative" href="{{ route('user.bookmark') }}">
+                                    Bookmarks
+                                    <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                        style="left: 120%">
+                                        {{ $count }}
+                                        @if ($count > 9)+@endif
+                                    </span>
+                                </a>
+                            </li>
                             <li class="has-children"><span class="menu-expand"><i
                                         class="fi-rr-angle-small-down"></i></span>
                                 <a class="link" href="employers-grid.html">Employers</a>
@@ -66,10 +79,6 @@
                                         class="fi-rr-angle-small-down"></i></span>
                                 <a class="link" href="#">Blog</a>
                             </li>
-                            <li class="has-children"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="#">Pages</a>
-                            </li>
                         </ul>
                     </nav>
                     <!-- mobile menu end -->
@@ -81,7 +90,7 @@
                         <li><a href="#">Work Preferences</a></li>
                         <li><a href="#">My Boosted Shots</a></li>
                         <li><a href="#">My Collections</a></li>
-                        <li><a href="#">Account Settings</a></li>
+                        <li><a href="{{ route('user.settings', auth()->user()->id) }}">Account Settings</a></li>
                         <li><a href="#">Go Pro</a></li>
                         <li><a href="/user/logout">Sign Out</a></li>
                     </ul>
