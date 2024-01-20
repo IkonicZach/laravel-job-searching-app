@@ -74,16 +74,20 @@
 
                 {{-- <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blog</a></li> --}}
 
-                <li class="position-relative">
-                    <a href="{{ route('user.bookmark') }}" class="sub-menu-item">Bookmarks</a>
-                    <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                        style="left: 100%; top:25%;">
-                        {{ $count }}
-                        @if ($count > 9)
-                            +
+                @auth
+                    <li class="position-relative">
+                        <a href="{{ route('user.bookmark') }}" class="sub-menu-item">Bookmarks</a>
+                        @if ($count > 0)
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                style="left: 100%; top:25%;">
+                                {{ $count }}
+                                @if ($count > 9)
+                                    +
+                                @endif
+                            </span>
                         @endif
-                    </span>
-                </li>
+                    </li>
+                @endauth
 
                 <li><a href="{{ route('contact.index') }}" class="sub-menu-item">Contact Us</a></li>
 

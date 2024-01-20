@@ -160,7 +160,7 @@
                             <a href="{{ route('job.create') }}" class="btn btn-primary mt-5">Post a job</a>
                         @endrole
                         <a href="{{ route('job.index') }}"
-                            class="btn btn-light w-auto @role('candidate') mt-5 @endrole">Refresh</a>
+                            class="btn btn-light w-auto @role('candidate') mt-5 ms-3 @endrole">Refresh</a>
                         @foreach ($jobs as $job)
                             <div class="col-12">
                                 @auth

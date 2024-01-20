@@ -54,19 +54,25 @@
                                         class="fi-rr-angle-small-down"></i></span>
                                 <a class="link" href="{{ route('job.index') }}">Browse Jobs</a>
                             </li>
-                            <li class="has-children">
-                                <span class="menu-expand">
-                                    <i class="fi-rr-angle-small-down"></i>
-                                </span>
-                                <a class="link position-relative" href="{{ route('user.bookmark') }}">
-                                    Bookmarks
-                                    <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                                        style="left: 120%">
-                                        {{ $count }}
-                                        @if ($count > 9)+@endif
+                            @auth
+                                <li class="has-children">
+                                    <span class="menu-expand">
+                                        <i class="fi-rr-angle-small-down"></i>
                                     </span>
-                                </a>
-                            </li>
+                                    <a class="link position-relative" href="{{ route('user.bookmark') }}">
+                                        Bookmarks
+                                        @if ($count > 0)
+                                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                                style="left: 120%">
+                                                {{ $count }}
+                                                @if ($count > 9)
+                                                    +
+                                                @endif
+                                            </span>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endauth
                             <li class="has-children"><span class="menu-expand"><i
                                         class="fi-rr-angle-small-down"></i></span>
                                 <a class="link" href="employers-grid.html">Employers</a>
@@ -83,18 +89,21 @@
                     </nav>
                     <!-- mobile menu end -->
                 </div>
-                <div class="account">
-                    <h5 class="mb-3">Your Account</h5>
-                    <ul class="mobile-menu font-heading">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Work Preferences</a></li>
-                        <li><a href="#">My Boosted Shots</a></li>
-                        <li><a href="#">My Collections</a></li>
-                        <li><a href="{{ route('user.settings', auth()->user()->id) }}">Account Settings</a></li>
-                        <li><a href="#">Go Pro</a></li>
-                        <li><a href="/user/logout">Sign Out</a></li>
-                    </ul>
-                </div>
+                @auth
+                    <div class="account">
+                        <h5 class="mb-3">Your Account</h5>
+                        <ul class="mobile-menu font-heading">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Work Preferences</a></li>
+                            <li><a href="#">My Boosted Shots</a></li>
+                            <li><a href="#">My Collections</a></li>
+                            <li><a href="{{ route('user.settings', auth()->user()->id) }}">Account Settings</a></li>
+                            <li><a href="#">Go Pro</a></li>
+                            <li><a href="/user/logout">Sign Out</a></li>
+                        </ul>
+                    </div>
+                @endauth
+
                 <div class="mobile-social-icon mb-50">
                     <h5 class="mb-25">Follow Us</h5>
                     <div class="row g-0 justify-content-between align-items-center">
