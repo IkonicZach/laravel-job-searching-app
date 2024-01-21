@@ -47,10 +47,7 @@ class JobController extends Controller
         $categories = Category::select('id', 'name')->get();
         $jobs = Job::paginate(10);
 
-        $bookmarkedJobs = $user->bookmarkedJobs;
-        $count = count($bookmarkedJobs);
-
-        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user', 'count'));
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
     }
 
     /**
@@ -119,7 +116,22 @@ class JobController extends Controller
     {
         $user = Auth::user();
         $job = Job::with(['subcategory', 'category', 'company'])->findOrFail($id);
-        return view('job.details', compact('job', 'user'));
+        $similarJobs = Job::where('id', '!=', $job->id)
+            ->where(function ($query) use ($job) {
+                $query->where('company_id', $job->company_id)
+                    ->orWhere('category_id', $job->category_id)
+                    ->orWhere('subcategory_id', $job->subcategory_id)
+                    ->orWhere('min_salary', $job->min_salary)
+                    ->orWhere('max_salary', $job->max_salary)
+                    ->orWhere('employment_type', $job->employment_type)
+                    ->orWhere('type', $job->type)
+                    ->orWhere('country', $job->country)
+                    ->orWhere('city', $job->city);
+            })
+            ->take(3)
+            ->get();
+
+        return view('job.details', compact('job', 'user', 'similarJobs'));
     }
 
     /**

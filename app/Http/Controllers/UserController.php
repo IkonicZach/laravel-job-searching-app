@@ -20,10 +20,8 @@ class UserController extends Controller
     public function profile(string $id)
     {
         $user = User::with('resumes', 'user_skill')->findOrFail($id);
-        $bookmarkedJobs = $user->bookmarkedJobs;
-        $count = count($bookmarkedJobs);
 
-        return view('user.profile', compact('user', 'count'));
+        return view('user.profile', compact('user'));
     }
     /**
      * Display a listing of the resource.
@@ -166,8 +164,6 @@ class UserController extends Controller
         if (auth()->user()->id != $user->id) {
             abort(403);
         }
-        $bookmarkedJobs = $user->bookmarkedJobs;
-        $count = count($bookmarkedJobs);
 
         $categories = Category::select('id', 'name')->get();
         $skills = Skill::select('id', 'name')->orderBy('name')->get();

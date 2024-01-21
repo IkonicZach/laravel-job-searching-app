@@ -78,7 +78,7 @@
                                     <i class="fa-solid fa-briefcase fs-4 me-3"></i>
                                     <div class="flex-1">
                                         <h6 class="widget-title mb-0">Field:</h6>
-                                        <small class="text-primary mb-0">{{ $job->category->name }}</small>
+                                        <small class="text-primary mb-0">{{ $job->category->name ?? '-' }}</small>
                                     </div>
                                 </div>
                             </li>
@@ -227,42 +227,53 @@
             </div><!--end row-->
 
             <div class="row align-items-center">
-                <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                    <div class="job-post job-type-three rounded shadow bg-white p-4">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <img src="{{ asset('images/company/google-logo.png') }}"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                <a href="employer-profile.html" class="h5 company text-dark d-block mt-2">Google</a>
+                @foreach ($similarJobs as $similarJob)
+                    <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
+                        <div class="job-post job-type-three rounded shadow bg-white p-4">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <img src="{{ asset('uploads/' . $similarJob->company->img) }}"
+                                        class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+                                    <a href="employer-profile.html"
+                                        class="h5 company text-dark d-block mt-2">{{ $similarJob->company->name }}</a>
+                                </div>
+                                <ul class="list-unstyled align-items-center mb-0">
+                                    <li class="list-inline-item">
+                                        <form action="{{ route('job.bookmark', $similarJob->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="btn btn-sm btn-icon btn-pills @if (auth()->user()->bookmarkedJobs->contains($similarJob)) btn-primary @else btn-soft-primary @endif bookmark"><i
+                                                    class="fa-regular fa-bookmark"></i></button>
+                                        </form>
+                                    </li>
+                                    <li class="list-inline-item"><a href="#"
+                                            class="btn btn-icon btn-sm btn-soft-primary"><i
+                                                class="fa-solid fa-arrow-up-right-from-square"></i></i></a></li>
+                                </ul>
                             </div>
-                            <ul class="list-unstyled align-items-center mb-0">
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i
-                                            class="fa-regular fa-bookmark"></i></a></li>
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i
-                                            class="fa-solid fa-arrow-up-right-from-square"></i></i></a></li>
-                            </ul>
+
+                            <div class="mt-2">
+                                <a href="job-detail-three.html" class="text-dark title h5">{{ $similarJob->title }}</a>
+                                <p class="text-muted mt-2">
+                                    {{ Str::limit($similarJob->description, $limit = 115, $end = '...') }}</p>
+
+                                <ul class="list-unstyled mb-0">
+                                    <li class="d-inline-block me-1"><a href="#"
+                                            class="badge bg-primary">{{ $similarJob->employment_type }}</a></li>
+                                    <li class="d-inline-block me-1"><a href="#"
+                                            class="badge bg-primary">${{ $similarJob->min_salary }}
+                                            - ${{ $similarJob->max_salary }}</a></li>
+                                    <li class="d-inline-block me-1"><a href="#" class="badge bg-primary"><i
+                                                class="fa-solid fa-location-dot pe-1"></i>{{ $similarJob->country }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                    </div><!--end col-->
+                @endforeach
 
-                        <div class="mt-2">
-                            <a href="job-detail-three.html" class="text-dark title h5">Marketing Director</a>
-                            <p class="text-muted mt-2">Looking for an experienced Web Designer for an our company.
-                            </p>
-
-                            <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">Part
-                                        Time</a></li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">$4,000
-                                        - $4,500</a></li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary"><i
-                                            class="fa-solid fa-location-dot pe-1"></i>Australia</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
+                {{-- <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
                     <div class="job-post job-type-three rounded shadow bg-white p-4">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -335,7 +346,7 @@
                             </ul>
                         </div>
                     </div>
-                </div><!--end col-->
+                </div><!--end col--> --}}
             </div><!--end row-->
         </div><!--end container-->
     </section>
