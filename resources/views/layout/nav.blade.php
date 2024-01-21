@@ -76,16 +76,30 @@
 
                 @auth
                     <li class="position-relative">
-                        <a href="{{ route('user.bookmark') }}" class="sub-menu-item">Bookmarks</a>
-                        @if ($count > 0)
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                                style="left: 100%; top:25%;">
-                                {{ $count }}
-                                @if ($count > 9)
-                                    +
-                                @endif
-                            </span>
-                        @endif
+                        @role('candidate')
+                            <a href="{{ route('user.bookmark.list') }}" class="sub-menu-item">My Jobs</a>
+                            @if ($countJobs > 0)
+                                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                    style="left: 100%; top:25%;">
+                                    {{ $countJobs }}
+                                    @if ($countJobs > 9)
+                                        +
+                                    @endif
+                                </span>
+                            @endif
+                        @endrole
+                        @role('employer')
+                            <a href="{{ route('user.bookmark.list') }}" class="sub-menu-item">Bookmarks</a>
+                            @if ($countUsers > 0)
+                                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                    style="left: 100%; top:25%;">
+                                    {{ $countUsers }}
+                                    @if ($countUsers > 9)
+                                        +
+                                    @endif
+                                </span>
+                            @endif
+                        @endrole
                     </li>
                 @endauth
 

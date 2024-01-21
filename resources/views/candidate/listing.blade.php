@@ -1,4 +1,4 @@
-@section('Title', 'Candidate Listing')
+@section('title', 'Candidate Listings | Skilltrack')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -55,8 +55,20 @@
                                             class="fa-regular fa-message icons"></i></a>
                                 </div>
 
-                                <a href="javascript:void(0)" class="like"><i
-                                        class="fa-solid fa-bookmark align-middle fs-4"></i></a>
+                                {{-- @role('employer') --}}
+                                    <form action="{{ route('user.bookmark', $candidate->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit"
+                                            style="border: none; background: none; -webkit-text-fill-color: unset !important;"
+                                            class="like @if (auth()->user()->bookmarkedUsers->contains($candidate)) text-danger @else text-muted @endif bookmark">
+                                            <i class="fa-solid fa-bookmark align-middle fs-4"></i>
+                                        </button>
+                                    </form>
+                                {{-- @endrole --}}
+
+                                {{-- <a href="" class="like">
+                                    <i class="fa-solid fa-bookmark align-middle fs-4"></i>
+                                </a> --}}
                             </div>
                         </div>
                     </div><!--end col-->
@@ -66,25 +78,6 @@
             <div class="d-flex justify-content-center">
                 {{ $candidates->links() }}
             </div>
-            {{-- <div class="row">
-                <div class="col-12 mt-4 pt-2">
-                    <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true"><i class="mdi mdi-chevron-left fs-6"></i></span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true"><i class="mdi mdi-chevron-right fs-6"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div><!--end col-->
-            </div><!--end row--> --}}
         </div><!--end container-->
     </section><!--end section-->
     <!-- End -->

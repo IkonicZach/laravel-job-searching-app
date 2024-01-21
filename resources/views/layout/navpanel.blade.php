@@ -59,17 +59,31 @@
                                     <span class="menu-expand">
                                         <i class="fi-rr-angle-small-down"></i>
                                     </span>
-                                    <a class="link position-relative" href="{{ route('user.bookmark') }}">
-                                        Bookmarks
-                                        @if ($count > 0)
-                                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                                                style="left: 120%">
-                                                {{ $count }}
-                                                @if ($count > 9)
-                                                    +
-                                                @endif
-                                            </span>
-                                        @endif
+                                    <a class="link position-relative" href="{{ route('user.bookmark.list') }}">
+                                        @role('candidate')
+                                            My Jobs
+                                            @if ($countJobs > 0)
+                                                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                                    style="left: 130%; top:25%;">
+                                                    {{ $countJobs }}
+                                                    @if ($countJobs > 9)
+                                                        +
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        @endrole
+                                        @role('employer')
+                                            Bookmarks
+                                            @if ($countUsers > 0)
+                                                <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                                    style="left: 115%; top:25%;">
+                                                    {{ $countUsers }}
+                                                    @if ($countUsers > 9)
+                                                        +
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        @endrole
                                     </a>
                                 </li>
                             @endauth

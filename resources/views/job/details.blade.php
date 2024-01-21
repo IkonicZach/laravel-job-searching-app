@@ -247,9 +247,11 @@
                                                     class="fa-regular fa-bookmark"></i></button>
                                         </form>
                                     </li>
-                                    <li class="list-inline-item"><a href="#"
-                                            class="btn btn-icon btn-sm btn-soft-primary"><i
-                                                class="fa-solid fa-arrow-up-right-from-square"></i></i></a></li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="btn btn-icon btn-sm btn-soft-primary">
+                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -272,81 +274,6 @@
                         </div>
                     </div><!--end col-->
                 @endforeach
-
-                {{-- <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                    <div class="job-post job-type-three rounded shadow bg-white p-4">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <img src="{{ asset('images/company/android.png') }}"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                <a href="employer-profile.html" class="h5 company text-dark d-block mt-2">Android</a>
-                            </div>
-
-                            <ul class="list-unstyled align-items-center mb-0">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="like"><i
-                                            class="mdi mdi-heart align-middle fs-3"></i></a></li>
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i data-feather="bookmark"
-                                            class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i data-feather="arrow-up-right"
-                                            class="icons"></i></a></li>
-                            </ul>
-                        </div>
-
-                        <div class="mt-2">
-                            <a href="job-detail-three.html" class="text-dark title h5">Application Developer</a>
-                            <p class="text-muted mt-2">Looking for an experienced Web Designer for an our company.
-                            </p>
-
-                            <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">Remote</a>
-                                </li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">$4,000
-                                        - $4,500</a></li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary"><i
-                                            class="mdi mdi-map-marker me-1"></i>Australia</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                    <div class="job-post job-type-three rounded shadow bg-white p-4">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <img src="{{ asset('images/company/lenovo-logo.png') }}"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                <a href="employer-profile.html" class="h5 company text-dark d-block mt-2">Lenovo</a>
-                            </div>
-
-                            <ul class="list-unstyled align-items-center mb-0">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="like"><i
-                                            class="mdi mdi-heart align-middle fs-3"></i></a></li>
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i data-feather="bookmark"
-                                            class="icons"></i></a></li>
-                                <li class="list-inline-item"><a href="#"
-                                        class="btn btn-icon btn-sm btn-soft-primary"><i data-feather="arrow-up-right"
-                                            class="icons"></i></a></li>
-                            </ul>
-                        </div>
-
-                        <div class="mt-2">
-                            <a href="job-detail-three.html" class="text-dark title h5">Senior Product Designer</a>
-                            <p class="text-muted mt-2">Looking for an experienced Web Designer for an our company.
-                            </p>
-
-                            <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">WFH</a></li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary">$4,000
-                                        - $4,500</a></li>
-                                <li class="d-inline-block me-1"><a href="#" class="badge bg-primary"><i
-                                            class="mdi mdi-map-marker me-1"></i>Australia</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!--end col--> --}}
             </div><!--end row-->
         </div><!--end container-->
     </section>

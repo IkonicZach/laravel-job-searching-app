@@ -23,14 +23,14 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(['layout.nav', 'layout.navpanel'], function ($view) {
             if (auth()->check()) {
                 $user = auth()->user();
-                $bookmarkedJobs = $user->bookmarkedJobs;
-                $count = count($bookmarkedJobs);
+                $countJobs = $user->bookmarkedJobs->count();
+                $countUsers = $user->bookmarkedUsers->count();
             } else {
-                $count = 0;
+                $countJobs = 0;
+                $countUsers = 0;
             }
 
-            $view->with('count', $count);
+            $view->with('countJobs', $countJobs)->with('countUsers', $countUsers);
         });
-
     }
 }

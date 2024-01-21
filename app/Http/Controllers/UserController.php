@@ -23,9 +23,6 @@ class UserController extends Controller
 
         return view('user.profile', compact('user'));
     }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $users = User::all();
@@ -33,50 +30,14 @@ class UserController extends Controller
         $candidates = User::simplePaginate(5)->where('role', '=', 'candidate');
         return view('admin.tabs.users', compact('users', 'employers', 'candidates'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
@@ -207,13 +168,52 @@ class UserController extends Controller
         }
     }
 
-    public function getBookmarkedJobs()
+    public function getBookmarkedItems()
     {
         $user = auth()->user();
-        $bookmarkedJobs = $user->bookmarkedJobs;
+        $bookmarkedJobs = $user->bookmarkedJobs()->paginate(9);
+        $bookmarkedUsers = $user->bookmarkedUsers()->paginate(8);
 
-        $count = count($bookmarkedJobs);
+        if ($user->hasRole('candidate')) {
+            return view('user.bookmarks', compact('user', 'bookmarkedJobs'));
+        } elseif ($user->hasRole('employer')) {
+            return view('user.bookmarks', compact('user', 'bookmarkedUsers'));
+        } else {
+            return view('user.bookmarks', compact('user', 'bookmarkedJobs', 'bookmarkedUsers'));
+        }
 
-        return $count;
+        // return view('candidate.bookmarks', compact('user', 'bookmarkedJobs', 'bookmarkedUsers'));
     }
+
+    public function bookmarkUser($userId)
+    {
+        try {
+            $user = auth()->user();
+            $bookmarkedUser = User::findOrFail($userId);
+
+            // Toggle the bookmark status
+            $user->bookmarkedUsers()->toggle($bookmarkedUser);
+
+            $message = $user->bookmarkedUsers->contains($bookmarkedUser)
+            ? 'Bookmarked successfully!'
+            : 'Unbookmarked successfully!';
+
+            $messageBody = $user->bookmarkedUsers->contains($bookmarkedUser)
+            ? 'User bookmarked successfully!'
+            : 'User unbookmarked successfully!';
+
+            return back()->with(compact('message', 'messageBody'));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getBookmarkedUsers()
+    {
+        $user = auth()->user();
+        $bookmarkedUsers = $user->bookmarkedUsers;
+
+        return view('bookmarked_users', compact('bookmarkedUsers'));
+    }
+
 }
