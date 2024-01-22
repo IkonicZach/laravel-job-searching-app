@@ -28,7 +28,9 @@
                 </p>
                 <div class="content">
                     @auth
-                        <h5 class="user-name"><span class="text-primary">{{ auth()->user()->name }}</span></h5>
+                        <h5 class="user-name">
+                            <span class="text-primary">{{ auth()->user()->name }}</span>
+                        </h5>
                     @else
                         <div class="buttons-group">
                             <a href="{{ route('user.login') }}" class="btn">Sign in</a>
@@ -46,12 +48,10 @@
                     <!-- mobile menu start -->
                     <nav>
                         <ul class="mobile-menu font-heading">
-                            <li class="has-children pt-0"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="index.html">Home</a>
+                            <li class="has-children pt-0">
+                                <a class="link" href="/">Home</a>
                             </li>
-                            <li class="has-children"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
+                            <li class="has-children">
                                 <a class="link" href="{{ route('job.index') }}">Browse Jobs</a>
                             </li>
                             @auth
@@ -87,17 +87,20 @@
                                     </a>
                                 </li>
                             @endauth
-                            <li class="has-children"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="employers-grid.html">Employers</a>
+                            <li class="has-children">
+                                <a class="link" href="{{ route('company.index') }}">Companies</a>
                             </li>
-                            <li class="has-children"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="candidates-grid.html">Candidates</a>
+                            <li class="has-children">
+                                <a class="link" href="{{ route('candidate.index') }}">Candidates</a>
                             </li>
-                            <li class="has-children"><span class="menu-expand"><i
-                                        class="fi-rr-angle-small-down"></i></span>
-                                <a class="link" href="#">Blog</a>
+                            <li class="has-children">
+                                <a class="link" href="#">Blogs</a>
+                            </li>
+                            <li class="has-children">
+                                <a class="link" href="{{ route('contact.index') }}">Contact Us</a>
+                            </li>
+                            <li class="has-children">
+                                <a class="link" href="{{ route('aboutus.index') }}">About Us</a>
                             </li>
                         </ul>
                     </nav>

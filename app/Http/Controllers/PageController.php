@@ -11,10 +11,6 @@ class PageController extends Controller
     {
         return view('auth.register_checkpoint');
     }
-    public function contact()
-    {
-        return view('contact.index');
-    }
 
     public function job()
     {
@@ -25,7 +21,7 @@ class PageController extends Controller
     {
         return view('admin.index');
     }
-    
+
     public function categories()
     {
     }
@@ -38,7 +34,7 @@ class PageController extends Controller
         $companies = Company::with('category')->get();
         return view('admin.tabs.companies', compact('companies', 'countries', 'cities', 'categories'));
     }
-    
+
     public function mail()
     {
         return view('mails.job-application-noti');
@@ -47,5 +43,10 @@ class PageController extends Controller
     public function error404()
     {
         return view('special.404');
+    }
+
+    public function aboutUs()
+    {
+        return view('special.about-us');
     }
 }

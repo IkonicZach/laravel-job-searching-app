@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
@@ -25,14 +26,24 @@ Route::get('/', function () {
     $jobs = Job::with('company')->orderBy('created_at', 'desc')->take(6)->get();
     return view('home', compact('jobs', 'companies'));
 });
+
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']);
 
 Route::resource('blog', BlogController::class);
-Route::get('contact', [PageController::class, 'contact'])->name('contact.index');
+
+Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');
+Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit');
+
+Route::get('aboutus', [PageController::class, 'aboutUs'])->name('aboutus.index');
+
 Route::resource('job', JobController::class)->only('index', 'show');
+
 Route::get('/search', [JobController::class, 'search'])->name('job.search');
+
 Route::get('/mail/test', [PageController::class, 'mail']);
+
 Route::resource('candidate', CandidateController::Class)->only('index');
+
 Route::resource('company', CompanyController::Class)->only('index');
 
 Route::middleware('auth')->group(function () {

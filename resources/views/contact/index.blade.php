@@ -44,48 +44,63 @@
                 <div class="col-md-6">
                     <div class="p-4 rounded shadow ms-lg-5">
                         <h4>Get in touch !</h4>
-                        <form class="mt-4" method="post" name="myForm" onsubmit="return validateForm()">
-                            <p class="mb-0" id="error-msg"></p>
-                            <div id="simple-msg"></div>
+                        <form class="mt-4" method="post" action="{{ route('contact.submit') }}">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold">Your Name <span
-                                                class="text-danger">*</span></label>
-                                        <input name="name" id="name" type="text" class="form-control"
-                                            placeholder="Name :">
+                                        <label class="form-label fw-semibold">
+                                            Your Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input name="name" id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" placeholder="Name :">
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold">Your Email <span
-                                                class="text-danger">*</span></label>
-                                        <input name="email" id="email" type="email" class="form-control"
-                                            placeholder="Email :">
+                                        <label class="form-label fw-semibold">
+                                            Your Email <span class="text-danger">*</span>
+                                        </label>
+                                        <input name="mail" type="email"
+                                            class="form-control @error('mail') is-invalid @enderror" placeholder="Email :">
+                                        @error('mail')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div><!--end col-->
 
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold">Subject</label>
-                                        <input name="subject" id="subject" class="form-control" placeholder="Subject :">
+                                        <input name="subject" id="subject"
+                                            class="form-control @error('subject') is-invalid @enderror"
+                                            placeholder="Subject :">
+                                        @error('subject')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div><!--end col-->
 
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold">Comments <span
+                                        <label class="form-label fw-semibold">Context <span
                                                 class="text-danger">*</span></label>
-                                        <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Message :"></textarea>
+                                        <textarea name="body" rows="4" class="form-control @error('body') is-invalid @enderror"
+                                            placeholder="Message :"></textarea>
+                                        @error('body')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button type="submit" id="submit" name="send" class="btn btn-primary">Send
-                                            Message</button>
+                                        <input type="submit"class="btn btn-primary" value="Send Message">
                                     </div>
                                 </div><!--end col-->
                             </div><!--end row-->
