@@ -9,8 +9,9 @@
     <link href="images/favicon.ico" rel="shortcut icon">
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet"> --}}
+    <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/choices.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/tobii.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom  Css -->
@@ -24,9 +25,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    {{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/tiny-slider.js') }}"></script>
     <script src="{{ asset('js/tobii.min.js') }}"></script>
+    <script src="{{ asset('js/choices.min.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <!-- Custom -->
     <script src="{{ asset('js/plugins.init.js') }}"></script>

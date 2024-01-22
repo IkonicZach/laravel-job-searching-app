@@ -139,7 +139,8 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $job = Job::findOrFail($id);
+        return view('employer.job.edit', compact('job'));
     }
 
     /**
@@ -255,7 +256,8 @@ class JobController extends Controller
         }
 
         $jobs = $query->paginate(10);
-        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts'));
+        $user = auth()->user();
+        return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
         // return $request->all();
     }
 }

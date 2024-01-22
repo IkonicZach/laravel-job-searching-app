@@ -20,8 +20,12 @@ class UserController extends Controller
     public function profile(string $id)
     {
         $user = User::with('resumes', 'user_skill')->findOrFail($id);
-
-        return view('user.profile', compact('user'));
+        if ($user->hasRole('employer')) {
+            $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
+            return view('user.profile', compact('user', 'jobs'));
+        } else {
+            return view('user.profile', compact('user'));
+        }
     }
     public function index()
     {
@@ -128,7 +132,7 @@ class UserController extends Controller
 
         $categories = Category::select('id', 'name')->get();
         $skills = Skill::select('id', 'name')->orderBy('name')->get();
-        return view('user.settings', compact('user', 'categories', 'skills', 'count'));
+        return view('user.settings', compact('user', 'categories', 'skills'));
     }
 
     public function passwordUpdate(PasswordUpdateRequest $request, string $id)

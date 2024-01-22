@@ -160,4 +160,29 @@
         <line x1="12" y1="19" x2="12" y2="5"></line>
         <polyline points="5 12 12 5 19 12"></polyline>
     </svg></a>
+
+<div role="dialog" aria-hidden="true" class="tobii"><button class="tobii__prev" type="button"
+        aria-label="Previous image"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 18l-6-6 6-6"></path>
+        </svg></button><button class="tobii__next" type="button" aria-label="Next image"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"
+            focusable="false">
+            <path d="M10 6l6 6-6 6"></path>
+        </svg></button><button class="tobii__close" type="button" aria-label="Close lightbox"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"
+            focusable="false">
+            <path d="M6 6l12 12M6 18L18 6"></path>
+        </svg></button>
+    <div class="tobii__counter"></div>
+    <div class="tobii__slider">
+        <div class="tobii__slider-slide" style="position: absolute; left: 0%;">
+            <div data-player="0" data-type="youtube"><iframe frameborder="0" allowfullscreen=""
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    title="Landrick Saas and Software Landing Page Template" width="640" height="360"
+                    src="https://www.youtube-nocookie.com/embed/yba7hPeTSjk?controls=1&amp;rel=0&amp;playsinline=1&amp;enablejsapi=1&amp;widgetid=1"
+                    id="widget2"></iframe></div>
+        </div>
+    </div>
+</div>
 <!-- Back to top -->

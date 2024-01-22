@@ -107,11 +107,14 @@
 
                                 <div>
                                     @role('employer')
-                                        <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">Your
-                                            Company</a>
+                                        @if (auth()->user()->id == request()->route()->id)
+                                            <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">Your
+                                                Company</a>
+                                            <a href="{{ route('user.settings', $user->id) }}"
+                                                class="btn btn-light icon-btn h5"><i class="fa-solid fa-gear"></i></a>
+                                        @endif
                                     @endrole
-                                    <a href="{{ route('user.settings', $user->id) }}" class="btn btn-light icon-btn h5"><i
-                                            class="fa-solid fa-gear"></i></a>
+
                                 </div>
                             </div>
                         </div>

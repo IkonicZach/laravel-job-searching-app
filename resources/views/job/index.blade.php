@@ -285,7 +285,7 @@
                                             class="d-inline">
                                             @csrf
                                             <button type="submit"
-                                                class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif bookmark"><i
+                                                class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark"><i
                                                     class="fa-regular fa-bookmark"></i></button>
                                         </form>
                                         <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"

@@ -55,7 +55,8 @@
                                             class="fa-regular fa-message icons"></i></a>
                                 </div>
 
-                                {{-- @role('employer') --}}
+                                @auth
+                                    {{-- @role('employer') --}}
                                     <form action="{{ route('user.bookmark', $candidate->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         <button type="submit"
@@ -64,7 +65,8 @@
                                             <i class="fa-solid fa-bookmark align-middle fs-4"></i>
                                         </button>
                                     </form>
-                                {{-- @endrole --}}
+                                    {{-- @endrole --}}
+                                @endauth
 
                                 {{-- <a href="" class="like">
                                     <i class="fa-solid fa-bookmark align-middle fs-4"></i>

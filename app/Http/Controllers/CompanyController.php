@@ -6,6 +6,7 @@ use App\Http\Requests\CompanyCreateRequest;
 use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Category;
 use App\Models\Company;
+use App\Models\Job;
 use App\Models\User;
 use Exception;
 
@@ -16,7 +17,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        // return view('admin.tabs.companies');
+        $categories = Category::select('id', 'name')->get();
+        $companies = Company::with('employer', 'jobs')->get();
+        return view('employer.company.listing', compact('companies', 'categories'));
     }
 
     /**
@@ -77,8 +80,11 @@ class CompanyController extends Controller
     public function edit(string $id)
     {
         try {
-            $categories = Category::select('id', 'name')->get();
             $company = Company::with('createdBy')->findOrFail($id);
+            if ($company->created_by != auth()->user()->id) {
+                abort(403);
+            }
+            $categories = Category::select('id', 'name')->get();
             return view('employer.company.edit', compact('company', 'categories'));
         } catch (Exception $e) {
             return $e->getMessage();
@@ -110,13 +116,16 @@ class CompanyController extends Controller
                 'socials' => $request->input('socials'),
                 'updated_by' => $request->input('updated_by'),
             ]);
-            // return $request->all();
-            $user = User::with('company')->findOrFail($id);
-            if ($user->company_id == null) {
-                return redirect()->route('employer.company.index');
-            } else {
-                return redirect()->route('employer.company.profile', $user->id);
-            }
+            $user = User::with('company')->findOrFail($request->input('updated_by'));
+            // if ($user->company_id == null) {
+            //     return redirect()->route('company.profile', $user->id);
+            // } else {
+            //     return redirect()->route('company.profile', $user->id);
+            // }
+
+            $message = "Updated Successfully!";
+            $messageBody = "Company details updated successfully.";
+            return redirect()->route('company.profile', $user->id)->with(compact('message', 'messageBody'));
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -143,6 +152,8 @@ class CompanyController extends Controller
     public function profile(String $id)
     {
         $user = User::with('company')->findOrFail($id);
-        return view('employer.company.profile', compact('user'));
+        $jobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->get();
+        $showJobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
+        return view('employer.company.profile', compact('user', 'jobs', 'showJobs'));
     }
 }

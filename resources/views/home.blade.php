@@ -357,210 +357,46 @@
             </div><!--end row-->
 
             <div class="row g-4 mt-0">
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/facebook-logo.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+                @foreach ($jobs as $job)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="job-post rounded shadow p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('uploads/' . $job->company->img) }}"
+                                        class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Facebook</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
-                                </div>
-                            </div>
-
-                            <span class="badge bg-soft-primary">Full Time</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">Web Designer / Developer</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    <div class="ms-3">
+                                        <a href="{{ route('company.profile', $job->company->created_by) }}"
+                                            class="h5 company text-">{{ $job->company->name }}</a>
+                                        <span class="text-muted d-flex align-items-center small mt-2">
+                                            <i data-feather="clock" class="fa-regular fa-clock me-1"></i>
+                                            {{ $job->created_at->diffForHumans() }}
+                                        </span>
+                                    </div>
                                 </div>
 
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
+                                <span class="badge bg-soft-primary">{{ $job->employment_type }}</span>
                             </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
 
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/google-logo.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+                            <div class="mt-4">
+                                <a href="{{ route('job.show', $job->id) }}" class="text- title h5">{{ $job->title }}</a>
 
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Google</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
+                                <span class="text-muted d-flex align-items-center mt-2">
+                                    <i data-feather="map-pin" class="fa-solid fa-location-dot me-1"></i>
+                                    {{ $job->country }}
+                                </span>
+
+                                <div class="progress-box mt-3">
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                    </div>
+
+                                    <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
                                 </div>
                             </div>
-
-                            <span class="badge bg-soft-primary">Part Time</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">Marketing Director</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
-                                </div>
-
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                            </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/android.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Android</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
-                                </div>
-                            </div>
-
-                            <span class="badge bg-soft-primary">Remote</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">Application Developer</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
-                                </div>
-
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                            </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/lenovo-logo.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Lenovo</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
-                                </div>
-                            </div>
-
-                            <span class="badge bg-soft-primary">WFH</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">Senior Product Designer</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
-                                </div>
-
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                            </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/spotify.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Spotify</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
-                                </div>
-                            </div>
-
-                            <span class="badge bg-soft-primary">Full Time</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">C++ Developer</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
-                                </div>
-
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                            </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="job-post rounded shadow p-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="images/company/linkedin.png"
-                                    class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-
-                                <div class="ms-3">
-                                    <a href="employer-profile.html" class="h5 company text-">Linkedin</a>
-                                    <span class="text-muted d-flex align-items-center small mt-2"><i data-feather="clock"
-                                            class="fa-regular fa-clock me-1"></i> 2 days ago</span>
-                                </div>
-                            </div>
-
-                            <span class="badge bg-soft-primary">Remote</span>
-                        </div>
-
-                        <div class="mt-4">
-                            <a href="job-detail-one.html" class="text- title h5">Php Developer</a>
-
-                            <span class="text-muted d-flex align-items-center mt-2"><i data-feather="map-pin"
-                                    class="fa-solid fa-location-dot me-1"></i>Australia</span>
-
-                            <div class="progress-box mt-3">
-                                <div class="progress mb-2">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
-                                </div>
-
-                                <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                            </div>
-                        </div>
-                    </div><!--end job post-->
-                </div><!--end col-->
-
+                        </div><!--end job post-->
+                    </div><!--end col-->
+                @endforeach
                 <div class="col-12 d-md-none d-block">
                     <div class="text-center">
                         <a href="job-grid-one.html" class="btn btn-link primary text-muted">See More Jobs <i
@@ -596,11 +432,11 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-">24/7 Support</a>
+                            <a href="#" class="title h5 text-dark">24/7 Support</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                        class="mdi mdi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -627,11 +463,11 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-">Tech &amp; Startup Jobs</a>
+                            <a href="#" class="title h5 text-dark">Tech &amp; Startup Jobs</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                        class="mdi mdi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -649,11 +485,11 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-">Quick &amp; Easy</a>
+                            <a href="#" class="title h5 text-dark">Quick &amp; Easy</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                        class="mdi mdi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -672,16 +508,16 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-">Save Time</a>
+                            <a href="#" class="title h5 text-dark">Save Time</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                        class="mdi mdi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div><!--end col-->
-            </div><!--end row-->
+            </div>
         </div><!--end container-->
 
         <div class="container mt-100 mt-60">
@@ -713,94 +549,31 @@
                     </div>
 
                     <div class="row g-4 mt-0">
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/google-logo.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
+                        @foreach ($companies as $company)
+                            <div class="col-md-6">
+                                <div class="employer-card rounded shadow p-2 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ asset('uploads/' . $company->img) }}"
+                                            class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Google</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
+                                        <div class="content ms-3">
+                                            <a href="employer-profile.html"
+                                                class="h5 title text-">{{ $company->name }}</a>
+                                            <span
+                                                class="text-muted d-flex align-items-center small mt-1">{{ count($company->jobs) }}
+                                                Jobs</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/facebook-logo.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
-
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Facebook</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/android.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
-
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Android</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/circle-logo.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
-
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Circle CI</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/lenovo-logo.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
-
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Lenovo</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="employer-card rounded shadow p-2 bg-light">
-                                <div class="d-flex align-items-center">
-                                    <img src="images/company/linkedin.png"
-                                        class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
-
-                                    <div class="content ms-3">
-                                        <a href="employer-profile.html" class="h5 title text-">Linkedin</a>
-                                        <span class="text-muted d-flex align-items-center small mt-1">10 vacancy</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
 
                     <div class="mt-4">
-                        <a href="employers.html" class="btn btn-link primary text-muted">See More Companies <i
-                                class="mdi mdi-arrow-right align-middle"></i></a>
+                        <a href="{{ route('company.index') }}" class="btn btn-link primary text-muted">
+                            See More Companies
+                            <i class="fa-solid fa-arrow-right align-middle"></i>
+                        </a>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->

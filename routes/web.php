@@ -16,10 +16,14 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TrashPageController;
 use App\Http\Controllers\UserController;
+use App\Models\Company;
+use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    $companies = Company::with('createdBy', 'jobs')->take(6)->get();
+    $jobs = Job::with('company')->orderBy('created_at', 'desc')->take(6)->get();
+    return view('home', compact('jobs', 'companies'));
 });
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']);
 
@@ -28,13 +32,13 @@ Route::get('contact', [PageController::class, 'contact'])->name('contact.index')
 Route::resource('job', JobController::class)->only('index', 'show');
 Route::get('/search', [JobController::class, 'search'])->name('job.search');
 Route::get('/mail/test', [PageController::class, 'mail']);
-Route::resource('/candidate', CandidateController::Class)->only('index');
+Route::resource('candidate', CandidateController::Class)->only('index');
+Route::resource('company', CompanyController::Class)->only('index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
     Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
     Route::get('/trash/job', [TrashPageController::class, 'job'])->name('trash.job');
-    // Route::resource('/candidate', CandidateController::Class)->except('index', 'show');
     Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
     Route::put('/user/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
@@ -43,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookmarks', [UserController::class, 'getBookmarkedItems'])->name('user.bookmark.list');
 
     Route::post('/bookmark/{id}/user', [UserController::class, 'bookmarkUser'])->name('user.bookmark');
+
+    Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //
@@ -58,8 +64,8 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
     Route::get('/profile', [EmployerController::class, 'profile'])->name('employer.profile');
     Route::get('/profile/setup', [EmployerController::class, 'setup'])->name('employer.profile.setup');
     Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
-    Route::resource('company', CompanyController::class);
-    Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');;
+    Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');
+    Route::resource('company', CompanyController::class)->except('index');
     Route::resource('job', JobController::class)->only('create', 'store', 'edit', 'update', 'destroy');
     Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 });
@@ -70,7 +76,6 @@ Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(functi
     // Route::get('/profile', [CandidateController::class, 'profile'])->name('candidate.profile');
     Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
     Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
-    Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
 
     Route::post('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
     Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
