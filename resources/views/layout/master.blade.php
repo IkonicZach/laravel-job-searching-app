@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <!-- favicon -->
-    <link href="images/favicon.ico" rel="shortcut icon">
+    <link href="{{ asset('images/favicon.ico') }}" rel="shortcut icon">
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet" type="text/css">

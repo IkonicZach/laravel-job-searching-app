@@ -78,16 +78,29 @@ class EmployerController extends Controller
         try {
             $id = $request->input('id');
             $user = User::find($id);
+
             if ($request->hasFile('img')) {
                 $imageName = time() . '.' . $request->img->extension();
                 $request->img->move(public_path('uploads'), $imageName);
+            } else {
+                $imageName = null;
             }
+
+            if ($request->hasFile('cover')) {
+                $coverName = time() . '_cover.' . $request->cover->extension();
+                $request->cover->move(public_path('uploads'), $coverName);
+            } else {
+                $coverName = null;
+            }
+
             $user->update([
+                'img' => $imageName ?? null,
+                'cover' => $coverName ?? null,
                 'phone' => $request->input('phone'),
-                'age' => $request->input('age'),
+                'birthday' => $request->input('birthday'),
+                'age' => $user->age,
                 'country' => $request->input('country'),
                 'city' => $request->input('city'),
-                'img' => $imageName ?? null,
             ]);
             return redirect()->route('employer.company.create');
         } catch (Exception $e) {

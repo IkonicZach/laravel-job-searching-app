@@ -27,6 +27,13 @@ class UserRegisterRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'role' => ['required', 'string'],
+            'check' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'check.boolean' => 'You must agree to terms and conditions.',
         ];
     }
 }

@@ -45,6 +45,11 @@ header .img-fluid {
     width: 5% !important;
 }
 
+.text-sm {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
 .avatar.avatar-medium,
 .avatar.avatar-md-md {
     object-fit: cover;

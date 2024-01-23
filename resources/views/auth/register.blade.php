@@ -1,128 +1,171 @@
-@section('title', 'Register account')
+@section('title', 'Register New Account | Skilltrack')
 @extends('layout.master')
 @section('content')
+    {{-- <style>
+        body {
+            background-color: rgb(243 244 246);
+        }
+    </style>
     <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="p-5 shadow-lg rounded w-40">
+        <div class="p-4 w-40 bg-white" style="box-shadow: 0 5px 13px rgba(30,41,59,0.2) !important; border-radius: 0.5rem;">
             <form method="POST" action="{{ route('user.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <label class="form-label fw-bold" for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                        <label class="text-sm fw-medium" for="name">Name</label>
+                        <input type="text" class="form-control mt-1 @error('name') is-invalid @enderror" id="name"
                             name="name" value="{{ old('name') }}">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-6 mb-3">
-                        <label class="form-label fw-bold" for="email">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                        <label class="text-sm fw-medium" for="email">Email</label>
+                        <input type="email" class="form-control mt-1 @error('email') is-invalid @enderror" id="email"
                             name="email" value="{{ old('email') }}">
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12 mb-3">
-                        <label class="form-label fw-bold" for="password">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        <label class="text-sm fw-medium" for="password">Password</label>
+                        <input type="password" class="form-control mt-1 @error('password') is-invalid @enderror" id="password"
                             name="password">
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12 mb-3">
-                        <label class="form-label fw-bold" for="password_confirmation">Confirm Password</label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        <label class="text-sm fw-medium" for="password_confirmation">Confirm Password</label>
+                        <input type="password" class="form-control mt-1" id="password_confirmation" name="password_confirmation">
                     </div>
-                    <div class="col-12">
-                        <label for="form-label fw-bold">What do you register for?</label>
+                    <div class="col-12 mb-3">
+                        <label class="text-sm fw-medium">What do you register for?</label>
                         <div class="row">
                             <div class="col-6">
-                                <input class="form-check-input @error('role') is-invalid @enderror" type="radio"
+                                <input class="form-check-input" type="radio"
                                     name="role" id="candidate" value="{{ encrypt('candidate') }}">
                                 @error('role')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <label class="form-check-label" for="candidate">To find jobs</label>
+                                <label class="form-check-label text-sm fw-medium" for="candidate">To find jobs</label>
                             </div>
                             <div class="col-6 ">
-                                <input class="form-check-input @error('role') is-invalid @enderror" type="radio"
+                                <input class="form-check-input" type="radio"
                                     name="role" id="employer" value="{{ encrypt('employer') }}">
                                 @error('role')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <label class="form-check-label" for="employer">To hire talents</label>
+                                <label class="form-check-label text-sm fw-medium" for="employer">To hire talents</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 row g-0 align-items-center">
-                        <small class="text-muted col-8">Already have an account? <a
-                                href="{{ route('user.login') }}">login</a>.</small>
-                        <button type="submit" class="btn btn-light col-4">Register</button>
+                    <div class="row align-items-center">
+                        <p class="text-muted col-8 m-0 text-sm">Already have an account?
+                            <a href="{{ route('user.login') }}">login</a>.
+                        </p>
+                        <button type="submit" class="btn btn-primary col-4">Register</button>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
-    {{-- <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+    </div> --}}
+    <section class="bg-home d-flex align-items-center" style="background: url('{{ asset('images/hero/bg3.jpg') }}') center;">
+        <div class="bg-overlay bg-linear-gradient-2"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-12">
+                    <div class="p-4 bg-white rounded shadow-md mx-auto w-100">
+                        <form method="POST" action="{{ route('user.store') }}">
+                            @csrf
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <a href="/">
+                                    <img src="{{ asset('images/logo-dark.png') }}" class="d-block mx-auto">
+                                </a>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                                <h6 class="text-uppercase fw-bold text-center">Register your account</h6>
+                            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label class="form-label fw-semibold">Your Name</label>
+                                    <input name="name" id="name" type="text"
+                                        class="form-control @error('name') is-invalid @enderror" placeholder="Calvin Carlo"
+                                        value="{{ old('name') }}">
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label class="form-label fw-semibold">Your Email</label>
+                                    <input name="email" id="email" type="email"
+                                        class="form-control  @error('email') is-invalid @enderror"
+                                        placeholder="example@website.com" value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold" for="loginpass">Password</label>
+                                    <input type="password" class="form-control  @error('password') is-invalid @enderror"
+                                        id="loginpass" name="password" placeholder="Password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold" for="passconf">Re-type Password</label>
+                                    <input type="password" class="form-control" id="passconf" name="password_confirmation"
+                                        placeholder="Enter password again">
+                                </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
+                                <div class="col-12 mb-3">
+                                    <label class="form-label fw-semibold">What do you register for? </label>
+                                    @error('role')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input class="form-check-input" type="radio" name="role" id="candidate"
+                                                value="{{ encrypt('candidate') }}">
+                                            <label class="form-check-label fw-semibold" for="candidate">To find
+                                                jobs</label>
+                                        </div>
+                                        <div class="col-6 ">
+                                            <input class="form-check-input" type="radio" name="role" id="employer"
+                                                value="{{ encrypt('employer') }}">
+                                            <label class="form-check-label fw-semibold" for="employer">To hire
+                                                talents</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input @error('check') is-invalid @enderror" type="checkbox"
+                                    name="check" id="check">
+                                <label class="form-label form-check-label text-muted" for="check">I Accept <a
+                                        href="" class="text-primary">Terms And Condition</a></label>
+                                @error('check')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-        <div class="mt-4">
-            <x-input-label for="" :value="__('What do you register for?')" />
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="role" id="candidate"
-                    value="candidate">
-                <label class="form-check-label" for="candidate">To find jobs</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="role" id="employer"
-                    value="employer">
-                <label class="form-check-label fs-sm" for="employer">To hire talents</label>
-            </div>
-        </div>
+                            <button class="btn btn-primary w-100" type="submit">Register</button>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 :text-gray-400 hover:text-gray-900 :hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 :focus:ring-offset-gray-800"
-                href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div> --}}
+                            <div class="col-12 text-center mt-3">
+                                <span><span class="text-muted small me-2">Already have an account ? </span> <a
+                                        href="{{ route('user.login') }}" class="text-dark fw-semibold small">Sign
+                                        in</a></span>
+                            </div><!--end col-->
+                        </form>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </section><!--end section-->
 @endsection
