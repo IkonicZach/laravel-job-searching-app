@@ -106,15 +106,14 @@
                                 </div>
 
                                 <div>
-                                    @role('employer')
-                                        @if (auth()->user()->id == request()->route()->id)
+                                    @if (auth()->user()->id == request()->route()->id)
+                                        @role('employer')
                                             <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">Your
                                                 Company</a>
-                                            <a href="{{ route('user.settings', $user->id) }}"
-                                                class="btn btn-light icon-btn h5"><i class="fa-solid fa-gear"></i></a>
-                                        @endif
-                                    @endrole
-
+                                        @endrole
+                                        <a href="{{ route('user.settings', $user->id) }}"
+                                            class="btn btn-light icon-btn h5"><i class="fa-solid fa-gear"></i></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -137,7 +136,7 @@
                                     <h6 class="font-weight-normal">{{ $skill->name }}</h6>
                                     <div class="progress">
                                         <div class="progress-bar position-relative bg-primary"
-                                            style="width:{{ $skill->pivot->proficiency }}%;">
+                                            style="width:{{ $skill->pivot->proficiency ?? '50' }}%;">
                                             <div class="progress-value d-block text-dark h6">
                                                 {{ $skill->pivot->proficiency }}%</div>
                                         </div>

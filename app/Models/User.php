@@ -15,7 +15,6 @@ class User extends Authenticatable
 
     protected $rememberTokenName = 'remember_token';
     protected $fillable = [
-        'role',
         'name',
         'email',
         'password',
@@ -31,10 +30,12 @@ class User extends Authenticatable
         'city',
         'skills',
         'preferred_category',
+        'notification_preferences',
+        'remember_token',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',
-        'remember_token',
     ];
     protected $casts = [
         'birthday' => 'date',

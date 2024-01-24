@@ -13,18 +13,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('role')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('img')->nullable();
+            $table->string('cover')->nullable();
+            $table->text('bio')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->string('position')->nullable();
+            $table->date('birthday')->nullable();
             $table->integer('age')->nullable();
             $table->integer('phone')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
+            $table->longText('skills')->nullable();
             $table->unsignedBigInteger('preferred_category')->nullable();
+            $table->longText('notification_preferences')->nullable();
+            $table->string('remember_token', 100)->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

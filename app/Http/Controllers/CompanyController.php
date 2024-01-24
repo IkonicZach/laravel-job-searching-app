@@ -84,6 +84,7 @@ class CompanyController extends Controller
             if ($company->created_by != auth()->user()->id) {
                 abort(403);
             }
+
             $categories = Category::select('id', 'name')->get();
             return view('employer.company.edit', compact('company', 'categories'));
         } catch (Exception $e) {
@@ -152,8 +153,21 @@ class CompanyController extends Controller
     public function profile(String $id)
     {
         $user = User::with('company')->findOrFail($id);
+
         $jobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->get();
         $showJobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
-        return view('employer.company.profile', compact('user', 'jobs', 'showJobs'));
+
+        $company = $user->company;
+        $similarCompanies = Company::where('id', '!=', $company->id)
+            ->where(function ($query) use ($company) {
+                $query->where('category_id', $company->category_id)
+                    ->orWhere('size', $company->size)
+                    ->orWhere('country', $company->country)
+                    ->orWhere('city', $company->city);
+            })
+            ->take(4)
+            ->get();
+
+        return view('employer.company.profile', compact('user', 'jobs', 'showJobs', 'similarCompanies'));
     }
 }

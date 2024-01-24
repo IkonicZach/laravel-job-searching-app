@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('age');
             $table->string('img');
-            $table->string('email')->unique()->nullable();
+            $table->string('email');
             $table->integer('phone')->nullable();
             $table->string('linkedin')->nullable();
             $table->mediumText('address');
@@ -49,8 +49,6 @@ return new class extends Migration
             $table->mediumText('hobbies')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

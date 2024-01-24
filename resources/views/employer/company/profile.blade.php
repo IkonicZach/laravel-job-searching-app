@@ -1,4 +1,4 @@
-@section('title', 'Employer Profile')
+@section('title', 'Company Profile | Skilltrack')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -321,97 +321,31 @@
             </div><!--end row-->
 
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-5">
-                    <div class="employer-card position-relative bg-white rounded shadow p-4 mt-3">
-                        <div
-                            class="employer-img d-flex justify-content-center align-items-center bg-white shadow-md rounded">
-                            <img src="{{ asset('images/company/circle-logo.png') }}" class="avatar avatar-ex-small"
-                                alt="">
+                @foreach ($similarCompanies as $company)
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-5">
+                        <div class="employer-card position-relative bg-white rounded shadow p-4 mt-3">
+                            <div
+                                class="employer-img d-flex justify-content-center align-items-center bg-white shadow-md rounded">
+                                <img src="{{ asset('uploads/' . $company->img) }}" class="avatar avatar-ex-small">
+                            </div>
+
+                            <div class="content mt-3">
+                                <a href="{{ route('company.profile', $company->created_by) }}"
+                                    class="title text-dark h5">{{ $company->name }}</a>
+
+                                <p class="text-muted mt-2 mb-0">
+                                    {{ Str::limit($company->bio, $limit = 80, $end = '.....') }}</p>
+                            </div>
+
+                            <ul
+                                class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
+                                <li class="text-muted d-inline-flex align-items-center"><i
+                                        class="fa-solid fa-location-dot me-1"></i>{{ $company->country }}</li>
+                                <li class="list-inline-item text-primary fw-medium">{{ count($company->jobs) }} Jobs</li>
+                            </ul>
                         </div>
-
-                        <div class="content mt-3">
-                            <a href="employer-profile.html" class="title text-dark h5">Circle</a>
-
-                            <p class="text-muted mt-2 mb-0">Digital Marketing Solutions for Tomorrow</p>
-                        </div>
-
-                        <ul
-                            class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
-                            <li class="text-muted d-inline-flex align-items-center"><i
-                                    class="fa-solid fa-location-dot me-1"></i>Pakistan</li>
-                            <li class="list-inline-item text-primary fw-medium">6 Jobs</li>
-                        </ul>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-5">
-                    <div class="employer-card position-relative bg-white rounded shadow p-4 mt-3">
-                        <div
-                            class="employer-img d-flex justify-content-center align-items-center bg-white shadow-md rounded">
-                            <img src="{{ asset('images/company/telegram.png') }}" class="avatar avatar-ex-small"
-                                alt="">
-                        </div>
-
-                        <div class="content mt-3">
-                            <a href="employer-profile.html" class="title text-dark h5">Telegram</a>
-
-                            <p class="text-muted mt-2 mb-0">Digital Marketing Solutions for Tomorrow</p>
-                        </div>
-
-                        <ul
-                            class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
-                            <li class="text-muted d-inline-flex align-items-center"><i data-feather="map-pin"
-                                    class="fea icon-sm me-1 align-middle"></i>India</li>
-                            <li class="list-inline-item text-primary fw-medium">6 Jobs</li>
-                        </ul>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-5">
-                    <div class="employer-card position-relative bg-white rounded shadow p-4 mt-3">
-                        <div
-                            class="employer-img d-flex justify-content-center align-items-center bg-white shadow-md rounded">
-                            <img src="{{ asset('images/company/whatsapp.png') }}" class="avatar avatar-ex-small"
-                                alt="">
-                        </div>
-
-                        <div class="content mt-3">
-                            <a href="employer-profile.html" class="title text-dark h5">Whatsapp</a>
-
-                            <p class="text-muted mt-2 mb-0">Digital Marketing Solutions for Tomorrow</p>
-                        </div>
-
-                        <ul
-                            class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
-                            <li class="text-muted d-inline-flex align-items-center"><i data-feather="map-pin"
-                                    class="fea icon-sm me-1 align-middle"></i>Rush</li>
-                            <li class="list-inline-item text-primary fw-medium">6 Jobs</li>
-                        </ul>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-5">
-                    <div class="employer-card position-relative bg-white rounded shadow p-4 mt-3">
-                        <div
-                            class="employer-img d-flex justify-content-center align-items-center bg-white shadow-md rounded">
-                            <img src="{{ asset('images/company/spotify.png') }}" class="avatar avatar-ex-small"
-                                alt="">
-                        </div>
-
-                        <div class="content mt-3">
-                            <a href="employer-profile.html" class="title text-dark h5">Spotify</a>
-
-                            <p class="text-muted mt-2 mb-0">Digital Marketing Solutions for Tomorrow</p>
-                        </div>
-
-                        <ul
-                            class="list-unstyled d-flex justify-content-between align-items-center border-top mt-3 pt-3 mb-0">
-                            <li class="text-muted d-inline-flex align-items-center"><i data-feather="map-pin"
-                                    class="fea icon-sm me-1 align-middle"></i>Turkey</li>
-                            <li class="list-inline-item text-primary fw-medium">6 Jobs</li>
-                        </ul>
-                    </div>
-                </div><!--end col-->
+                    </div><!--end col-->
+                @endforeach
             </div><!--end row-->
         </div><!--end container-->
     </section><!--end section-->
