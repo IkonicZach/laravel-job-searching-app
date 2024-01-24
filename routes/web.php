@@ -27,12 +27,12 @@ Route::get('/', function () {
     return view('home', compact('jobs', 'companies'));
 });
 
-Route::get('/get-subcategories', [JobController::class, 'getSubcategories']);
+Route::get('/get-subcategories', [JobController::class, 'getSubcategories']); // For dynamically showing subcategories
 
 Route::resource('blog', BlogController::class);
 
-Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');
-Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit');
+Route::get('contact', [ContactController::class, 'contact'])->name('contact.index'); // Contact us page
+Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit'); // Sending mail
 
 Route::get('aboutus', [PageController::class, 'aboutUs'])->name('aboutus.index');
 
@@ -68,6 +68,9 @@ Route::post('/user/login', [UserController::class, 'login'])->name('user.login')
 Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
 Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::delete('/user/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
+Route::get('/user/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
+Route::post('/user/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //

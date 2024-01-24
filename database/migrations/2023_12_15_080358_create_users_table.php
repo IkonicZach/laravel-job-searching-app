@@ -30,7 +30,7 @@ return new class extends Migration
             $table->unsignedBigInteger('preferred_category')->nullable();
             $table->longText('notification_preferences')->nullable();
             $table->string('remember_token', 100)->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

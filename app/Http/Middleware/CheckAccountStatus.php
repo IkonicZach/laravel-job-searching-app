@@ -14,16 +14,10 @@ class CheckAccountStatus
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->status === 'deactivated') {
-            if ($request->user() && $request->user()->id === Auth::id()) {
-                // Owner of the account
-                return redirect()->route('reactivate_account'); // You can create a named route for reactivation
-            } else {
-                // Not the owner, show error page
-                abort(403, 'This account is deactivated.');
-            }
+        if (auth()->check() && !auth()->user()->is_active) {
+            return redirect()->route('deactivated.account');
         }
 
         return $next($request);

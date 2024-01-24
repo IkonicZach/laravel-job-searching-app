@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -55,16 +56,25 @@ class UserController extends Controller
     public function login(UserLoginRequest $request)
     {
         try {
-            $remember = $request->has('remember');
             $credentials = $request->only('email', 'password');
 
-            if (auth()->attempt($credentials, $remember)) {
-                $user = Auth::user();
-                // $user->remember_token();
-                // $rememberToken = Auth::user()->getRememberToken();
-                // Cookie::make('remember_token', $rememberToken, 60 * 24 * 7); // Expires in 7 days
+            $user = User::withTrashed()->where('email', $credentials['email'])->first();
+
+            if ($user->deleted_at !== null) {
+                if (Auth::check() && $user->id !== auth()->user()->id) {
+                    return view('special.deactivated');
+                }
+                return view('special.deactivated', compact('user'));
+            }
+
+            if (auth()->attempt($credentials)) {
+
+                $user = auth()->user();
+
+                Auth::login($user);
 
                 $request->session()->regenerate();
+
                 if ($user->hasRole('employer')) {
                     return redirect()->route('user.profile', $user->id);
                 } elseif ($user->hasRole('candidate')) {
@@ -72,7 +82,6 @@ class UserController extends Controller
                 } else {
                     return redirect()->route('admin.dashboard');
                 }
-
             } else {
                 return back()->withErrors(['email' => 'Invalid credentials! Try again.']);
             }
@@ -218,6 +227,58 @@ class UserController extends Controller
         $bookmarkedUsers = $user->bookmarkedUsers;
 
         return view('bookmarked_users', compact('bookmarkedUsers'));
+    }
+
+    public function deactivate(Request $request, $id)
+    {
+        $user = auth()->user();
+        $password = $request->input('password');
+        if (Hash::check($password, $user->password)) {
+
+            $user->delete();
+
+            $message = 'Account Deactivated';
+            $messageBody = 'Your account has been deactivated successfully!';
+
+            return redirect()->route('user.login')->with(compact('message', 'messageBody'));
+        } else {
+            $message = 'Deactivation failed';
+            $messageBody = 'You entered the wrong password! Please try again';
+            return back()->with(compact('message', 'messageBody'));
+        }
+    }
+
+    public function deactivatePage()
+    {
+        return view('special.deactivated');
+    }
+
+    public function activate(UserLoginRequest $request)
+    {
+        try {
+            $credentials = $request->only('email', 'password');
+            $user = User::withTrashed()->where('email', $credentials['email'])->first();
+
+            if ($user && password_verify($credentials['password'], $user->password)) {
+                $user->restore();
+
+                Auth::login($user);
+
+                $request->session()->regenerate();
+
+                if ($user->hasRole('employer')) {
+                    return redirect()->route('user.profile', $user->id);
+                } elseif ($user->hasRole('candidate')) {
+                    return redirect()->route('job.index');
+                } else {
+                    return redirect()->route('admin.dashboard');
+                }
+            } else {
+                return redirect()->route('deactivated.account')->withErrors(['email' => 'Invalid credentials! Try again.']);
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
 }

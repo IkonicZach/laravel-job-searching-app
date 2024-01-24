@@ -371,7 +371,7 @@
                         </form>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- First Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" style="max-width: 700px">
@@ -399,16 +399,46 @@
                                     </p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <form action="" method="POST">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal2">Proceed</button>
+
+                                    {{-- <form action="{{ route('user.deactivate', $user->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Deactivate My Account</button>
-                                    </form>
+                                        <button type="submit" class="btn btn-danger">Proceed</button>
+                                    </form> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Second Modal -->
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content p-3">
+                                <div class="modal-header" style="border: none !important">
+                                    <h5 class="modal-title text-center" id="exampleModal2Label">Enter Your Password</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('user.deactivate', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="password" class="form-control my-3" name="password" placeholder="Password:">
+                                    <div class="modal-footer" style="border: none !important">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Confirm</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="rounded shadow p-4 mt-4">
                         <form>
                             <h5 class="text-danger">Delete Account :</h5>
@@ -417,7 +447,7 @@
                                 </h6>
                                 <div class="mt-4">
                                     <a class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Delete Account</a>
+                                        data-bs-target="#exampleModal">Deactivate Account</a>
                                 </div>
                             </div>
                         </form>
