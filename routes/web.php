@@ -80,7 +80,9 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
     Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
     Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');
     Route::resource('company', CompanyController::class)->except('index');
-    Route::resource('job', JobController::class)->only('create', 'store', 'edit', 'update', 'destroy');
+    Route::resource('job', JobController::class)->except('index', 'show');
+    Route::get('/job/{id}/applications',[JobController::class, 'applications'])->name('job.applications');
+    Route::get('/application/{id}/download', [JobController::class, 'download'])->name('application.download');
     Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 });
 // ---------------------------------------- Employer routes ---------------------------------------- //

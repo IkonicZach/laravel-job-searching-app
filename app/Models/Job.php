@@ -23,6 +23,7 @@ class Job extends Model
         'employment_type',
         'type',
         'deadline',
+        'limit',
         'status',
         'address',
         'country',

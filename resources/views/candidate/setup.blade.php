@@ -211,7 +211,7 @@
 
                             <div class="row mt-5">
                                 <div class="col-6">
-                                    <a href="" class="btn btn-light w-100">Skip</a>
+                                    <a href="{{ route('job.index') }}" class="btn btn-light w-100">Skip</a>
                                 </div>
                                 <div class="col-6">
                                     <input type="submit" class="submitBnt btn btn-primary w-100"

@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
 
-        View::composer(['admin.tabs.companies', 'employer.company.create', 'employer.company.edit', 'employer.company.listing', 'job.index'], function ($view) {
+        View::composer(['admin.tabs.companies', 'employer.company.create', 'employer.company.edit', 'employer.company.listing', 'job.index', 'job.edit'], function ($view) {
             $view->with('countries', ['United States', 'Japan', 'Myanmar', 'South Korea', 'United Kingdom']);
             $view->with('cities', ['Florida', 'Osaka', 'Yangon', 'Seoul', 'Birmingham']);
             $view->with('fields', ['Artificial Intelligence', 'Bioinformatics', 'Computer Engineering', 'Computer Graphics', 'Computer Science', 'Computer Networks', 'Cybersecurity', 'Data Science', 'Database Management', 'Digital Media', 'Game Development', 'Geographic Information Systems (GIS)', 'Health Informatics', 'Information Systems', 'Information Technology', 'Machine Learning', 'Mobile Computing', 'Network Administration', 'Robotics', 'Software Engineering', 'Systems Analysis', 'Web Development']);

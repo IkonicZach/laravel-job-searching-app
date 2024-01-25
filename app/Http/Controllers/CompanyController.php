@@ -155,7 +155,7 @@ class CompanyController extends Controller
         $user = User::with('company')->findOrFail($id);
 
         $jobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->get();
-        $showJobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
+        $showJobs = Job::with('applications')->where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
 
         $company = $user->company;
         $similarCompanies = Company::where('id', '!=', $company->id)

@@ -60,30 +60,34 @@ class UserController extends Controller
 
             $user = User::withTrashed()->where('email', $credentials['email'])->first();
 
-            if ($user->deleted_at !== null) {
-                if (Auth::check() && $user->id !== auth()->user()->id) {
-                    return view('special.deactivated');
+            if ($user) {
+                if ($user->deleted_at !== null) {
+                    if (Auth::check() && $user->id !== auth()->user()->id) {
+                        return view('special.deactivated');
+                    }
+                    return view('special.deactivated', compact('user'));
                 }
-                return view('special.deactivated', compact('user'));
-            }
 
-            if (auth()->attempt($credentials)) {
+                if (auth()->attempt($credentials)) {
 
-                $user = auth()->user();
+                    $user = auth()->user();
 
-                Auth::login($user);
+                    Auth::login($user);
 
-                $request->session()->regenerate();
+                    $request->session()->regenerate();
 
-                if ($user->hasRole('employer')) {
-                    return redirect()->route('user.profile', $user->id);
-                } elseif ($user->hasRole('candidate')) {
-                    return redirect()->route('job.index');
+                    if ($user->hasRole('employer')) {
+                        return redirect()->route('user.profile', $user->id);
+                    } elseif ($user->hasRole('candidate')) {
+                        return redirect()->route('job.index');
+                    } else {
+                        return redirect()->route('admin.dashboard');
+                    }
                 } else {
-                    return redirect()->route('admin.dashboard');
+                    return back()->withErrors(['email' => 'Invalid credentials! Try again.']);
                 }
             } else {
-                return back()->withErrors(['email' => 'Invalid credentials! Try again.']);
+                return back()->withErrors(['email' => 'User not found.']);
             }
         } catch (Exception $e) {
             return $e->getMessage();
@@ -266,12 +270,14 @@ class UserController extends Controller
 
                 $request->session()->regenerate();
 
+                $message = "Re-activated!";
+                $messageBody = "Your account has been reactivated successfully!";
                 if ($user->hasRole('employer')) {
-                    return redirect()->route('user.profile', $user->id);
+                    return redirect()->route('user.profile', $user->id)->with(compact('message', 'messageBody'));
                 } elseif ($user->hasRole('candidate')) {
-                    return redirect()->route('job.index');
+                    return redirect()->route('job.index')->with(compact('message', 'messageBody'));
                 } else {
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard')->with(compact('message', 'messageBody'));
                 }
             } else {
                 return redirect()->route('deactivated.account')->withErrors(['email' => 'Invalid credentials! Try again.']);

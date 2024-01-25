@@ -20,8 +20,12 @@
                                     class="avatar avatar-medium p-2 rounded-pill shadow bg-white" alt="">
                             </div>
                             <ul class="list-unstyled mb-0 col-7">
-                                <li class="d-flex align-items-center me-2"><i
-                                        class="fa-regular fa-building text-primary me-1"></i> {{ $job->company->name }}</li>
+                                <li class="d-flex align-items-center me-2 fw-semibold">
+                                    <a href="{{ route('company.profile', $job->company->created_by) }}" class="text-dark">
+                                        <i class="fa-regular fa-building text-primary me-1"></i>
+                                        {{ $job->company->name }}
+                                    </a>
+                                </li>
                                 <li class="d-flex align-items-center"> <i
                                         class="fa-solid fa-location-dot text-primary me-1"></i>
                                     {{ $job->city }}, {{ $job->country }}
@@ -39,7 +43,15 @@
 
                 <div class="col-lg-8 col-md-6">
                     <div class="sidebar border-0">
-                        <h5 class="mb-0">Job Information:</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Job Information:</h5>
+                            @if ($job->created_by == auth()->user()->id)
+                                <a href="{{ route('job.edit', $job->id) }}" class="btn icon-link btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Edit job details
+                                </a>
+                            @endif
+                        </div>
 
                         <ul class="list-unstyled mb-0 mt-4">
                             <li class="list-inline-item px-3 py-2 shadow rounded text-start m-1 bg-white">
@@ -234,7 +246,7 @@
                                 <div>
                                     <img src="{{ asset('uploads/' . $similarJob->company->img) }}"
                                         class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                    <a href="employer-profile.html"
+                                    <a href="{{ route('company.profile', $similarJob->company->created_by) }}"
                                         class="h5 company text-dark d-block mt-2">{{ $similarJob->company->name }}</a>
                                 </div>
                                 <ul class="list-unstyled align-items-center mb-0">

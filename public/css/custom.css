@@ -108,6 +108,10 @@ header .img-fluid {
     transition: 0.3s;
 }
 
+#applications:hover {
+    text-decoration: underline !important;
+}
+
 .header-content-area a:hover,
 .account a:hover {
     color: #3b82f6;

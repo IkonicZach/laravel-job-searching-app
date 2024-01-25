@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobRequest extends FormRequest
+class JobUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -39,7 +39,7 @@ class JobRequest extends FormRequest
             'address' => 'required',
             'country' => 'required',
             'city' => 'required',
-            'created_by' => 'required',
+            'updated_by' => 'required',
         ];
     }
 }

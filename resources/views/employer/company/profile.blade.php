@@ -96,9 +96,10 @@
                                                     </div>
 
                                                     <div
-                                                        class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0 w-100px">
-                                                        <span
-                                                            class="badge bg-soft-primary rounded-pill">{{ $job->employment_type }}</span>
+                                                        class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0">
+                                                        <span class="badge bg-soft-primary rounded-pill">
+                                                            {{ $job->employment_type }}
+                                                        </span>
                                                         <span
                                                             class="text-muted d-flex align-items-center fw-medium mt-md-2">
                                                             <i class="fa-regular fa-clock me-1"></i>
@@ -107,7 +108,7 @@
                                                     </div>
 
                                                     <div
-                                                        class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0 w-130px">
+                                                        class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
                                                         <span class="text-muted d-flex align-items-center">
                                                             <i class="fa-solid fa-location-dot me-1"></i>
                                                             {{ $job->country }}
@@ -118,22 +119,32 @@
                                                     </div>
 
                                                     <div class="mt-3 mt-md-0">
-                                                        <form action="{{ route('job.bookmark', $job->id) }}" method="POST"
-                                                            class="d-inline">
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark"><i
-                                                                    class="fa-regular fa-bookmark"></i></button>
-                                                        </form>
+                                                        @role('candidate')
+                                                            <form action="{{ route('job.bookmark', $job->id) }}" method="POST"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark">
+                                                                    <i class="fa-regular fa-bookmark"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endrole
                                                         @if ($user->id == auth()->user()->id)
                                                             <a href="{{ route('job.edit', $job->id) }}"
-                                                                class="btn btn-warning icon-link"><i
-                                                                    class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                                                class="btn btn-sm btn-warning icon-link">
+                                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                                Edit
+                                                            </a>
+                                                            <a href="{{ route('job.applications', $job->id) }}"
+                                                                class="btn btn-sm ms-1 btn-primary">
+                                                                View Applicants
+                                                            </a>
                                                         @else
                                                             <a data-bs-toggle="modal"
                                                                 data-bs-target="#jobApplyModal{{ $job->id }}"
-                                                                class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">Apply
-                                                                Now</a>
+                                                                class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">
+                                                                Apply Now
+                                                            </a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -153,11 +164,20 @@
                             <div class="col-lg-6 col-12">
                                 <div class="job-post rounded shadow bg-white">
                                     <div class="p-4">
-                                        <a href="job-detail-one.html" class="text-dark title h5">{{ $job->title }}</a>
-                                        <p class="text-muted d-flex align-items-center small mt-3">
-                                            <i class="fa-regular fa-clock text-primary me-1"></i>
-                                            Posted {{ $job->created_at->diffForHumans() }}
-                                        </p>
+                                        <a href="{{ route('job.show', $job->id) }}"
+                                            class="text-dark title h5">{{ $job->title }}</a>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="text-muted d-flex align-items-center small mt-3">
+                                                <i class="fa-regular fa-clock text-primary me-1"></i>
+                                                Posted {{ $job->created_at->diffForHumans() }}
+                                            </p>
+                                            <a href="{{ route('job.applications', $job->id) }}" class="text-muted small"
+                                                id="applications">
+                                                Applications: <span
+                                                    class="text-primary">{{ count($job->applications) }}</span>
+                                            </a>
+                                        </div>
+
                                         <ul
                                             class="list-unstyled d-flex justify-content-between align-items-center mb-0 mt-3">
                                             <li class="list-inline-item">

@@ -5,6 +5,12 @@
         .search-bar .searchform:after {
             display: none !important;
         }
+
+        #status {
+            font-size: xx-small;
+            top: -10px;
+            right: -30px;
+        }
     </style>
     @include('layout.nav')
     <div class="white-space"></div>
@@ -253,44 +259,74 @@
                                 @endauth
                                 <div
                                     class="job-post job-post-list rounded shadow p-4 d-md-flex align-items-center justify-content-between position-relative">
-                                    <div class="d-flex align-items-center w-250px">
+                                    <div class="d-flex align-items-center">
                                         <img src="{{ asset('uploads/' . $job->company->img) }}"
                                             class="avatar avatar-small rounded-circle shadow p-2 bg-white" alt="">
                                         <div class="ms-3">
                                             <a href="{{ route('job.show', $job->id) }}"
-                                                class="h5 title text-dark">{{ substr($job->title, 0, 30) }}</a>
+                                                class="h5 title text-dark position-relative">
+                                                {{ substr($job->title, 0, 30) }}
+                                                @if ($job->status == 'available')
+                                                    <span
+                                                        class="position-absolute translate-middle p-2 bg-success rounded-circle"
+                                                        id="status" data-bs-toggle="tooltip"
+                                                        data-bs-title="Available"></span>
+                                                @elseif ($job->status == 'unavailable')
+                                                    <span
+                                                        class="position-absolute translate-middle p-2 bg-danger rounded-circle"
+                                                        id="status" data-bs-toggle="tooltip"
+                                                        data-bs-title="Unavailable"></span>
+                                                @endif
+                                            </a>
                                             <small class="d-flex align-items-center"><i
                                                     class="fa-regular fa-building text-primary me-1"></i>
                                                 {{ $job->company->name }}</small>
                                         </div>
                                     </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0 w-100px">
+                                    <div class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0">
                                         <a class="badge bg-soft-primary rounded-pill">{{ $job->employment_type }}</a>
                                         <small class="text-muted d-flex align-items-center fw-medium mt-md-2"><i
                                                 class="fa-regular fa-clock pe-1"></i></i>{{ $job->created_at->diffForHumans() }}</small>
                                     </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0 w-130px">
+                                    <div class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
                                         <a class="text-muted d-flex align-items-center"><i
                                                 class="fa-solid fa-location-dot pe-1"></i>{{ $job->country }}</a>
                                         <span class="d-flex fw-medium mt-md-2">${{ $job->min_salary }} -
                                             ${{ $job->max_salary }}/mo</span>
                                     </div>
 
-                                    <div class="mt-3 mt-md-0">
+                                    <div class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
                                         <form action="{{ route('job.bookmark', $job->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             <button type="submit"
-                                                class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark"><i
-                                                    class="fa-regular fa-bookmark"></i></button>
+                                                class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Add to your jobs">
+                                                <i class="fa-regular
+                                                fa-bookmark"></i>
+                                            </button>
                                         </form>
                                         <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"
-                                            class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">Apply
-                                            Now</a>
+                                            class="btn btn-sm btn-primary w-full ms-md-1 @if ($job->status == 'unavailable') disabled @endif @role('employer') disabled @endrole">
+                                            Apply Now
+                                        </a>
+                                        @if ($job->limit !== null)
+                                            <?php $percentage = (count($job->applications) / $job->limit) * 100; ?>
+                                            <div class="progress-box text-center">
+                                                <div class="progress mt-2">
+                                                    <div class="progress-bar position-relative bg-primary"
+                                                        style="width:{{ $percentage }}%;">
+                                                    </div>
+                                                </div>
+                                                <small class="text-dark">
+                                                    <span class="text-primary">{{ count($job->applications) }}</span> /
+                                                    {{ $job->limit }} applicants
+                                                </small>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -318,7 +354,7 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="phone" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-phone h4 m-0"></i>
                         </div>
 
                         <div class="mt-4">
@@ -336,7 +372,7 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="cpu" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-microchip h4 m-0"></i>
                         </div>
 
                         <div class="mt-4">
@@ -354,7 +390,7 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="activity" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-circle-check h4 m-0"></i>
                         </div>
 
                         <div class="mt-4">
@@ -372,7 +408,7 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="clock" class="fea icon-ex-md"></i>
+                            <i class="fa-regular fa-clock h4 m-0"></i>
                         </div>
 
                         <div class="mt-4">

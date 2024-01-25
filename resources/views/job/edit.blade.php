@@ -1,4 +1,4 @@
-@section('title', 'Post a Job | Skilltrack')
+@section('title', 'Edit Job | Skilltrack')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -8,7 +8,7 @@
             <div class="row mt-5 justify-content-center">
                 <div class="col-12">
                     <div class="title-heading text-center">
-                        <h5 class="heading fw-semibold mb-0 sub-heading text-white title-dark">Post a job</h5>
+                        <h5 class="heading fw-semibold mb-0 sub-heading text-white title-dark">Edit your job</h5>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
@@ -17,8 +17,8 @@
                 <nav aria-label="breadcrumb" class="d-block">
                     <ul class="breadcrumb breadcrumb-muted mb-0 p-0">
                         <li class="breadcrumb-item"><a href="/">Skilltrack</a></li>
-                        <li class="breadcrumb-item"><a href="/jobs/listing">Job</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Job Post</li>
+                        <li class="breadcrumb-item"><a href="{{ route('job.show', $job->id) }}">Job Details</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Job Edit</li>
                     </ul>
                 </nav>
             </div>
@@ -39,10 +39,12 @@
             <div class="row justify-content-center">
                 <div class="col-8">
                     <div class="card border-0">
-                        <form class="rounded shadow p-4" action="{{ route('job.store') }}" method="POST">
+                        <form class="rounded shadow p-4" action="{{ route('job.update', $job->id) }}" method="POST">
                             @csrf
-                            <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
+                            @method('PUT')
+                            <input type="hidden" name="updated_by" value="{{ auth()->user()->id }}">
                             <input type="hidden" name="company_id" value="{{ auth()->user()->company->id }}">
+
                             <div class="row">
                                 <h5 class="mb-3">Job Details:</h5>
                                 <div class="col-12">
@@ -50,7 +52,7 @@
                                         <label class="form-label fw-semibold" for="title">Job Title :</label>
                                         <input name="title" id="title"
                                             class="form-control @error('title') is-invalid @enderror" placeholder="Title :"
-                                            value="{{ old('title') }}">
+                                            value="{{ $job->title }}">
                                         @error('title')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -59,7 +61,8 @@
 
                                 <div class="col-12 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="limit_bol">
+                                        <input class="form-check-input" type="checkbox" id="limit_bol"
+                                            @if ($job->limit != null) checked @endif>
                                         <label class="form-check-label fw-semibold" for="limit_bol">
                                             Limit applicants <small class="text-muted fw-normal">(Limit how many applicants
                                                 and apply your job)</small>
@@ -71,7 +74,8 @@
                                     <label for="limit" class="col-sm-3 col-form-label fw-semibold">Applicants limit:
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="number" name="limit" class="form-control" id="limit" disabled>
+                                        <input type="number" name="limit" class="form-control" id="limit"
+                                            @if ($job->limit == null) disabled @else value="{{ $job->limit }}" @endif>
                                     </div>
                                 </div>
 
@@ -79,7 +83,7 @@
                                     <div class="mb-3">
                                         <label for="description" class="form-label fw-semibold">Desciption: </label>
                                         <textarea name="description" id="description" rows="5"
-                                            class="form-control @error('description') is-invalid @enderror" placeholder="Describe the job: ">{{ old('description') }}</textarea>
+                                            class="form-control @error('description') is-invalid @enderror" placeholder="Describe the job: ">{{ $job->description }}</textarea>
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -92,35 +96,32 @@
                                         </label>
                                         <textarea name="responsibilities" id="responsibilities" rows="5"
                                             class="form-control @error('responsibilities') is-invalid @enderror"
-                                            placeholder="Describe the responsibilities as a list: ">{{ old('responsibilities') }}</textarea>
+                                            placeholder="Describe the responsibilities as a list: ">{{ $job->responsibilities }}</textarea>
                                         @error('responsibilities')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="benefits" class="form-label fw-semibold">Benefits: </label>
                                         <textarea name="benefits" id="benefits" rows="5" class="form-control @error('benefits') is-invalid @enderror"
-                                            placeholder="Describe the benefits as a list: ">{{ old('benefits') }}</textarea>
+                                            placeholder="Describe the benefits as a list: ">{{ $job->benefits }}</textarea>
                                         @error('benefits')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="requirements" class="form-label fw-semibold">Requirements: </label>
                                         <textarea name="requirements" id="requirements" rows="5"
-                                            class="form-control @error('requirements') is-invalid @enderror" placeholder="Describe the requirements: ">{{ old('requirements') }}</textarea>
+                                            class="form-control @error('requirements') is-invalid @enderror" placeholder="Describe the requirements: ">{{ $job->requirements }}</textarea>
                                         @error('requirements')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold">Job Field:</label>
@@ -129,7 +130,7 @@
                                             <option selected disabled value="">Choose Field</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $job->category_id == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }} </option>
                                             @endforeach
                                         </select>
@@ -144,7 +145,10 @@
                                         <select
                                             class="form-control form-select @error('subcategory_id') is-invalid @enderror"
                                             id="subcategory_id" name="subcategory_id">
-                                            <option selected disabled value="">Choose Subcategory</option>
+                                            <option value="{{ $job->subcategory_id }}" selected>
+                                                {{ $job->subcategory->name }}
+                                            </option>
+                                            {{-- <option selected disabled value="">Choose Subcategory</option> --}}
                                         </select>
                                         @error('subcategory_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -167,7 +171,7 @@
                                                         class="form-control @error('min_salary') is-invalid @enderror"
                                                         min="1" max="10000" placeholder="Min" id="min"
                                                         name="min_salary" aria-describedby="inputGroupPrepend"
-                                                        value="{{ old('min_salary') }}">
+                                                        value="{{ $job->min_salary }}">
                                                     @error('min_salary')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -184,7 +188,7 @@
                                                         class="form-control @error('max_salary') is-invalid @enderror"
                                                         min="1" max="10000" placeholder="Max" id="max"
                                                         name="max_salary" aria-describedby="inputGroupPrepend"
-                                                        value="{{ old('max_salary') }}">
+                                                        value="{{ $job->max_salary }}">
                                                     @error('max_salary')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -198,13 +202,14 @@
                                 {{-- Employment type selection starts here  --}}
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" for="employment_type">Employment:</label>
-                                    <select class="form-control form-select @error('employment_type') is-invalid @enderror"
+                                    <select
+                                        class="form-control form-select @error('employment_type') is-invalid @enderror"
                                         id="employment_type" name="employment_type">
                                         <option selected disabled value="">Choose Employment</option>
 
-                                        @foreach ($employment_types['name'] as $type)
+                                        @foreach ($employment_types as $type)
                                             <option value="{{ $type }}"
-                                                {{ old('employment_type') == $type ? 'selected' : '' }}>
+                                                {{ $job->employment_type == $type ? 'selected' : '' }}>
                                                 {{ $type }} </option>
                                         @endforeach
                                     </select>
@@ -220,11 +225,11 @@
                                     <select class="form-control form-select mb-3 @error('type') is-invalid @enderror"
                                         id="type" name="type">
                                         <option selected disabled value="">Choose Type</option>
-                                        <option value="Remote" {{ old('type') == 'Remote' ? 'selected' : '' }}>Remote
+                                        <option value="Remote" {{ $job->type == 'Remote' ? 'selected' : '' }}>Remote
                                         </option>
-                                        <option value="On-site" {{ old('type') == 'On-site' ? 'selected' : '' }}>On-site
+                                        <option value="On-site" {{ $job->type == 'On-site' ? 'selected' : '' }}>On-site
                                         </option>
-                                        <option value="Hybrid" {{ old('type') == 'Hybrid' ? 'selected' : '' }}>Hybrid
+                                        <option value="Hybrid" {{ $job->type == 'Hybrid' ? 'selected' : '' }}>Hybrid
                                         </option>
                                     </select>
                                     @error('type')
@@ -236,7 +241,7 @@
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold" for="deadline">Choose deadline:</label>
                                     <input type="date" class="form-control @error('deadline') is-invalid @enderror"
-                                        name="deadline" id="deadline" value="{{ old('deadline') }}">
+                                        name="deadline" id="deadline" value="{{ $job->deadline }}">
                                     @error('deadline')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -248,11 +253,11 @@
                                     <select class="form-control form-select mb-3 @error('status') is-invalid @enderror"
                                         id="status" name="status">
                                         <option selected disabled value="">Choose Status</option>
-                                        <option value="Available" {{ old('status') == 'Available' ? 'selected' : '' }}>
+                                        <option value="Available" {{ $job->status == 'Available' ? 'selected' : '' }}>
                                             Available</option>
-                                        <option value="Unavailabe" {{ old('status') == 'Unavailabe' ? 'selected' : '' }}>
+                                        <option value="Unavailabe" {{ $job->status == 'Unavailabe' ? 'selected' : '' }}>
                                             Unavailabe</option>
-                                        <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending
+                                        <option value="Pending" {{ $job->status == 'Pending' ? 'selected' : '' }}>Pending
                                         </option>
                                     </select>
                                     @error('status')
@@ -265,7 +270,7 @@
                                         <label class="form-label fw-semibold" for="address">Address:</label>
                                         <input name="address" id="address" type="text"
                                             class="form-control @error('address') is-invalid @enderror"
-                                            placeholder="Address" value="{{ old('address') }}">
+                                            placeholder="Address" value="{{ $job->address }}">
                                         @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -278,9 +283,9 @@
                                         <select class="form-control form-select @error('country') is-invalid @enderror"
                                             id="Country" name="country">
                                             <option selected disabled value="">Choose Country</option>
-                                            @foreach ($countries['name'] as $country)
+                                            @foreach ($countries as $country)
                                                 <option value="{{ $country }}"
-                                                    {{ old('country') == $country ? 'selected' : '' }}>{{ $country }}
+                                                    {{ $job->country == $country ? 'selected' : '' }}>{{ $country }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -296,9 +301,9 @@
                                         <select class="form-control form-select @error('city') is-invalid @enderror"
                                             id="city" name="city">
                                             <option selected disabled value="">Choose City</option>
-                                            @foreach ($cities['name'] as $city)
+                                            @foreach ($cities as $city)
                                                 <option value="{{ $city }}"
-                                                    {{ old('city') == $city ? 'selected' : '' }}>{{ $city }}
+                                                    {{ $job->city == $city ? 'selected' : '' }}>{{ $city }}
                                                 </option>
                                             @endforeach
                                         </select>

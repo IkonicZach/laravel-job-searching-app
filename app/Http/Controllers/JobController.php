@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JobApplyRequest;
 use App\Http\Requests\JobRequest;
+use App\Http\Requests\JobUpdateRequest;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\Subcategory;
+use App\Models\User;
 use App\Notifications\JobApplicationNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class JobController extends Controller
 {
@@ -45,7 +48,7 @@ class JobController extends Controller
 
         $user = auth()->user();
         $categories = Category::select('id', 'name')->get();
-        $jobs = Job::paginate(10);
+        $jobs = Job::with('applications')->paginate(10);
 
         return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
     }
@@ -98,6 +101,7 @@ class JobController extends Controller
             'employment_type' => $request->input('employment_type'),
             'type' => $request->input('type'),
             'deadline' => $request->input('deadline'),
+            'limit' => $request->input('limit') ?? null,
             'status' => $request->input('status'),
             'address' => $request->input('address'),
             'country' => $request->input('country'),
@@ -139,16 +143,49 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        $job = Job::findOrFail($id);
-        return view('employer.job.edit', compact('job'));
+        $job = Job::with('subcategory')->findOrFail($id);
+        $categories = Category::select('id', 'name')->get();
+        $subcategories = Subcategory::select('id', 'name')->get();
+        return view('job.edit', compact('job', 'categories', 'subcategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(JobUpdateRequest $request, string $id)
     {
-        //
+        try {
+            $job = Job::findOrFail($id);
+
+            $job->update([
+                'company_id' => $request->input('company_id'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'responsibilities' => $request->input('responsibilities'),
+                'benefits' => $request->input('benefits'),
+                'requirements' => $request->input('requirements'),
+                'category_id' => $request->input('category_id'),
+                'subcategory_id' => $request->input('subcategory_id'),
+                'min_salary' => $request->input('min_salary'),
+                'max_salary' => $request->input('max_salary'),
+                'employment_type' => $request->input('employment_type'),
+                'type' => $request->input('type'),
+                'deadline' => $request->input('deadline'),
+                'limit' => $request->input('limit') ?? null,
+                'status' => $request->input('status'),
+                'address' => $request->input('address'),
+                'country' => $request->input('country'),
+                'city' => $request->input('city'),
+                'updated_by' => $request->input('updated_by'),
+            ]);
+
+            $message = "Updated Successfully!";
+            $messageBody = "Job details updated successfully.";
+            return redirect()->route('job.show', $job->id)->with(compact('message', 'messageBody'));
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -162,24 +199,49 @@ class JobController extends Controller
     public function apply(JobApplyRequest $request, string $id)
     {
         try {
-            $resumeName = time() . '.' . $request->resume_path->extension();
-            $request->resume_path->move(public_path('downloads/resume'), $resumeName);
+            $user_id = $request->input('user_id');
+            $job = Job::with('applications')->findOrFail($id);
 
-            $user = Auth::user();
-            $application = Application::create([
-                'user_id' => $request->input('user_id'),
-                'job_id' => $id,
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'resume_path' => $resumeName,
-            ]);
+            if ($job->limit != null) {
+                if (count($job->applications) >= $job->limit) {
+                    $message = "Application Failed!";
+                    $messageBody = "Application is full. You cannot apply anymore.";
+                    return back()->with(compact('message', 'messageBody'));
+                }
+            }
 
-            $application->notify(new JobApplicationNotification($application));
+            $count = Application::where('user_id', $user_id)
+                ->where('job_id', $id)
+                ->count();
 
-            $message = "Applied successfully!";
-            $messageBody = "You have successfully applied the job.";
-            return redirect()->route('job.index')->with(compact('message', 'messageBody'));
-            // return $request->all();
+            if ($count > 0) { // Checking whether user has already applied or not
+                $message = "Application failed!";
+                $messageBody = "You have already applied to this job.";
+                return redirect()->route('job.show', $id)->with(compact('message', 'messageBody'));
+            } else {
+                $resumeName = time() . '.' . $request->resume_path->extension();
+                $request->resume_path->move(public_path('downloads/resume'), $resumeName); // Storing resume
+
+                $application = Application::create([
+                    'user_id' => $user_id,
+                    'job_id' => $job->id,
+                    'email' => $request->input('email'),
+                    'phone' => $request->input('phone'),
+                    'resume_path' => $resumeName,
+                ]);
+
+                $application->notify(new JobApplicationNotification($application));
+
+                $count = Application::where('job_id', $job->id)->count();
+                if ($count >= $job->limit) {
+                    $job->status = "unavailable";
+                    $job->save();
+                }
+
+                $message = "Applied successfully!";
+                $messageBody = "You have successfully applied the job.";
+                return redirect()->route('job.show', $id)->with(compact('message', 'messageBody'));
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -259,5 +321,22 @@ class JobController extends Controller
         $user = auth()->user();
         return view('job.index', compact('jobs', 'categories', 'employment_types', 'allEmploymentTypeCounts', 'user'));
         // return $request->all();
+    }
+
+    public function applications($id)
+    {
+        $applications = Application::with('user')->where('job_id', $id)->get();
+        return view('job.applications', compact('applications'));
+    }
+
+    public function download($id)
+    {
+        $application = Application::findOrFail($id);
+
+        $file = public_path('downloads/resume/' . $application->resume_path);
+
+        return Response::download($file, 'resume.pdf', [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

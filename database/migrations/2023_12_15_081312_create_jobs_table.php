@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('status');
-            $table->dateTime('deadline');
-            $table->integer('applications');
+            $table->date('deadline');
+            $table->integer('limit')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
