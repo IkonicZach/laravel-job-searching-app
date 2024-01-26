@@ -193,7 +193,43 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $job = Job::findOrFail($id);
+        $job->delete();
+
+        $message = "Moved to trash";
+        $messageBody = "The job has been moved to trash successfully!";
+
+        return redirect()->route('company.profile', $job->created_by)->with(compact('message', 'messageBody'));
+    }
+
+    public function restore(string $id)
+    {
+        try {
+            $job = Job::withTrashed()->findOrFail($id);
+            $job->restore();
+
+            $message = "Restored successfully!";
+            $messageBody = "'$job->name' resume has been restored successfully!";
+
+            return redirect()->route('job.trash')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function delete(string $id)
+    {
+        try {
+            $job = Job::withTrashed()->findOrFail($id);
+            $job->forceDelete();
+
+            $message = "Permanently deleted successfully!";
+            $messageBody = "Job'$job->id' has been permanently deleted!";
+
+            return redirect()->route('job.trash')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function apply(JobApplyRequest $request, string $id)

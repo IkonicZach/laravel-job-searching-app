@@ -16,6 +16,8 @@ class Company extends Model
         'category_id',
         'img',
         'size',
+        'founder',
+        'founded',
         'country',
         'city',
         'address',

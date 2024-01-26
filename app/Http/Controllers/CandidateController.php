@@ -97,6 +97,11 @@ class CandidateController extends Controller
             $user->cover = $coverName;
         }
 
+        if($request->has('skills')){
+            $user->skills = $request->input('skills', []);
+            $user->save();
+        }
+
         $user->update([
             'name' => $request->input('name') ?? $user->name,
             'bio' => $request->input('bio') ?? $user->bio,

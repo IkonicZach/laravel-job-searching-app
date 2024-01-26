@@ -23,7 +23,7 @@ class EmployerCreateRequest extends FormRequest
     {
         return [
             'img' => 'required|image|mimes:jpeg,png|max:2048',
-            'phone' => 'required',
+            'phone' => 'required|numeric|digits:11',
             'bio' => 'min:50',
             'country' => 'required',
             'city' => 'required',

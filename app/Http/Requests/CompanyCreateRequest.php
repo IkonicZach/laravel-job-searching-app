@@ -28,6 +28,8 @@ class CompanyCreateRequest extends FormRequest
             'category_id' => 'required|numeric',
             'img' => 'required|image|mimes:jpeg,png|max:2048',
             'size' => 'required|numeric',
+            'founder' => 'required',
+            'founded' => 'required',
             'country' => 'required',
             'city' => 'required',
             'address' => 'required',

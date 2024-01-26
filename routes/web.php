@@ -81,7 +81,11 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
     Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');
     Route::resource('company', CompanyController::class)->except('index');
     Route::resource('job', JobController::class)->except('index', 'show');
-    Route::get('/job/{id}/applications',[JobController::class, 'applications'])->name('job.applications');
+    Route::get('/job/trash', [TrashPageController::class, 'job'])->name('job.trash');
+    Route::post('/job/{id}/restore', [JobController::class, 'restore'])->name('job.restore');
+    Route::delete('/job/{id}/delete', [JobController::class, 'delete'])->name('job.delete');
+
+    Route::get('/job/{id}/applications', [JobController::class, 'applications'])->name('job.applications');
     Route::get('/application/{id}/download', [JobController::class, 'download'])->name('application.download');
     Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 });

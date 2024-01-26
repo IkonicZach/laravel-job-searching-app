@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->text('img');
             $table->integer('size');
+            $table->string('founder');
+            $table->year('founded');
             $table->string('country');
             $table->string('city');
             $table->string('address');

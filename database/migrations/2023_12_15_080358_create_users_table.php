@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('position')->nullable();
             $table->date('birthday')->nullable();
             $table->integer('age')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->longText('skills')->nullable();

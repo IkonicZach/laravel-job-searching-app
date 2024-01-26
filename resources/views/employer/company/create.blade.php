@@ -1,7 +1,7 @@
-@section('title', 'Your Company')
+@section('title', 'Create Your Company Profile | Skilltrack')
 @extends('layout.master')
 @section('content')
-    <!-- Job apply form Start -->
+    <!-- Company create form Start -->
     <section class="section bg-light">
         <div class="container">
             <div class="row justify-content-center">
@@ -24,6 +24,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label class="form-label fw-semibold" for="email">Email:</label>
@@ -44,6 +45,28 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="founded">Founded Year:</label>
+                                            <input class="form-control @error('founded') is-invalid @enderror" type="number"
+                                                name="founded" id="founded" placeholder="Company's email:"
+                                                value="{{ old('founded') ?? '1950' }}" min="1950" max="2024">
+                                            @error('founded')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="founder">Founder:</label>
+                                            <input class="form-control @error('founder') is-invalid @enderror"
+                                                type="text" name="founder" id="founder"
+                                                placeholder="Name of the founder: " value="{{ old('founder') }}">
+                                            @error('founder')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-12 mb-3">
                                         <label class="form-label fw-semibold" for="img">Upload Company Picture
                                             :</label>
@@ -162,5 +185,5 @@
             </div>
         </div><!--end container-->
     </section><!--end section-->
-    <!-- Job apply form End -->
+    <!-- Company create form End -->
 @endsection

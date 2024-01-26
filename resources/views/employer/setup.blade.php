@@ -60,7 +60,7 @@
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label class="form-label fw-semibold" for="phone">Your Phone :</label>
-                                            <input type="number" name="phone" id="phone"
+                                            <input type="text" name="phone" id="phone"
                                                 class="form-control @error('phone') is-invalid @enderror"
                                                 placeholder="Phone :" value="{{ old('phone') }}">
                                             @error('phone')
