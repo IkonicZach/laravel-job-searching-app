@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SubcategoryController;
@@ -68,9 +69,16 @@ Route::post('/user/login', [UserController::class, 'login'])->name('user.login')
 Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
 Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+
 Route::delete('/user/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
 Route::get('/user/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
 Route::post('/user/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
+
+Route::get('/forgot-password', [PasswordController::class, 'create'])->name('password.forgot'); // Show Password Reset Page
+Route::post('/forgot-password', [PasswordController::class, 'send'])->name('password.send'); // Send Email
+Route::get('/reset-password/{token}', [PasswordController::class, 'resetPage'])->name('password.reset.page'); // Show Reset Password
+Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.reset'); // Reset Password
+
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //

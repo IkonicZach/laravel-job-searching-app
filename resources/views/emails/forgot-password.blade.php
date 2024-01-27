@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Job Application</title>
+    <title>Password Reset</title>
 </head>
 
 <style>
@@ -48,21 +48,26 @@
 </style>
 
 <body>
-    <h1>New Job Application</h1>
+    <p>Hello name</p>
 
-    <p>Your job application has been submitted.</p>
+    <p>We received a request to reset your password. If you didn't make this request, you can ignore this email.</p>
 
-    <strong>Application Details:</strong>
-    <ul style="padding: 0; list-style: none;">
-        <li><b>Job Title: </b>{{ $application->job->title ?? 'N/A' }}</li>
-        <li><b>Applicant Name: </b>{{ $application->user->name ?? 'N/A' }}</li>
-        <li><b>Email: </b>{{ $application->email ?? 'N/A' }}</li>
-        <li><b>Phone: </b>{{ $application->phone ?? 'N/A' }}</li>
-    </ul>
+    <p>To reset your password, click on the link below:</p>
 
-    <a href="{{ url('/applications/') }}" class="btn btn-primary ms-5"> View Application</a>
+    <p>
+        <a href="{{ route('password.reset.page', $token) }}" class="btn btn-primary">
+            Reset Password
+        </a>
+    </p>
 
-    <p>Thank you for using our job board!</p>
+    <p>This link will expire in minutes.</p>
+
+    <p>If you're having trouble clicking the "Reset Password" button, copy and paste the following URL into your web
+        browser:</p>
+
+    <a class="btn btn-primary ms-5" href="{{ route('password.reset.page', $token) }}">{{ route('password.reset.page', $token) }}</a>
+
+    <p>Thank you!</p>
 </body>
 
 </html>
