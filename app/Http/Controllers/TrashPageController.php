@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job;
 use Spatie\Permission\Models\Permission;
@@ -25,5 +26,11 @@ class TrashPageController extends Controller
     {
         $trashes = Job::onlyTrashed()->get();
         return view('job.trash', compact('trashes'));
+    }
+
+    public function application()
+    {
+        $trashes = Application::onlyTrashed()->get();
+        return view('candidate.application-trash', compact('trashes'));
     }
 }

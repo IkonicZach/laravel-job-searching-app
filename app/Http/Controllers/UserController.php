@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function profile(string $id)
     {
-        $user = User::with('resumes', 'user_skill')->findOrFail($id);
+        $user = User::with('resumes', 'user_skill', 'applications')->findOrFail($id);
         if ($user->hasRole('employer')) {
             $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
             return view('user.profile', compact('user', 'jobs'));

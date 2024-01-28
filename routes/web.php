@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CategoryController;
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
     Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
     Route::get('/trash/job', [TrashPageController::class, 'job'])->name('trash.job');
+    Route::get('/trash/application', [TrashPageController::class, 'application'])->name('trash.application');
+
     Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
     Route::put('/user/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
@@ -61,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookmark/{id}/user', [UserController::class, 'bookmarkUser'])->name('user.bookmark');
 
     Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
+
+    Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //
@@ -93,20 +98,23 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
     Route::post('/job/{id}/restore', [JobController::class, 'restore'])->name('job.restore');
     Route::delete('/job/{id}/delete', [JobController::class, 'delete'])->name('job.delete');
 
-    Route::get('/job/{id}/applications', [JobController::class, 'applications'])->name('job.applications');
+    Route::get('/job/{id}/applications', [ApplicationController::class, 'applicationsByEmployer'])->name('job.applications');
     Route::get('/application/{id}/download', [JobController::class, 'download'])->name('application.download');
-    Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 });
 // ---------------------------------------- Employer routes ---------------------------------------- //
 
 // ---------------------------------------- Candidate routes ---------------------------------------- //
 Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(function () {
-    // Route::get('/profile', [CandidateController::class, 'profile'])->name('candidate.profile');
     Route::get('/profile/setup', [CandidateController::class, 'setup'])->name('candidate.profile.setup');
     Route::put('/profile/setup', [CandidateController::class, 'doSetup'])->name('candidate.profile.doSetup');
 
-    Route::post('/job/{id}/apply', [JobController::class, 'apply'])->name('job.apply');
+    Route::post('/job/{id}/apply', [ApplicationController::class, 'store'])->name('job.apply');
     Route::post('/job/{id}/upload', [JobController::class, 'upload'])->name('job.upload');
+
+    Route::resource('application', ApplicationController::class);
+    Route::post('/application/{id}/restore', [ApplicationController::class, 'restore'])->name('application.restore');
+    Route::delete('/application/{id}/delete', [ApplicationController::class, 'delete'])->name('application.delete');
+    Route::get('/{id}/applications', [ApplicationController::class, 'applicationsByCandidate'])->name('candidate.applications');
 
     Route::get('/resume/trash', [ResumeController::class, 'trash'])->name('resume.trash');
     Route::post('/resume/{id}/restore', [ResumeController::class, 'restore'])->name('resume.restore');
