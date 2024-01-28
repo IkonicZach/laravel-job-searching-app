@@ -125,6 +125,61 @@
                                     </div>
                                     {{-- Category ends here  --}}
 
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="experienceCheck"
+                                                id="enableFieldsCheckbox">
+                                            <label class="form-check-label fw-semibold" for="enableFieldsCheckbox">
+                                                Do you have any working experience?
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {{-- Experiences fields starts here  --}}
+                                    <div class="row mb-3">
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label fw-semibold" for="job_title">Job Title</label>
+                                            <input type="text" class="form-control enable-disable" name="job_title"
+                                                id="job_title" placeholder="Name of the job"
+                                                value="{{ old('job_title') }}" disabled>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label fw-semibold" for="company_name">Company Name</label>
+                                            <input type="text" class="form-control enable-disable" name="company_name"
+                                                id="company_name" placeholder="Company you worked for"
+                                                value="{{ old('company_name') }}" disabled>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label fw-semibold" for="location">Company's
+                                                Location</label>
+                                            <input type="text" class="form-control enable-disable" name="location"
+                                                id="location" placeholder="Location of your company"
+                                                value="{{ old('location') }}" disabled>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label fw-semibold" for="start_date">Start Date</label>
+                                            <input type="date" class="form-control enable-disable" name="start_date"
+                                                id="start_date" value="{{ old('start_date') }}" disabled>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label fw-semibold" for="end_date">End Date</label>
+                                            <input type="date" class="form-control enable-disable" name="end_date"
+                                                id="end_date" value="{{ old('end_date') }}" disabled>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label fw-semibold" for="description">Responsibilies &
+                                                Achievements</label>
+                                            <textarea class="form-control enable-disable" name="description" id="description" rows="5"
+                                                placeholder="Describe your job" disabled>{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+                                    {{-- Experiences fields starts here  --}}
+
                                     {{-- Country city selection starts here  --}}
                                     <div class="row mb-3">
                                         <div class="col-6">
@@ -241,6 +296,17 @@
                     spanValue.textContent = proficiencyValue;
                     console.log(`Skill ${skillId} Proficiency: ${this.value}`);
                 });
+            });
+        });
+
+        $(document).ready(function() {
+            // Disable all input fields with the 'enable-disable' class initially
+            $('.enable-disable').prop('disabled', true);
+
+            // Listen for checkbox change event
+            $('#enableFieldsCheckbox').change(function() {
+                // Enable or disable input fields with the 'enable-disable' class based on checkbox state
+                $('.enable-disable').prop('disabled', !$(this).prop('checked'));
             });
         });
     </script>

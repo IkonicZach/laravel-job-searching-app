@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CandidateCreateRequest;
 use App\Models\Category;
+use App\Models\Experiences;
 use App\Models\Skill;
 use App\Models\User;
 use Exception;
@@ -97,7 +98,7 @@ class CandidateController extends Controller
             $user->cover = $coverName;
         }
 
-        if($request->has('skills')){
+        if ($request->has('skills')) {
             $user->skills = $request->input('skills', []);
             $user->save();
         }
@@ -132,9 +133,18 @@ class CandidateController extends Controller
     public function setup()
     {
         try {
-            $categories = Category::all();
-            $skills = Skill::select('id', 'name')->orderBy('name')->get();
-            return view('candidate.setup', compact('skills', 'categories'));
+            // Get the previous route name from the session
+            $previousRouteName = session('url.previous');
+
+            // Check if the user came from the "login" page
+            // if ($previousRouteName === 'user.register') {
+                $categories = Category::all();
+                $skills = Skill::select('id', 'name')->orderBy('name')->get();
+                return view('candidate.setup', compact('skills', 'categories'));
+            // } else {
+                // Redirect the user to a home page
+            //     return redirect('/');
+            // }
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -183,7 +193,18 @@ class CandidateController extends Controller
                 'city' => $request->input('city'),
                 'skills' => $request->input('skills', []),
             ]);
-            // $user->user_skill()->sync($request->input('skills', []), $request->input('proficiency', []));
+
+            if ($request->has('experienceCheck') && $request->input('experienceCheck') == 'on') {
+                Experiences::create([
+                    'user_id' => auth()->user()->id,
+                    'job_title' => $request->input('job_title'),
+                    'company_name' => $request->input('company_name'),
+                    'location' => $request->input('location'),
+                    'start_date' => $request->input('start_date'),
+                    'end_date' => $request->input('end_date'),
+                    'description' => $request->input('description'),
+                ]);
+            }
 
             return redirect()->route('job.index');
         } catch (Exception $e) {

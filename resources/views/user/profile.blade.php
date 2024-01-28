@@ -22,65 +22,7 @@
             <div class="row">
                 <div class="col-12">
                     <!-- Resumes Modal Starts -->
-                    <div class="modal fade" id="resumeShow" tabindex="-1" aria-labelledby="resumeShowLabel" aria-hidden="true">
-                        <div class="modal-dialog" style="max-width: 700px !important">
-                            <div class="modal-content p-5">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4>Your resume</h4>
-                                    <div>
-                                        @if (auth()->user()->id == request()->route()->id)
-                                            <a href="{{ route('resume.create') }}"
-                                                class="btn btn-light icon-link @if ($user->resumes()->count() >= 3) disabled @endif"><i
-                                                    class="fa-regular fa-plus me-1"></i>New Resume</a>
-                                            @if (auth()->user()->id == request()->route()->id)
-                                                <a href="{{ route('resume.trash') }}" class="icon-btn btn-light"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </div>
-                                @if ($user->resumes()->count() > 0)
-                                    <ul class="list-group list-group-flush">
-                                        @foreach ($user->resumes as $resume)
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="{{ route('resume.show', $resume->id) }}"
-                                                    class="text-primary icon-link"><i class="fa-regular fa-file"></i>
-                                                    {{ $resume->title }}</a>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('resume.download', $resume->id) }}"
-                                                        class="btn btn-primary icon-link fw-normal me-1"
-                                                        style="font-size: 12px !important">
-                                                        <i class="fa-solid fa-download"></i> Download
-                                                    </a>
-                                                    @if (auth()->user()->id == request()->route()->id)
-                                                        <form action="{{ route('resume.destroy', $resume->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="icon-btn btn-light">
-                                                                <i class="fa-solid fa-circle-minus"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
-                                        <div class="row justify-content-center text-center">
-                                            <h3 class="text-muted col-12">No resume here</h3>
-                                            @if (auth()->user()->id == request()->route()->id)
-                                                <a href="{{ route('resume.create') }}"
-                                                    class="btn btn-primary icon-link col-5"><i
-                                                        class="fa-regular fa-plus me-1"></i>Make one</a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    <x-resume-show :user="$user" />
                     <!-- Resumes Modal ends -->
 
                     <div class="position-relative">
@@ -146,48 +88,68 @@
                         @endforeach
                     </div><!--end row-->
 
-                    <h5 class="mt-4">Experience:</h5>
+                    {{-- Experiences Section Starts Here  --}}
+                    @if (count($experiences) > 0)
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <h5>Experience:</h5>
+                            @if (auth()->user()->id == request()->route()->id)
+                                <!-- Experience Create Modal Starts Here -->
+                                <x-profile-exp-create />
+                                <!-- Experience Create Modal Ends Here -->
 
-                    <div class="row">
-                        <div class="col-12 mt-4">
-                            <div class="d-flex">
-                                <div class="text-center">
-                                    <img src="images/company/linkedin.png"
-                                        class="avatar avatar-small bg-white shadow p-2 rounded" alt="">
-                                    <h6 class="text-muted mt-2 mb-0">2019-22</h6>
-                                </div>
+                                <a class="btn btn-sm btn-primary icon-link" data-bs-toggle="modal"
+                                    data-bs-target="#expCreate">
+                                    <i class="fa-regular fa-plus"></i>
+                                    <span>New Experience</span>
+                                </a>
+                            @endif
+                        </div>
 
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Full Stack Developer</h6>
-                                    <p class="text-muted">Linkedin - U.S.A.</p>
-                                    <p class="text-muted mb-0">It seems that only fragments of the original text remain in
-                                        the Lorem Ipsum texts used today. One may speculate that over the course of time
-                                        certain letters were added or deleted at various positions within the text.</p>
-                                </div>
-                            </div>
-                        </div><!--end col-->
+                        <div class="row">
+                            @foreach ($experiences as $experience)
+                                <div class="col-12 mt-4 d-flex">
+                                    <div class="">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center" style="gap: 0.3rem">
+                                                <h5 class="mb-0">{{ $experience->job_title }}</h5>
+                                                <small class="text-muted">
+                                                    ({{ $experience->start_date->format('m/Y') }} -
+                                                    {{ $experience->end_date->format('m/Y') }})
+                                                </small>
+                                            </div>
+                                            @if (auth()->user()->id == request()->route()->id)
+                                                <x-profile-exp-edit :experience="$experience" />
 
-                        <div class="col-12 mt-4">
-                            <div class="d-flex">
-                                <div class="text-center">
-                                    <img src="images/company/lenovo-logo.png"
-                                        class="avatar avatar-small bg-white shadow p-2 rounded" alt="">
-                                    <h6 class="text-muted mt-2 mb-0">2017-19</h6>
-                                </div>
+                                                <a class="btn btn-sm btn-warning btn-icon" data-bs-toggle="modal"
+                                                    data-bs-target="#expEdit{{ $experience->id }}">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <p class="text-muted">
+                                            {{ $experience->company_name }} - {{ $experience->location }}
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            {{ $experience->description }}
+                                        </p>
+                                    </div>
+                                </div><!--end col-->
+                            @endforeach
+                        </div><!--end row-->
 
-                                <div class="ms-3">
-                                    <h6 class="mb-0">Back-end Developer</h6>
-                                    <p class="text-muted">Lenovo - China</p>
-                                    <p class="text-muted mb-0">It seems that only fragments of the original text remain in
-                                        the Lorem Ipsum texts used today. One may speculate that over the course of time
-                                        certain letters were added or deleted at various positions within the text.</p>
-                                </div>
-                            </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
+                        <x-profile-exp-all :allExperiences="$allExperiences" />
+                        <div class="row justify-content-center mt-3">
+                            <a class="btn btn-sm btn-primary col-2"
+                                data-bs-toggle="modal" data-bs-target="#expAll">
+                                View All
+                            </a>
+                        </div>
+                    @endif
+                    {{-- Experiences Section Ends Here  --}}
 
+                    {{-- Applied Jobs Section Starts Here  --}}
                     @if (auth()->user()->id == request()->route()->id)
-                        @if ($user->applications !== null)
+                        @if (count($user->applications) > 0)
                             <h5 class="mt-4">Recently Applied Jobs:</h5>
                             <div class="row g-4 mt-4"></div>
                             @foreach ($user->applications as $application)
@@ -266,6 +228,7 @@
                             </div>
                         @endif
                     @endif
+                    {{-- Applied Jobs Section Ends Here  --}}
 
                     @if (auth()->user()->id != request()->route()->id)
                         <div class="p-4 rounded shadow mt-4">

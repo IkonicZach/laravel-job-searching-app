@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordController;
@@ -115,6 +116,11 @@ Route::middleware(['role:candidate', 'auth'])->prefix('candidate')->group(functi
     Route::post('/application/{id}/restore', [ApplicationController::class, 'restore'])->name('application.restore');
     Route::delete('/application/{id}/delete', [ApplicationController::class, 'delete'])->name('application.delete');
     Route::get('/{id}/applications', [ApplicationController::class, 'applicationsByCandidate'])->name('candidate.applications');
+
+    Route::get('/{id}/experience/trash-can', [TrashPageController::class, 'experience'])->name('experience.trash');
+    Route::post('/experience/{id}/restore', [ExperienceController::class, 'restore'])->name('experience.restore');
+    Route::delete('/experience/{id}/delete', [ExperienceController::class, 'delete'])->name('experience.delete');
+    Route::resource('experience', ExperienceController::class);
 
     Route::get('/resume/trash', [ResumeController::class, 'trash'])->name('resume.trash');
     Route::post('/resume/{id}/restore', [ResumeController::class, 'restore'])->name('resume.restore');

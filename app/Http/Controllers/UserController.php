@@ -21,12 +21,14 @@ class UserController extends Controller
     public function profile(string $id)
     {
         $user = User::with('resumes', 'user_skill', 'applications')->findOrFail($id);
-        if ($user->hasRole('employer')) {
-            $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
-            return view('user.profile', compact('user', 'jobs'));
-        } else {
-            return view('user.profile', compact('user'));
-        }
+        $experiences = $user->experiences()->take(2)->get();
+        $allExperiences = $user->experiences;
+        // if ($user->hasRole('employer')) {
+        //     $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
+        //     return view('user.profile', compact('user', 'jobs'));
+        // } else {
+        return view('user.profile', compact('user', 'experiences', 'allExperiences'));
+        // }
     }
     public function index()
     {
