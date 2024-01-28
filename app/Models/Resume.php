@@ -57,7 +57,7 @@ class Resume extends Model
         'skills' => 'array',
     ];
 
-    public function delete()
+    public function forceDelete()
     {
         // Delete associated photo from storage
         $photoPath = public_path('uploads/resume/') . $this->img;
@@ -66,7 +66,7 @@ class Resume extends Model
         }
 
         // Continue with the regular delete
-        parent::delete();
+        parent::forceDelete();
     }
 
     public function user()

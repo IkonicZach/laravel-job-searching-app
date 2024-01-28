@@ -22,7 +22,7 @@ class Application extends Model
         'updated_at',
     ];
 
-    public function delete()
+    public function forceDelete()
     {
         // Delete associated photo from storage
         $resumePath = public_path('downloads/resume/') . $this->resume_path;
@@ -31,7 +31,7 @@ class Application extends Model
         }
 
         // Continue with the regular delete
-        parent::delete();
+        parent::forceDelete();
     }
 
     public function routeNotificationForMail()
