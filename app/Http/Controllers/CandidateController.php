@@ -109,6 +109,9 @@ class CandidateController extends Controller
             'phone' => $request->input('phone') ?? $user->phone,
             'position' => $request->input('position') ?? $user->position,
             'preferred_category' => $request->input('preferred_category') ?? $user->preferred_category,
+            'experience' => $request->input('experience') ?? $user->experience,
+            'min_salary' => $request->input('min_salary') ?? $user->min_salary,
+            'max_salary' => $request->input('max_salary') ?? $user->max_salary,
             'birthday' => $request->input('birthday') ?? $user->birthday,
             'age' => $user->age,
             'country' => $request->input('country') ?? $user->country,
@@ -138,11 +141,11 @@ class CandidateController extends Controller
 
             // Check if the user came from the "login" page
             // if ($previousRouteName === 'user.register') {
-                $categories = Category::all();
-                $skills = Skill::select('id', 'name')->orderBy('name')->get();
-                return view('candidate.setup', compact('skills', 'categories'));
+            $categories = Category::all();
+            $skills = Skill::select('id', 'name')->orderBy('name')->get();
+            return view('candidate.setup', compact('skills', 'categories'));
             // } else {
-                // Redirect the user to a home page
+            // Redirect the user to a home page
             //     return redirect('/');
             // }
         } catch (Exception $e) {
@@ -187,6 +190,9 @@ class CandidateController extends Controller
                 'phone' => $request->input('phone'),
                 'position' => $request->input('position'),
                 'preferred_category' => $request->input('preferred_category'),
+                'experience' => $request->input('experience'),
+                'min_salary' => $request->input('min_salary'),
+                'max_salary' => $request->input('max_salary'),
                 'birthday' => $request->input('birthday'),
                 'age' => $user->age,
                 'country' => $request->input('country'),

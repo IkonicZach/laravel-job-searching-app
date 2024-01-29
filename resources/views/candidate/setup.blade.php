@@ -125,6 +125,50 @@
                                     </div>
                                     {{-- Category ends here  --}}
 
+                                    {{-- Experience and salary section starts here  --}}
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label for="experience" class="form-label fw-semibold">Experience in related
+                                                field: </label>
+                                            <input class="form-control @error('experience') is-invalid @enderror"
+                                                type="text" name="experience" id="experience"
+                                                placeholder="eg. 2 Years" value="{{ old('experience') }}">
+                                            @error('experience')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-3">
+                                            <label for="min_salary" class="form-label fw-semibold">
+                                                Min Salary($)
+                                            </label>
+                                            <input class="form-control @error('min_salary') is-invalid @enderror"
+                                                type="number" name="min_salary" id="min_salary" placeholder="eg. 10"
+                                                value="{{ old('min_salary') }}">
+                                            @error('min_salary')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="max_salary" class="form-label fw-semibold">
+                                                Max Salary($)
+                                            </label>
+                                            <input class="form-control @error('max_salary') is-invalid @enderror"
+                                                type="number" name="max_salary" id="max_salary" placeholder="eg. 1000"
+                                                value="{{ old('max_salary') }}">
+                                            @error('max_salary')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- Experience and salary section ends here  --}}
+
                                     <div class="mb-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="experienceCheck"
@@ -208,7 +252,7 @@
                                                 <label class="form-label fw-semibold">State:</label>
                                                 <select
                                                     class="form-control form-select @error('city') is-invalid @enderror"
-                                                    id="city" name="city" value="{{ old('city') }}">
+                                                    id="city" name="city">
                                                     <option selected disabled value="">City</option>
                                                     <option value="Yangon"
                                                         @if (old('city') == 'Yangon') selected @endif>Yangon</option>

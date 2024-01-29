@@ -139,8 +139,7 @@
 
                         <x-profile-exp-all :allExperiences="$allExperiences" />
                         <div class="row justify-content-center mt-3">
-                            <a class="btn btn-sm btn-primary col-2"
-                                data-bs-toggle="modal" data-bs-target="#expAll">
+                            <a class="btn btn-sm btn-primary col-2" data-bs-toggle="modal" data-bs-target="#expAll">
                                 View All
                             </a>
                         </div>
@@ -242,7 +241,7 @@
                                             <label class="form-label fw-semibold">Your Name <span
                                                     class="text-danger">*</span></label>
                                             <input name="name" id="name" type="text" class="form-control"
-                                                placeholder="Name :" value="{{ auth()->user()->id }}">
+                                                placeholder="Name :" value="{{ auth()->user()->name }}">
                                         </div>
                                     </div>
 
@@ -372,169 +371,52 @@
                 </div><!--end row-->
 
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 pt-2">
-                        <div class="candidate-card position-relative overflow-hidden text-center shadow rounded p-4">
-                            <div class="content">
-                                <img src="images/team/02.jpg" class="avatar avatar-md-md rounded-pill shadow-md"
-                                    alt="">
+                    @foreach ($relatedCandidates as $candidate)
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 pt-2">
+                            <div class="candidate-card position-relative overflow-hidden text-center shadow rounded p-4">
+                                <div class="content">
+                                    <img src="{{ asset('uploads/' . $candidate->img) }}"
+                                        class="avatar avatar-md-md rounded-pill shadow-md" alt="">
 
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="title h5 text-dark">Tiffany Betancourt</a>
-                                    <p class="text-muted mt-1">Application Developer</p>
-
-                                    <span class="badge bg-soft-primary rounded-pill">Design</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UI</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UX</span>
-                                    <span class="badge bg-soft-primary rounded-pill">Digital</span>
-                                </div>
-
-                                <div class="mt-2 d-flex align-items-center justify-content-between">
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Salary:</p>
-                                        <p class="mb-0 fw-medium">$5k - $6k</p>
+                                    <div class="mt-3">
+                                        <a href="candidate-profile.html"
+                                            class="title h5 text-dark">{{ $candidate->name }}</a>
+                                        <p class="text-muted mt-1">{{ $candidate->country }}</p>
+                                        @foreach ($candidate->user_skill as $skill)
+                                            <span class="badge bg-soft-primary rounded-pill">{{ $skill->name }}</span>
+                                        @endforeach
                                     </div>
 
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Experience:</p>
-                                        <p class="mb-0 fw-medium">2 Years</p>
+                                    <div class="mt-2 d-flex align-items-center justify-content-between">
+                                        <div class="text-center">
+                                            <p class="text-muted fw-medium mb-0">Salary:</p>
+                                            <p class="mb-0 fw-medium">
+                                                ${{ $candidate->min_salary }} - ${{ $candidate->max_salary }}
+                                            </p>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <p class="text-muted fw-medium mb-0">Experience:</p>
+                                            <p class="mb-0 fw-medium">{{ $candidate->experience }}</p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="btn btn-sm btn-primary me-1">View Profile</a>
-                                    <a href="contactus.html" class="btn btn-sm btn-icon btn-soft-primary"><i
-                                            data-feather="message-circle" class="icons"></i></a>
-                                </div>
+                                    <div class="mt-3">
+                                        <a href="{{ route('user.profile', $candidate->id) }}"
+                                            class="btn btn-sm btn-primary me-1">
+                                            View Profile
+                                        </a>
+                                        <a href="contactus.html" class="btn btn-sm btn-icon btn-soft-primary">
+                                            <i class="fa-regular fa-message icons"></i>
+                                        </a>
+                                    </div>
 
-                                <a href="javascript:void(0)" class="like"><i
-                                        class="mdi mdi-heart align-middle fs-4"></i></a>
+                                    <a href="javascript:void(0)" class="like"><i
+                                            class="mdi mdi-heart align-middle fs-4"></i></a>
+                                </div>
                             </div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 pt-2">
-                        <div class="candidate-card position-relative overflow-hidden text-center shadow rounded p-4">
-                            <div class="content">
-                                <img src="images/team/03.jpg" class="avatar avatar-md-md rounded-pill shadow-md"
-                                    alt="">
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="title h5 text-dark">Jacqueline Burns</a>
-                                    <p class="text-muted mt-1">Senior Product Designer</p>
-
-                                    <span class="badge bg-soft-primary rounded-pill">Design</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UI</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UX</span>
-                                    <span class="badge bg-soft-primary rounded-pill">Digital</span>
-                                </div>
-
-                                <div class="mt-2 d-flex align-items-center justify-content-between">
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Salary:</p>
-                                        <p class="mb-0 fw-medium">$5k - $6k</p>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Experience:</p>
-                                        <p class="mb-0 fw-medium">2 Years</p>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="btn btn-sm btn-primary me-1">View Profile</a>
-                                    <a href="contactus.html" class="btn btn-sm btn-icon btn-soft-primary"><i
-                                            data-feather="message-circle" class="icons"></i></a>
-                                </div>
-
-                                <a href="javascript:void(0)" class="like"><i
-                                        class="mdi mdi-heart align-middle fs-4"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 pt-2">
-                        <div class="candidate-card position-relative overflow-hidden text-center shadow rounded p-4">
-                            <div class="ribbon ribbon-left overflow-hidden"><span
-                                    class="text-center d-block bg-warning shadow small h6"><i
-                                        class="mdi mdi-star"></i></span>
-                            </div>
-                            <div class="content">
-                                <img src="images/team/04.jpg" class="avatar avatar-md-md rounded-pill shadow-md"
-                                    alt="">
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="title h5 text-dark">Mari Harrington</a>
-                                    <p class="text-muted mt-1">C++ Developer</p>
-
-                                    <span class="badge bg-soft-primary rounded-pill">Design</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UI</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UX</span>
-                                    <span class="badge bg-soft-primary rounded-pill">Digital</span>
-                                </div>
-
-                                <div class="mt-2 d-flex align-items-center justify-content-between">
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Salary:</p>
-                                        <p class="mb-0 fw-medium">$5k - $6k</p>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Experience:</p>
-                                        <p class="mb-0 fw-medium">2 Years</p>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="btn btn-sm btn-primary me-1">View Profile</a>
-                                    <a href="contactus.html" class="btn btn-sm btn-icon btn-soft-primary"><i
-                                            data-feather="message-circle" class="icons"></i></a>
-                                </div>
-
-                                <a href="javascript:void(0)" class="like"><i
-                                        class="mdi mdi-heart align-middle fs-4"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 pt-2">
-                        <div class="candidate-card position-relative overflow-hidden text-center shadow rounded p-4">
-                            <div class="content">
-                                <img src="images/team/05.jpg" class="avatar avatar-md-md rounded-pill shadow-md"
-                                    alt="">
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="title h5 text-dark">Floyd Glasgow</a>
-                                    <p class="text-muted mt-1">Php Developer</p>
-
-                                    <span class="badge bg-soft-primary rounded-pill">Design</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UI</span>
-                                    <span class="badge bg-soft-primary rounded-pill">UX</span>
-                                    <span class="badge bg-soft-primary rounded-pill">Digital</span>
-                                </div>
-
-                                <div class="mt-2 d-flex align-items-center justify-content-between">
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Salary:</p>
-                                        <p class="mb-0 fw-medium">$5k - $6k</p>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Experience:</p>
-                                        <p class="mb-0 fw-medium">2 Years</p>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3">
-                                    <a href="candidate-profile.html" class="btn btn-sm btn-primary me-1">View Profile</a>
-                                    <a href="contactus.html" class="btn btn-sm btn-icon btn-soft-primary"><i
-                                            data-feather="message-circle" class="icons"></i></a>
-                                </div>
-
-                                <a href="javascript:void(0)" class="like"><i
-                                        class="mdi mdi-heart align-middle fs-4"></i></a>
-                            </div>
-                        </div>
-                    </div><!--end col-->
+                        </div><!--end col-->
+                    @endforeach
                 </div><!--end row-->
             </div><!--end container-->
         @endif

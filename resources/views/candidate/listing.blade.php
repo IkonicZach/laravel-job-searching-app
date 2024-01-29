@@ -38,12 +38,14 @@
                                 <div class="mt-2 d-flex align-items-center justify-content-between">
                                     <div class="text-center">
                                         <p class="text-muted fw-medium mb-0">Salary:</p>
-                                        <p class="mb-0 fw-medium">$5k - $6k</p>
+                                        <p class="mb-0 fw-medium">
+                                            ${{ $candidate->min_salary }} - ${{ $candidate->max_salary }}
+                                        </p>
                                     </div>
 
                                     <div class="text-center">
-                                        <p class="text-muted fw-medium mb-0">Location:</p>
-                                        <p class="mb-0 fw-medium">{{ $candidate->city }}</p>
+                                        <p class="text-muted fw-medium mb-0">Experience:</p>
+                                        <p class="mb-0 fw-medium">{{ $candidate->experience ?? '-' }}</p>
                                     </div>
                                 </div>
 
@@ -56,7 +58,7 @@
                                 </div>
 
                                 @auth
-                                    {{-- @role('employer') --}}
+                                    @role('employer')
                                     <form action="{{ route('user.bookmark', $candidate->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         <button type="submit"
@@ -65,7 +67,7 @@
                                             <i class="fa-solid fa-bookmark align-middle fs-4"></i>
                                         </button>
                                     </form>
-                                    {{-- @endrole --}}
+                                    @endrole
                                 @endauth
 
                                 {{-- <a href="" class="like">

@@ -23,11 +23,22 @@ class UserController extends Controller
         $user = User::with('resumes', 'user_skill', 'applications')->findOrFail($id);
         $experiences = $user->experiences()->take(2)->get();
         $allExperiences = $user->experiences;
+
+        $relatedCandidates = User::with('user_skill')->where('id', '!=', $user->id)
+            ->where(function ($query) use ($user) {
+                $query->where('position', $user->position)
+                    ->orWhere('country', $user->country)
+                    ->orWhere('city', $user->city)
+                    ->orWhere('preferred_category', $user->preferred_category);
+            })
+            ->take(4)
+            ->get();
+
         // if ($user->hasRole('employer')) {
         //     $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
         //     return view('user.profile', compact('user', 'jobs'));
         // } else {
-        return view('user.profile', compact('user', 'experiences', 'allExperiences'));
+        return view('user.profile', compact('user', 'experiences', 'allExperiences', 'relatedCandidates'));
         // }
     }
     public function index()

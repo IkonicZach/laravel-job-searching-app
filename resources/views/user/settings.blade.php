@@ -123,6 +123,50 @@
                                     @enderror
                                 </div>
 
+                                {{-- Experience and salary section starts here  --}}
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <label for="experience" class="form-label fw-semibold">Experience in related field:
+                                        </label>
+                                        <input class="form-control @error('experience') is-invalid @enderror" type="text"
+                                            name="experience" id="experience" placeholder="eg. 2 Years"
+                                            value="{{ $user->experience }}">
+                                        @error('experience')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="min_salary" class="form-label fw-semibold">
+                                            Min Salary($)
+                                        </label>
+                                        <input class="form-control @error('min_salary') is-invalid @enderror"
+                                            type="number" name="min_salary" id="min_salary" placeholder="eg. 10"
+                                            value="{{ $user->min_salary }}">
+                                        @error('min_salary')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="max_salary" class="form-label fw-semibold">
+                                            Max Salary($)
+                                        </label>
+                                        <input class="form-control @error('max_salary') is-invalid @enderror"
+                                            type="number" name="max_salary" id="max_salary" placeholder="eg. 1000"
+                                            value="{{ $user->max_salary }}">
+                                        @error('max_salary')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- Experience and salary section ends here  --}}
+
                                 {{-- Country city selection starts here  --}}
                                 <div class="col-6 mb-3">
                                     <label class="form-label fw-semibold">Country:</label>
@@ -427,7 +471,8 @@
                                 <form action="{{ route('user.deactivate', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="password" class="form-control my-3" name="password" placeholder="Password:">
+                                    <input type="password" class="form-control my-3" name="password"
+                                        placeholder="Password:">
                                     <div class="modal-footer" style="border: none !important">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancel</button>
