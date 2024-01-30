@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\Skill;
@@ -21,8 +22,12 @@ class UserController extends Controller
     public function profile(string $id)
     {
         $user = User::with('resumes', 'user_skill', 'applications')->findOrFail($id);
+
         $experiences = $user->experiences()->take(2)->get();
         $allExperiences = $user->experiences;
+
+        $blogs = Blog::with('blogcategories')->where('user_id', '=', $user->id)->take(4)->get();
+        $allBlogs = Blog::with('blogcategories')->where('user_id', '=', $user->id)->get();
 
         $relatedCandidates = User::with('user_skill')->where('id', '!=', $user->id)
             ->where(function ($query) use ($user) {
@@ -38,7 +43,7 @@ class UserController extends Controller
         //     $jobs = Job::where('created_by', '=', $user->id)->take(2)->get();
         //     return view('user.profile', compact('user', 'jobs'));
         // } else {
-        return view('user.profile', compact('user', 'experiences', 'allExperiences', 'relatedCandidates'));
+        return view('user.profile', compact('user', 'experiences', 'allExperiences', 'relatedCandidates', 'blogs', 'allBlogs'));
         // }
     }
     public function index()

@@ -39,4 +39,9 @@
         <i class="fa-solid fa-id-card fs-5 col-3"></i>
         <span>Job Posts</span>
     </a>
+    <a href="{{ route('blogcategory.index') }}"
+        class="admin-nav-item @if (Route::currentRouteName() === 'blogcategory.index') active @endif">
+        <i class="fa-solid fa-shapes fs-5 col-3"></i>
+        <span>Blog Categories</span>
+    </a>
 </div>

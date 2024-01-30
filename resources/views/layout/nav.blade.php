@@ -66,16 +66,20 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu nav-right nav-light">
 
-                <li class="has-submenu parent-menu-item">
+                {{-- <li class="has-submenu parent-menu-item">
                     <a>Browse</a><span class="menu-arrow"></span>
                     <ul class="submenu">
                         <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
                         <li><a href="{{ route('candidate.index') }}" class="sub-menu-item">Candidates</a></li>
                         <li><a href="{{ route('company.index') }}" class="sub-menu-item">Companies</a></li>
+                        <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blogs</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
-                {{-- <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blog</a></li> --}}
+                <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
+                <li><a href="{{ route('candidate.index') }}" class="sub-menu-item">Candidates</a></li>
+                <li><a href="{{ route('company.index') }}" class="sub-menu-item">Companies</a></li>
+                <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blogs</a></li>
 
                 @auth
                     <li class="position-relative">

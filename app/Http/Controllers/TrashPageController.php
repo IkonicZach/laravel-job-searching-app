@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Blog;
+use App\Models\Blogcategory;
 use App\Models\Category;
 use App\Models\Experiences;
 use App\Models\Job;
@@ -42,5 +44,20 @@ class TrashPageController extends Controller
             ->get();
 
         return view('candidate.experience-trash', compact('trashes'));
+    }
+
+    public function blogcategory()
+    {
+        $categories = Blogcategory::onlyTrashed()->get();
+        return view('admin.trash.blogcategories', compact('categories'));
+    }
+
+    public function blog($id)
+    {
+        $trashes = Blog::onlyTrashed()
+            ->where('user_id', $id)
+            ->get();
+
+        return view('blog.trash', compact('trashes'));
     }
 }

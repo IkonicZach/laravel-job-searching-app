@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Blog;
+use App\Models\Blogcategory;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -37,5 +39,17 @@ class AppServiceProvider extends ServiceProvider
             $view->with('languages', ['Burmese', 'Chinese', 'English', 'Japanese', 'Korean']);
             $view->with('employment_types', ['Full-time', 'Part-time', 'Freelance', 'Remote', 'Hourly-basics', 'Fixed-price']);
         });
+
+        view()->composer('blog.sidebar', function ($view) {
+            $categories = Blogcategory::select('id', 'name')->limit(10)->get();
+            $view->with('categories', $categories);
+        });
+
+        // Share latest posts with the 'blog.sidebar' view
+        view()->composer('blog.sidebar', function ($view) {
+            $latestBlogs = Blog::latest()->limit(3)->get();
+            $view->with('latestBlogs', $latestBlogs);
+        });
+
     }
 }

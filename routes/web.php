@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CategoryController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TrashPageController;
 use App\Http\Controllers\UserController;
+use App\Models\Blog;
 use App\Models\Company;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
@@ -27,12 +29,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $companies = Company::with('createdBy', 'jobs')->take(6)->get();
     $jobs = Job::with('company')->orderBy('created_at', 'desc')->take(6)->get();
-    return view('home', compact('jobs', 'companies'));
+    $blogs = Blog::with('blogcategories')->orderBy('created_at', 'desc')->take(3)->get();
+    return view('home', compact('jobs', 'companies', 'blogs'));
 });
 
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']); // For dynamically showing subcategories
 
-Route::resource('blog', BlogController::class);
+Route::resource('blog', BlogController::class)->only('index');
 
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index'); // Contact us page
 Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit'); // Sending mail
@@ -67,6 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
 
     Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
+
+    Route::get('/{id}/blog/trash', [TrashPageController::class, 'blog'])->name('blog.trash');
+    Route::post('/blog/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
+    Route::delete('/blog/{id}/delete', [BlogController::class, 'delete'])->name('blog.delete');
+    Route::resource('blog', BlogController::class)->except('index');
 });
 
 // ---------------------------------------- User routes ---------------------------------------- //
@@ -94,7 +102,9 @@ Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function
     Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
     Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');
     Route::resource('company', CompanyController::class)->except('index');
+
     Route::resource('job', JobController::class)->except('index', 'show');
+
     Route::get('/job/trash', [TrashPageController::class, 'job'])->name('job.trash');
     Route::post('/job/{id}/restore', [JobController::class, 'restore'])->name('job.restore');
     Route::delete('/job/{id}/delete', [JobController::class, 'delete'])->name('job.delete');
@@ -158,6 +168,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('skill', SkillController::class);
 
     Route::resource('company-management', AdminCompanyController::class);
+
+    Route::get('/trash/blogcategory', [TrashPageController::class, 'blogcategory'])->name('trash.blogcategory');
+    Route::post('/blogcategory/restore/{id}', [BlogCategoryController::class, 'restore'])->name('blogcategory.restore');
+    Route::delete('/blogcategory/delete/{id}', [BlogCategoryController::class, 'delete'])->name('blogcategory.delete');
+    Route::resource('blogcategory', BlogCategoryController::class);
 
     Route::resource('job-management', \App\Http\Controllers\Admin\JobController::class);
     // Route::get('/admin.company', [AdminCompanyController::class, 'index'])->name('admin.company.index');

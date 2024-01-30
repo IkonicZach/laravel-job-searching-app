@@ -78,7 +78,7 @@ header .img-fluid {
     border: 1px solid #dee2e6 !important;
 }
 
-.btn-primary:hover {
+/* .btn-primary:hover {
     background-color: transparent !important;
     color: #3b82f6 !important;
 }
@@ -86,7 +86,7 @@ header .img-fluid {
 .btn-danger:hover {
     background-color: transparent !important;
     color: #ef4444 !important;
-}
+} */
 
 .rounder {
     border-radius: 2rem !important;
@@ -186,12 +186,12 @@ header .img-fluid {
     border: none !important;
 }
 
-.buttons-group .btn:hover {
+/* .buttons-group .btn:hover {
     background-color: #3b82f6;
     color: white;
     border-radius: 2rem !important;
     border: none !important;
-}
+} */
 
 /* Style the tab */
 .tab {

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('age');
             $table->string('img');
             $table->string('email');
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('linkedin')->nullable();
             $table->mediumText('address');
             $table->string('education_status');

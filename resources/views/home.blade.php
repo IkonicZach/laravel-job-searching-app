@@ -1,4 +1,4 @@
-@section('title', 'Home')
+@section('title', 'Home | Skilltrack')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -591,161 +591,76 @@
             </div><!--end row-->
 
             <div class="row g-4 mt-0">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
-                        <div class="card-img blog-image position-relative overflow-hidden rounded-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/blog/01.jpg" class="img-fluid" alt="">
-                                <div class="card-overlay"></div>
+                <style>
+                    .col-lg-4 .position-relative .img-fluid {
+                        height: 230px !important;
+                        object-fit: cover;
+                    }
+                </style>
+                @foreach ($blogs as $blog)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
+                            <div class="card-img blog-image position-relative overflow-hidden rounded-0">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="{{ asset('uploads/' . $blog->thumbnail) }}" class="img-fluid"
+                                        alt="">
+                                    <div class="card-overlay"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body blog-content position-relative p-0">
+                                <div class="blog-tag px-4">
+                                    @foreach ($blog->blogcategories as $blogCategory)
+                                        <a href="#"
+                                            class="badge bg-primary rounded-pill">{{ $blogCategory->name }}</a>
+                                    @endforeach
+                                </div>
+                                <div class="p-4">
+                                    <ul class="list-unstyled text-muted small mb-2">
+                                        <li class="d-inline-flex align-items-center me-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-calendar fea icon-ex-sm me-1 text-">
+                                                <rect x="3" y="4" width="18" height="18" rx="2"
+                                                    ry="2"></rect>
+                                                <line x1="16" y1="2" x2="16" y2="6">
+                                                </line>
+                                                <line x1="8" y1="2" x2="8" y2="6">
+                                                </line>
+                                                <line x1="3" y1="10" x2="21" y2="10">
+                                                </line>
+                                            </svg>{{ $blog->created_at->format('d F Y') }}
+                                        </li>
+                                        <li class="d-inline-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-clock fea icon-ex-sm me-1 text-">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>{{ $blog->read_time }} min read
+                                        </li>
+                                    </ul>
+
+                                    <a href="{{ route('blog.show', $blog->id) }}" class="title fw-semibold fs-5 text-">
+                                        {{ $blog->title }}
+                                    </a>
+
+                                    <ul
+                                        class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
+                                        <li class="list-inline-item me-2"><a href="{{ route('blog.show', $blog->id) }}"
+                                                class="btn btn-link primary text-">Read Now <i
+                                                    class="fa-solid fa-arrow-right"></i></a></li>
+                                        <li class="list-inline-item"><span class="text-">By</span> <a
+                                                href="{{ route('user.profile', $blog->user_id) }}"
+                                                class="text-muted link-title">{{ $blog->user->name }}</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="card-body blog-content position-relative p-0">
-                            <div class="blog-tag px-4">
-                                <a href="#" class="badge bg-primary rounded-pill">Arts</a>
-                            </div>
-                            <div class="p-4">
-                                <ul class="list-unstyled text-muted small mb-2">
-                                    <li class="d-inline-flex align-items-center me-2"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
-                                            <rect x="3" y="4" width="18" height="18" rx="2"
-                                                ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>31st October 2023</li>
-                                    <li class="d-inline-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>5 min read</li>
-                                </ul>
-
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">11 Tips to Help You
-                                    Get New Clients Through Cold Calling</a>
-
-                                <ul
-                                    class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
-                                    <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-">Read Now <i
-                                                class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
-                                            class="text-muted link-title">Google</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
-                        <div class="card-img blog-image position-relative overflow-hidden rounded-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/blog/02.jpg" class="img-fluid" alt="">
-                                <div class="card-overlay"></div>
-                            </div>
-                        </div>
-
-                        <div class="card-body blog-content position-relative p-0">
-                            <div class="blog-tag px-4">
-                                <a href="#" class="badge bg-primary rounded-pill">Illustration</a>
-                            </div>
-                            <div class="p-4">
-                                <ul class="list-unstyled text-muted small mb-2">
-                                    <li class="d-inline-flex align-items-center me-2"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
-                                            <rect x="3" y="4" width="18" height="18" rx="2"
-                                                ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>31st October 2023</li>
-                                    <li class="d-inline-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>5 min read</li>
-                                </ul>
-
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">DigitalOcean launches
-                                    first Canadian data centre in Toronto</a>
-
-                                <ul
-                                    class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
-                                    <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-">Read Now <i
-                                                class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
-                                            class="text-muted link-title">Facebook</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card blog blog-primary shadow rounded overflow-hidden border-0">
-                        <div class="card-img blog-image position-relative overflow-hidden rounded-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/blog/03.jpg" class="img-fluid" alt="">
-                                <div class="card-overlay"></div>
-                            </div>
-                        </div>
-
-                        <div class="card-body blog-content position-relative p-0">
-                            <div class="blog-tag px-4">
-                                <a href="#" class="badge bg-primary rounded-pill">Music</a>
-                            </div>
-                            <div class="p-4">
-                                <ul class="list-unstyled text-muted small mb-2">
-                                    <li class="d-inline-flex align-items-center me-2"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-calendar fea icon-ex-sm me-1 text-">
-                                            <rect x="3" y="4" width="18" height="18" rx="2"
-                                                ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>31st October 2023</li>
-                                    <li class="d-inline-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            class="feather feather-clock fea icon-ex-sm me-1 text-">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>5 min read</li>
-                                </ul>
-
-                                <a href="blog-detail.html" class="title fw-semibold fs-5 text-">Using Banner Stands To
-                                    Increase Trade Show Traffic</a>
-
-                                <ul
-                                    class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-0 mt-3">
-                                    <li class="list-inline-item me-2"><a href="#"
-                                            class="btn btn-link primary text-">Read Now <i
-                                                class="fa-solid fa-arrow-right"></i></a></li>
-                                    <li class="list-inline-item"><span class="text-">By</span> <a href="#"
-                                            class="text-muted link-title">Linkedin</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end col-->
+                    </div><!--end col-->
+                @endforeach
             </div><!--end row-->
         </div><!--end container-->
     </section><!--end section-->
