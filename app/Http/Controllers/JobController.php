@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JobApplyRequest;
 use App\Http\Requests\JobRequest;
 use App\Http\Requests\JobUpdateRequest;
 use App\Models\Application;
@@ -10,7 +9,6 @@ use App\Models\Category;
 use App\Models\Job;
 use App\Models\Subcategory;
 use App\Models\User;
-use App\Notifications\JobApplicationNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +56,9 @@ class JobController extends Controller
      */
     public function create(Request $request)
     {
+        if (auth()->user()->company_id == null) {
+            return view('special.employer-job-create-error');
+        }
         $employment_types = [
             'name' => ['Full-time', 'Part-time', 'Freelance', 'Remote', 'Hourly-basics', 'Fixed-price'],
         ];

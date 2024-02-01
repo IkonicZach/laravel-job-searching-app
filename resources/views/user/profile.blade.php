@@ -56,12 +56,12 @@
                                                 </a>
                                             @else
                                                 <a href="{{ route('company.create') }}" class="btn btn-primary">
-                                                    Create Company Profile    
+                                                    Create Company Profile
                                                 </a>
                                             @endif
                                         @endrole
                                         <a href="{{ route('user.settings', $user->id) }}"
-                                            class="btn btn-light icon-btn h5 m-0"><i class="fa-solid fa-gear"></i></a>
+                                            class="btn btn-light icon-btn h6 m-0"><i class="fa-solid fa-gear"></i></a>
                                     @endif
                                 </div>
                             </div>
@@ -96,22 +96,28 @@
                     </div><!--end row-->
 
                     {{-- Experiences Section Starts Here  --}}
-                    @if (count($experiences) > 0)
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                            <h5>Experience:</h5>
-                            @if (auth()->user()->id == request()->route()->id)
-                                <!-- Experience Create Modal Starts Here -->
-                                <x-profile-exp-create />
-                                <!-- Experience Create Modal Ends Here -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <h5>Experience:</h5>
+                        @if (auth()->user()->id == request()->route()->id)
+                            <!-- Experience Create Modal Starts Here -->
+                            <x-profile-exp-create />
+                            <!-- Experience Create Modal Ends Here -->
 
+                            <div class="d-flex align-items-center" style="gap: 0.3rem;">
                                 <a class="btn btn-sm btn-primary icon-link" data-bs-toggle="modal"
                                     data-bs-target="#expCreate">
                                     <i class="fa-regular fa-plus"></i>
                                     <span>New Experience</span>
                                 </a>
-                            @endif
-                        </div>
-
+                                <a href="{{ route('experience.trash', auth()->user()->id) }}"
+                                    class="btn btn-sm btn-light icon-link">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    <span>Trash Can</span>
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                    @if (count($experiences) > 0)
                         <div class="row">
                             @foreach ($experiences as $experience)
                                 <div class="col-12 mt-4 d-flex">
@@ -126,11 +132,21 @@
                                             </div>
                                             @if (auth()->user()->id == request()->route()->id)
                                                 <x-profile-exp-edit :experience="$experience" />
-
-                                                <a class="btn btn-sm btn-warning btn-icon" data-bs-toggle="modal"
-                                                    data-bs-target="#expEdit{{ $experience->id }}">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
+                                                <div class="d-flex align-items-center" style="gap: 0.3rem">
+                                                    <a class="btn btn-sm btn-warning btn-icon" data-bs-toggle="modal"
+                                                        data-bs-target="#expEdit{{ $experience->id }}">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    <form action="{{ route('experience.destroy', $experience->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-danger btn-icon"
+                                                            data-bs-toggle="tooltip" data-bs-title="Move to Trash">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             @endif
                                         </div>
                                         <p class="text-muted">
@@ -144,12 +160,14 @@
                             @endforeach
                         </div><!--end row-->
 
-                        <x-profile-exp-all :allExperiences="$allExperiences" />
-                        <div class="row justify-content-center mt-3">
-                            <a class="btn btn-sm btn-primary col-2" data-bs-toggle="modal" data-bs-target="#expAll">
-                                View All
-                            </a>
-                        </div>
+                        @if (count($allExperiences) > 2)
+                            <x-profile-exp-all :allExperiences="$allExperiences" />
+                            <div class="row justify-content-center mt-3">
+                                <a class="btn btn-sm btn-primary col-2" data-bs-toggle="modal" data-bs-target="#expAll">
+                                    View All
+                                </a>
+                            </div>
+                        @endif
                     @endif
                     {{-- Experiences Section Ends Here  --}}
 
