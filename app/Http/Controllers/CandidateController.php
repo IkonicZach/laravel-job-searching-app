@@ -133,89 +133,89 @@ class CandidateController extends Controller
         //
     }
 
-    public function setup()
-    {
-        try {
-            // Get the previous route name from the session
-            $previousRouteName = session('url.previous');
+    // public function setup()
+    // {
+    //     try {
+    //         // Get the previous route name from the session
+    //         $previousRouteName = session('url.previous');
 
-            // Check if the user came from the "login" page
-            // if ($previousRouteName === 'user.register') {
-            $categories = Category::all();
-            $skills = Skill::select('id', 'name')->orderBy('name')->get();
-            return view('candidate.setup', compact('skills', 'categories'));
-            // } else {
-            // Redirect the user to a home page
-            //     return redirect('/');
-            // }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
+    //         // Check if the user came from the "login" page
+    //         // if ($previousRouteName === 'user.register') {
+    //         $categories = Category::all();
+    //         $skills = Skill::select('id', 'name')->orderBy('name')->get();
+    //         return view('candidate.setup', compact('skills', 'categories'));
+    //         // } else {
+    //         // Redirect the user to a home page
+    //         //     return redirect('/');
+    //         // }
+    //     } catch (Exception $e) {
+    //         return $e->getMessage();
+    //     }
+    // }
 
-    public function doSetup(CandidateCreateRequest $request)
-    {
-        try {
-            $id = $request->input('id');
-            $user = User::find($id);
-            $skills = $request->input('skills', []);
-            $proficiency = $request->input('proficiency', []);
+    // public function doSetup(CandidateCreateRequest $request)
+    // {
+    //     try {
+    //         $id = $request->input('id');
+    //         $user = User::find($id);
+    //         $skills = $request->input('skills', []);
+    //         $proficiency = $request->input('proficiency', []);
 
-            $syncData = [];
+    //         $syncData = [];
 
-            foreach ($skills as $skillId) {
-                $syncData[$skillId] = ['proficiency' => $proficiency[$skillId] ?? 50];
-            }
+    //         foreach ($skills as $skillId) {
+    //             $syncData[$skillId] = ['proficiency' => $proficiency[$skillId] ?? 50];
+    //         }
 
-            $user->user_skill()->sync($syncData);
+    //         $user->user_skill()->sync($syncData);
 
-            if ($request->hasFile('img')) {
-                $imageName = time() . '.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $imageName);
-            } else {
-                $imageName = null;
-            }
+    //         if ($request->hasFile('img')) {
+    //             $imageName = time() . '.' . $request->img->extension();
+    //             $request->img->move(public_path('uploads'), $imageName);
+    //         } else {
+    //             $imageName = null;
+    //         }
 
-            if ($request->hasFile('cover')) {
-                $coverName = time() . '_cover.' . $request->cover->extension();
-                $request->cover->move(public_path('uploads'), $coverName);
-            } else {
-                $coverName = null;
-            }
+    //         if ($request->hasFile('cover')) {
+    //             $coverName = time() . '_cover.' . $request->cover->extension();
+    //             $request->cover->move(public_path('uploads'), $coverName);
+    //         } else {
+    //             $coverName = null;
+    //         }
 
-            $user->update([
-                'img' => $imageName ?? null,
-                'cover' => $coverName ?? null,
-                'bio' => $request->input('bio'),
-                'phone' => $request->input('phone'),
-                'position' => $request->input('position'),
-                'preferred_category' => $request->input('preferred_category'),
-                'experience' => $request->input('experience'),
-                'min_salary' => $request->input('min_salary'),
-                'max_salary' => $request->input('max_salary'),
-                'birthday' => $request->input('birthday'),
-                'age' => $user->age,
-                'country' => $request->input('country'),
-                'city' => $request->input('city'),
-                'skills' => $request->input('skills', []),
-            ]);
+    //         $user->update([
+    //             'img' => $imageName ?? null,
+    //             'cover' => $coverName ?? null,
+    //             'bio' => $request->input('bio'),
+    //             'phone' => $request->input('phone'),
+    //             'position' => $request->input('position'),
+    //             'preferred_category' => $request->input('preferred_category'),
+    //             'experience' => $request->input('experience'),
+    //             'min_salary' => $request->input('min_salary'),
+    //             'max_salary' => $request->input('max_salary'),
+    //             'birthday' => $request->input('birthday'),
+    //             'age' => $user->age,
+    //             'country' => $request->input('country'),
+    //             'city' => $request->input('city'),
+    //             'skills' => $request->input('skills', []),
+    //         ]);
 
-            if ($request->has('experienceCheck') && $request->input('experienceCheck') == 'on') {
-                Experiences::create([
-                    'user_id' => auth()->user()->id,
-                    'job_title' => $request->input('job_title'),
-                    'company_name' => $request->input('company_name'),
-                    'location' => $request->input('location'),
-                    'start_date' => $request->input('start_date'),
-                    'end_date' => $request->input('end_date'),
-                    'description' => $request->input('description'),
-                ]);
-            }
+    //         if ($request->has('experienceCheck') && $request->input('experienceCheck') == 'on') {
+    //             Experiences::create([
+    //                 'user_id' => auth()->user()->id,
+    //                 'job_title' => $request->input('job_title'),
+    //                 'company_name' => $request->input('company_name'),
+    //                 'location' => $request->input('location'),
+    //                 'start_date' => $request->input('start_date'),
+    //                 'end_date' => $request->input('end_date'),
+    //                 'description' => $request->input('description'),
+    //             ]);
+    //         }
 
-            return redirect()->route('job.index');
-        } catch (Exception $e) {
-            return 'Error: ' . $e->getMessage();
-        }
+    //         return redirect()->route('job.index');
+    //     } catch (Exception $e) {
+    //         return 'Error: ' . $e->getMessage();
+    //     }
 
-    }
+    // }
 }

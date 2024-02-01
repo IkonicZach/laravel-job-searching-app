@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Blog;
 use App\Models\Blogcategory;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Experiences;
 use App\Models\Job;
 use Spatie\Permission\Models\Permission;
@@ -59,5 +60,11 @@ class TrashPageController extends Controller
             ->get();
 
         return view('blog.trash', compact('trashes'));
+    }
+
+    public function admin_companies()
+    {
+        $trashes = Company::onlyTrashed()->get();
+        return view('admin.trash.companies', compact('trashes'));
     }
 }

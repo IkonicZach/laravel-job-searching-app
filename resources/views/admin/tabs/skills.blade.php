@@ -105,12 +105,12 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="text-primary">{{ $skill->name }}</h5>
                         <div>
-                            <a class="btn btn-primary" data-bs-toggle="modal"
+                            <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                 data-bs-target="#skillUpdate{{ $skill->id }}"><i
                                     class="fa-solid fa-pen-to-square"></i>
                                 Edit</a>
                             <a data-bs-toggle="modal" data-bs-target="#delete{{ $skill->id }}"
-                                class="btn btn-primary"><i class="fa-regular fa-trash-can"></i> Delete</a>
+                                class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can"></i> Delete</a>
                         </div>
                     </div>
                 @endforeach

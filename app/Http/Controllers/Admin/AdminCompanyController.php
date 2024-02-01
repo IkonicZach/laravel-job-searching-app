@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\File;
 
 class AdminCompanyController extends Controller
 {
@@ -18,7 +19,7 @@ class AdminCompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        $categories = Category::select('id','name')->get();
+        $categories = Category::select('id', 'name')->get();
         return view('admin.tabs.companies', compact('companies', 'categories'));
     }
 
@@ -58,10 +59,18 @@ class AdminCompanyController extends Controller
     {
         try {
             $company = Company::findOrFail($id);
+
             if ($request->hasFile('img')) {
-                $imageName = time() . '.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $imageName);
-                $company->img = $imageName;
+                // Delete old photo from storage
+                $imgPath = public_path('uploads/') . $company->img;
+                if (File::exists($imgPath)) {
+                    File::delete($imgPath);
+                }
+
+                // Update new photo
+                $imgName = 'com' . time() . '.' . $request->img->extension();
+                $request->img->move(public_path('uploads'), $imgName);
+                $company->img = $imgName;
             }
 
             $company->update([
@@ -70,19 +79,20 @@ class AdminCompanyController extends Controller
                 'bio' => $request->input('bio'),
                 'category_id' => $request->input('category_id'),
                 'size' => $request->input('size'),
+                'founder' => $request->input('founder'),
+                'founded' => $request->input('founded'),
                 'country' => $request->input('country'),
                 'city' => $request->input('city'),
                 'address' => $request->input('address'),
                 'socials' => $request->input('socials'),
                 'updated_by' => $request->input('updated_by'),
             ]);
-            // return $request->all();
-            $user = User::with('company')->findOrFail($id);
-            if ($user->company_id == null) {
-                return redirect()->route('company.index');
-            } else {
-                return redirect()->route('company.profile', $user->id);
-            }
+            $user = User::with('company')->findOrFail($request->input('updated_by'));
+
+            $message = "Updated Successfully!";
+            $messageBody = "Company details updated successfully.";
+
+            return redirect()->route('company-management.index')->with(compact('message', 'messageBody'));
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -99,7 +109,7 @@ class AdminCompanyController extends Controller
             $message = "Deleted successfully!";
             $messageBody = "'$company->name' company has been deleted successfully!";
 
-            return redirect()->route('admin.company.index')->with('message', $message)->with('messageBody', $messageBody);
+            return redirect()->route('admin.tabs.companies')->with('message', $message)->with('messageBody', $messageBody);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -108,15 +118,30 @@ class AdminCompanyController extends Controller
     public function restore(string $id)
     {
         try {
-            
+            $company = Company::withTrashed()->findOrFail($id);
+            $company->restore();
+
+            $message = "Restored successfully!";
+            $messageBody = "Company has been restored successfully!";
+
+            return redirect()->route('company-management.index')->with('message', $message)->with('messageBody', $messageBody);
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function profile(String $id)
+    public function delete(string $id)
     {
-        $user = User::with('company')->findOrFail($id);
-        return view('employer.company.profile', compact('user'));
+        try {
+            $company = Company::withTrashed()->findOrFail($id);
+            $company->forceDelete();
+
+            $message = "Permanently deleted successfully!";
+            $messageBody = "Company has been permanently deleted!";
+
+            return redirect()->route('company-management.index')->with('message', $message)->with('messageBody', $messageBody);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CandidateCreateRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Experiences;
 use App\Models\Job;
 use App\Models\Skill;
 use App\Models\User;
@@ -132,16 +134,104 @@ class UserController extends Controller
 
             if ($role == "employer") {
                 $user->assignRole($role);
-                return redirect()->route('employer.profile.setup');
+                return redirect()->route('user.setup');
             } elseif ($role == "candidate") {
                 $user->assignRole($role);
-                return redirect()->route('candidate.profile.setup');
+                return redirect()->route('user.setup');
             } else {
                 return redirect()->route('admin.dashboard');
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    public function setup()
+    {
+        try {
+            // Get the previous route name from the session
+            $previousRouteName = session('url.previous');
+
+            // Check if the user came from the "login" page
+            // if ($previousRouteName === 'user.register') {
+            $categories = Category::all();
+            $skills = Skill::select('id', 'name')->orderBy('name')->get();
+            return view('user.setup', compact('skills', 'categories'));
+            // } else {
+            // Redirect the user to a home page
+            //     return redirect('/');
+            // }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function doSetup(CandidateCreateRequest $request)
+    {
+        try {
+            $id = $request->input('id');
+            $user = User::find($id);
+            $skills = $request->input('skills', []);
+            $proficiency = $request->input('proficiency', []);
+
+            $syncData = [];
+
+            foreach ($skills as $skillId) {
+                $syncData[$skillId] = ['proficiency' => $proficiency[$skillId] ?? 50];
+            }
+
+            $user->user_skill()->sync($syncData);
+
+            if ($request->hasFile('img')) {
+                $imageName = time() . '.' . $request->img->extension();
+                $request->img->move(public_path('uploads'), $imageName);
+            } else {
+                $imageName = null;
+            }
+
+            if ($request->hasFile('cover')) {
+                $coverName = time() . '_cover.' . $request->cover->extension();
+                $request->cover->move(public_path('uploads'), $coverName);
+            } else {
+                $coverName = null;
+            }
+
+            $user->update([
+                'img' => $imageName ?? null,
+                'cover' => $coverName ?? null,
+                'bio' => $request->input('bio'),
+                'phone' => $request->input('phone'),
+                'position' => $request->input('position'),
+                'preferred_category' => $request->input('preferred_category'),
+                'experience' => $request->input('experience'),
+                'min_salary' => $request->input('min_salary'),
+                'max_salary' => $request->input('max_salary'),
+                'birthday' => $request->input('birthday'),
+                'age' => $user->age,
+                'country' => $request->input('country'),
+                'city' => $request->input('city'),
+                'skills' => $request->input('skills', []),
+            ]);
+
+            if ($request->has('experienceCheck') && $request->input('experienceCheck') == 'on') {
+                Experiences::create([
+                    'user_id' => auth()->user()->id,
+                    'job_title' => $request->input('job_title'),
+                    'company_name' => $request->input('company_name'),
+                    'location' => $request->input('location'),
+                    'start_date' => $request->input('start_date'),
+                    'end_date' => $request->input('end_date'),
+                    'description' => $request->input('description'),
+                ]);
+            }
+            if ($user->hasRole('employer')) {
+                return redirect()->route('employer.company.create');
+            }
+            return redirect()->route('job.index');
+        } catch (Exception $e) {
+            return 'Error: ' . $e->getMessage();
+        }
+
     }
 
     public function logout(Request $request)

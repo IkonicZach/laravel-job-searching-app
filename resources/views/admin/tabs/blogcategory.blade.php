@@ -70,7 +70,8 @@
                                                     Are you sure you want to delete this category?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('blogcategory.destroy', $cat->id) }}" method="POST">
+                                                    <form action="{{ route('blogcategory.destroy', $cat->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary"
@@ -94,10 +95,13 @@
                                             <div class="d-flex">
                                                 <a data-bs-toggle="collapse" data-bs-target="#cat_edit{{ $cat->id }}"
                                                     aria-expanded="true" aria-controls="cat_edit{{ $cat->id }}"
-                                                    class="btn btn-primary me-1"><i
-                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                                    class="btn btn-sm btn-primary me-1">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
                                                 <a data-bs-toggle="modal" data-bs-target="#delete{{ $cat->id }}"
-                                                    class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></a>
+                                                    class="btn btn-sm btn-primary">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </a>
                                             </div>
                                         </div>
 

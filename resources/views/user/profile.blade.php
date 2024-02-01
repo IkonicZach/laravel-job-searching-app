@@ -50,11 +50,18 @@
                                 <div>
                                     @if (auth()->user()->id == request()->route()->id)
                                         @role('employer')
-                                            <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">Your
-                                                Company</a>
+                                            @if ($user->company_id !== null)
+                                                <a href="{{ route('company.profile', $user->id) }}" class="btn btn-primary">
+                                                    Your Company Profile
+                                                </a>
+                                            @else
+                                                <a href="{{ route('company.create') }}" class="btn btn-primary">
+                                                    Create Company Profile    
+                                                </a>
+                                            @endif
                                         @endrole
                                         <a href="{{ route('user.settings', $user->id) }}"
-                                            class="btn btn-light icon-btn h5"><i class="fa-solid fa-gear"></i></a>
+                                            class="btn btn-light icon-btn h5 m-0"><i class="fa-solid fa-gear"></i></a>
                                     @endif
                                 </div>
                             </div>

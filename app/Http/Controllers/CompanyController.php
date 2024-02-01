@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Job;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\File;
 
 class CompanyController extends Controller
 {
@@ -38,7 +39,7 @@ class CompanyController extends Controller
     {
         try {
             if ($request->hasFile('img')) {
-                $imageName = time() . '.' . $request->img->extension();
+                $imageName = 'com' . time() . '.' . $request->img->extension();
                 $request->img->move(public_path('uploads'), $imageName);
             }
             $company = Company::create([
@@ -101,10 +102,18 @@ class CompanyController extends Controller
     {
         try {
             $company = Company::findOrFail($id);
+
             if ($request->hasFile('img')) {
-                $imageName = time() . '.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $imageName);
-                $company->img = $imageName;
+                // Delete old photo from storage
+                $imgPath = public_path('uploads/') . $company->img;
+                if (File::exists($imgPath)) {
+                    File::delete($imgPath);
+                }
+
+                // Update new photo
+                $imgName = 'com' . time() . '.' . $request->img->extension();
+                $request->img->move(public_path('uploads'), $imgName);
+                $company->img = $imgName;
             }
 
             $company->update([
@@ -122,14 +131,10 @@ class CompanyController extends Controller
                 'updated_by' => $request->input('updated_by'),
             ]);
             $user = User::with('company')->findOrFail($request->input('updated_by'));
-            // if ($user->company_id == null) {
-            //     return redirect()->route('company.profile', $user->id);
-            // } else {
-            //     return redirect()->route('company.profile', $user->id);
-            // }
 
             $message = "Updated Successfully!";
             $messageBody = "Company details updated successfully.";
+            
             return redirect()->route('company.profile', $user->id)->with(compact('message', 'messageBody'));
         } catch (Exception $e) {
             return $e->getMessage();
@@ -160,7 +165,7 @@ class CompanyController extends Controller
 
         $jobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->get();
         $showJobs = Job::with('applications')->where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
-
+        
         $company = $user->company;
         $similarCompanies = Company::where('id', '!=', $company->id)
             ->where(function ($query) use ($company) {

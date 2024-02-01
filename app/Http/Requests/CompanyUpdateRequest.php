@@ -25,6 +25,8 @@ class CompanyUpdateRequest extends FormRequest
             'bio' => 'required|min:50',
             'email' => 'required|email',
             'category_id' => 'required|numeric',
+            'founder' => 'required',
+            'founded' => 'required',
             'img' => 'image|mimes:jpeg,png|max:2048',
             'size' => 'required|numeric',
             'country' => 'required',

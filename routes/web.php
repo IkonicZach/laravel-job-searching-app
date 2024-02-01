@@ -31,7 +31,7 @@ Route::get('/', function () {
     $jobs = Job::with('company')->orderBy('created_at', 'desc')->take(6)->get();
     $blogs = Blog::with('blogcategories')->orderBy('created_at', 'desc')->take(3)->get();
     return view('home', compact('jobs', 'companies', 'blogs'));
-});
+}); // Home Route
 
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']); // For dynamically showing subcategories
 
@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/user/login', [UserController::class, 'showLogin'])->name('user.login')->middleware('remember_token');
 Route::post('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('remember_token');
 Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
+Route::get('/user/setup', [UserController::class, 'setup'])->name('user.setup');
+Route::put('/user/setup', [UserController::class, 'doSetup'])->name('user.doSetup');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
 Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
@@ -167,6 +169,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::resource('skill', SkillController::class);
 
+    Route::get('/company-management/trash', [TrashPageController::class, 'admin_companies'])->name('company-management.trash');
+    Route::post('/company-management/{id}/restore', [AdminCompanyController::class, 'restore'])->name('company-management.restore');
+    Route::delete('/company-management/{id}/delete', [AdminCompanyController::class, 'delete'])->name('company-management.delete');
     Route::resource('company-management', AdminCompanyController::class);
 
     Route::get('/trash/blogcategory', [TrashPageController::class, 'blogcategory'])->name('trash.blogcategory');
@@ -175,10 +180,5 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
     Route::resource('blogcategory', BlogCategoryController::class);
 
     Route::resource('job-management', \App\Http\Controllers\Admin\JobController::class);
-    // Route::get('/admin.company', [AdminCompanyController::class, 'index'])->name('admin.company.index');
-    // Route::put('/company/{id}/update', [AdminCompanyController::class, 'update'])->name('admin.company.update');
-    // Route::delete('/admin/company/{id}/destroy', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
-    // Route::delete('/company/{id}/delete', [AdminCompanyController::class, 'delete'])->name('admin.company.delete');
-    // Route::post('/company/{id}/restore', [AdminCompanyController::class, 'restore'])->name('admin.company.restore');
 });
 // ---------------------------------------- Admin routes ---------------------------------------- //

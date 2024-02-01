@@ -17,8 +17,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate(5);
+        $all_categories = Category::all();
+
         $subcategories = Subcategory::paginate(5);
-        return view('admin.tabs.categories', compact('categories', 'subcategories'));
+        $all_subcategories = Subcategory::all();
+        return view('admin.tabs.categories', compact('categories', 'subcategories', 'all_categories', 'all_subcategories'));
     }
 
     /**

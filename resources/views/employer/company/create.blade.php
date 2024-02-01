@@ -6,8 +6,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
-                    <h2>Since you haven't posted a job,</h2>
-                    <h4>you must enter your company details.</h4>
+                    <h4>Enter your company details.</h4>
                     <div class="card border-0">
                         <form action="{{ route('company.store') }}" method="POST" enctype="multipart/form-data"
                             class="rounded shadow p-4" autocomplete="off" novalidate>
@@ -49,8 +48,8 @@
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label class="form-label fw-semibold" for="founded">Founded Year:</label>
-                                            <input class="form-control @error('founded') is-invalid @enderror" type="number"
-                                                name="founded" id="founded" placeholder="Company's email:"
+                                            <input class="form-control @error('founded') is-invalid @enderror"
+                                                type="number" name="founded" id="founded" placeholder="Company's email:"
                                                 value="{{ old('founded') ?? '1950' }}" min="1950" max="2024">
                                             @error('founded')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -172,7 +171,7 @@
 
                             <div class="row mt-5">
                                 <div class="col-6">
-                                    <a href="/employer/company/create" class="btn btn-light w-100">Skip</a>
+                                    <a href="{{ route('job.index') }}" class="btn btn-light w-100">Skip</a>
                                 </div>
                                 <div class="col-6">
                                     <input type="submit" class="submitBnt btn btn-primary w-100"

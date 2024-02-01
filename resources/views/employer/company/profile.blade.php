@@ -65,185 +65,189 @@
                         </div>
                     </div>
 
-                    <h4 class="my-4">Recent Vacancies:</h4>
-                    <!-- Job List Modal -->
-                    <div class="modal fade" id="JobListModal" tabindex="-1" aria-labelledby="JobListModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" style="max-width: 1100px">
-                            <div class="modal-content p-5">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="JobListModalLabel">
-                                        All vacancies by <span class="text-primary">{{ $user->company->name }}</span>
-                                    </h1>
-                                    <a href="{{ route('job.trash') }}" class="btn icon-link btn-light">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                        Trash can
-                                    </a>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row g-4">
-                                        @foreach ($jobs as $job)
-                                            <div class="col-12">
-                                                <div
-                                                    class="job-post job-post-list rounded shadow p-4 d-md-flex align-items-center justify-content-between position-relative">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="{{ asset('uploads/' . $user->company->img) }}"
-                                                            class="avatar avatar-small rounded shadow p-3 bg-white"
-                                                            alt="">
+                    @if (count($showJobs) > 0)
+                        <h4 class="my-4">Recent Vacancies:</h4>
+                        <!-- Job List Modal -->
+                        <div class="modal fade" id="JobListModal" tabindex="-1" aria-labelledby="JobListModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1100px">
+                                <div class="modal-content p-5">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="JobListModalLabel">
+                                            All vacancies by <span class="text-primary">{{ $user->company->name }}</span>
+                                        </h1>
+                                        <a href="{{ route('job.trash') }}" class="btn icon-link btn-light">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                            Trash can
+                                        </a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row g-4">
+                                            @foreach ($jobs as $job)
+                                                <div class="col-12">
+                                                    <div
+                                                        class="job-post job-post-list rounded shadow p-4 d-md-flex align-items-center justify-content-between position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="{{ asset('uploads/' . $user->company->img) }}"
+                                                                class="avatar avatar-small rounded shadow p-3 bg-white"
+                                                                alt="">
 
-                                                        <div class="ms-3">
-                                                            <a href="{{ route('job.show', $job->id) }}"
-                                                                class="h5 title text-dark">{{ $job->title }}</a>
+                                                            <div class="ms-3">
+                                                                <a href="{{ route('job.show', $job->id) }}"
+                                                                    class="h5 title text-dark">{{ $job->title }}</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0">
+                                                            <span class="badge bg-soft-primary rounded-pill">
+                                                                {{ $job->employment_type }}
+                                                            </span>
+                                                            <span
+                                                                class="text-muted d-flex align-items-center fw-medium mt-md-2">
+                                                                <i class="fa-regular fa-clock me-1"></i>
+                                                                {{ $job->created_at->diffForHumans() }}
+                                                            </span>
+                                                        </div>
+
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
+                                                            <span class="text-muted d-flex align-items-center">
+                                                                <i class="fa-solid fa-location-dot me-1"></i>
+                                                                {{ $job->country }}
+                                                            </span>
+                                                            <span class="d-flex fw-medium mt-md-2">
+                                                                ${{ $job->min_salary }} - ${{ $job->max_salary }}/mo
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="mt-3 mt-md-0">
+                                                            @role('candidate')
+                                                                <form action="{{ route('job.bookmark', $job->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark">
+                                                                        <i class="fa-regular fa-bookmark"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @endrole
+                                                            @if ($user->id == auth()->user()->id)
+                                                                <a href="{{ route('job.applications', $job->id) }}"
+                                                                    class="btn btn-sm ms-1 btn-primary">
+                                                                    View Applicants
+                                                                </a>
+                                                                <a href="{{ route('job.edit', $job->id) }}"
+                                                                    class="btn btn-sm btn-warning btn-icon"
+                                                                    data-bs-toggle="tooltip" data-bs-title="Edit">
+                                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                                </a>
+                                                                <form action="{{ route('job.destroy', $job->id) }}"
+                                                                    class="d-inline" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-icon btn-danger"
+                                                                        data-bs-toggle="tooltip"
+                                                                        data-bs-title="Move to trash">
+                                                                        <i class="fa-regular fa-trash-can"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @else
+                                                                <a data-bs-toggle="modal"
+                                                                    data-bs-target="#jobApplyModal{{ $job->id }}"
+                                                                    class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">
+                                                                    Apply Now
+                                                                </a>
+                                                            @endif
                                                         </div>
                                                     </div>
-
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between d-md-block mt-3 mt-md-0">
-                                                        <span class="badge bg-soft-primary rounded-pill">
-                                                            {{ $job->employment_type }}
-                                                        </span>
-                                                        <span
-                                                            class="text-muted d-flex align-items-center fw-medium mt-md-2">
-                                                            <i class="fa-regular fa-clock me-1"></i>
-                                                            {{ $job->created_at->diffForHumans() }}
-                                                        </span>
-                                                    </div>
-
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
-                                                        <span class="text-muted d-flex align-items-center">
-                                                            <i class="fa-solid fa-location-dot me-1"></i>
-                                                            {{ $job->country }}
-                                                        </span>
-                                                        <span class="d-flex fw-medium mt-md-2">
-                                                            ${{ $job->min_salary }} - ${{ $job->max_salary }}/mo
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="mt-3 mt-md-0">
-                                                        @role('candidate')
-                                                            <form action="{{ route('job.bookmark', $job->id) }}" method="POST"
-                                                                class="d-inline">
-                                                                @csrf
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark">
-                                                                    <i class="fa-regular fa-bookmark"></i>
-                                                                </button>
-                                                            </form>
-                                                        @endrole
-                                                        @if ($user->id == auth()->user()->id)
-                                                            <a href="{{ route('job.applications', $job->id) }}"
-                                                                class="btn btn-sm ms-1 btn-primary">
-                                                                View Applicants
-                                                            </a>
-                                                            <a href="{{ route('job.edit', $job->id) }}"
-                                                                class="btn btn-sm btn-warning btn-icon"
-                                                                data-bs-toggle="tooltip" data-bs-title="Edit">
-                                                                <i class="fa-regular fa-pen-to-square"></i>
-                                                            </a>
-                                                            <form action="{{ route('job.destroy', $job->id) }}"
-                                                                class="d-inline" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-icon btn-danger"
-                                                                    data-bs-toggle="tooltip" data-bs-title="Move to trash">
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </button>
-                                                            </form>
-                                                        @else
-                                                            <a data-bs-toggle="modal"
-                                                                data-bs-target="#jobApplyModal{{ $job->id }}"
-                                                                class="btn btn-sm btn-primary w-full ms-md-1 @role('employer') disabled @endrole">
-                                                                Apply Now
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div><!--end col-->
-                                        @endforeach
+                                                </div><!--end col-->
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
-                                {{-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> --}}
                             </div>
                         </div>
-                    </div>
-                    <div class="row g-4">
-                        @foreach ($showJobs as $job)
-                            <div class="col-lg-6 col-12">
-                                <div class="job-post rounded shadow bg-white">
-                                    <div class="p-4">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <a href="{{ route('job.show', $job->id) }}"
-                                                class="text-dark title h5">{{ $job->title }}</a>
-                                            @if (auth()->user()->id == $job->created_by)
-                                                <div class="d-flex" style="gap: 0.1rem">
-                                                    <a href="{{ route('job.edit', $job->id) }}"
-                                                        class="btn btn-sm btn-warning btn-icon" data-bs-toggle="tooltip"
-                                                        data-bs-title="Edit">
-                                                        <i class="fa-regular fa-pen-to-square"></i>
-                                                    </a>
-                                                    <form action="{{ route('job.destroy', $job->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger"
-                                                            data-bs-toggle="tooltip" data-bs-title="Move to trash">
-                                                            <i class="fa-regular fa-trash-can"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="text-muted d-flex align-items-center small mt-3">
-                                                <i class="fa-regular fa-clock text-primary me-1"></i>
-                                                Posted {{ $job->created_at->diffForHumans() }}
-                                            </p>
-                                            <a href="{{ route('job.applications', $job->id) }}" class="text-muted small"
-                                                id="applications" data-bs-toggle="tooltip"
-                                                data-bs-title="View Applicants">
-                                                Applications:
-                                                <span class="text-primary">{{ count($job->applications) }}</span>
-                                                @if ($job->limit !== null)
-                                                    / {{ $job->limit }}
+                        <div class="row g-4">
+                            @foreach ($showJobs as $job)
+                                <div class="col-lg-6 col-12">
+                                    <div class="job-post rounded shadow bg-white">
+                                        <div class="p-4">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <a href="{{ route('job.show', $job->id) }}"
+                                                    class="text-dark title h5">{{ $job->title }}</a>
+                                                @if (auth()->user()->id == $job->created_by)
+                                                    <div class="d-flex" style="gap: 0.1rem">
+                                                        <a href="{{ route('job.edit', $job->id) }}"
+                                                            class="btn btn-sm btn-warning btn-icon"
+                                                            data-bs-toggle="tooltip" data-bs-title="Edit">
+                                                            <i class="fa-regular fa-pen-to-square"></i>
+                                                        </a>
+                                                        <form action="{{ route('job.destroy', $job->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-icon btn-danger"
+                                                                data-bs-toggle="tooltip" data-bs-title="Move to trash">
+                                                                <i class="fa-regular fa-trash-can"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @endif
-                                            </a>
-                                        </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="text-muted d-flex align-items-center small mt-3">
+                                                    <i class="fa-regular fa-clock text-primary me-1"></i>
+                                                    Posted {{ $job->created_at->diffForHumans() }}
+                                                </p>
+                                                <a href="{{ route('job.applications', $job->id) }}"
+                                                    class="text-muted small" id="applications" data-bs-toggle="tooltip"
+                                                    data-bs-title="View Applicants">
+                                                    Applications:
+                                                    <span class="text-primary">{{ count($job->applications) }}</span>
+                                                    @if ($job->limit !== null)
+                                                        / {{ $job->limit }}
+                                                    @endif
+                                                </a>
+                                            </div>
 
-                                        <ul
-                                            class="list-unstyled d-flex justify-content-between align-items-center mb-0 mt-3">
-                                            <li class="list-inline-item">
-                                                <span class="badge bg-soft-primary">{{ $job->employment_type }}</span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span class="text-muted d-flex align-items-center small">
-                                                    <i class="fa-regular fa-dollar-sign text-primary me-1"></i>
-                                                    ${{ $job->min_salary }} - ${{ $job->max_salary }}/mo
+                                            <ul
+                                                class="list-unstyled d-flex justify-content-between align-items-center mb-0 mt-3">
+                                                <li class="list-inline-item">
+                                                    <span class="badge bg-soft-primary">{{ $job->employment_type }}</span>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <span class="text-muted d-flex align-items-center small">
+                                                        <i class="fa-regular fa-dollar-sign text-primary me-1"></i>
+                                                        ${{ $job->min_salary }} - ${{ $job->max_salary }}/mo
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="d-flex align-items-center p-4 border-top">
+                                            <img src="{{ asset('uploads/' . $job->company->img) }}"
+                                                class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
+                                            <div class="ms-3">
+                                                <h6>{{ $job->company->name }}</h6>
+                                                <span class="text-muted d-flex align-items-center">
+                                                    <i
+                                                        class="fa-solid fa-location-dot me-1"></i>{{ $job->company->country }}
                                                 </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex align-items-center p-4 border-top">
-                                        <img src="{{ asset('uploads/' . $job->company->img) }}"
-                                            class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                        <div class="ms-3">
-                                            <h6>{{ $job->company->name }}</h6>
-                                            <span class="text-muted d-flex align-items-center">
-                                                <i class="fa-solid fa-location-dot me-1"></i>{{ $job->company->country }}
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                        <div class="row justify-content-center mt-3">
-                            <a class="btn btn-sm btn-primary col-2" data-bs-toggle="modal"
-                                data-bs-target="#JobListModal">See all jobs</a>
+                            @endforeach
+
+                            @if (count($showJobs) > 2)
+                                <div class="row justify-content-center mt-3">
+                                    <a class="btn btn-sm btn-primary col-2" data-bs-toggle="modal"
+                                        data-bs-target="#JobListModal">See all jobs</a>
+                                </div>
+                            @endif
                         </div>
-                    </div>
+                    @endif
                 </div><!--end col-->
 
                 <div class="col-lg-4 col-md-5 col-12">
@@ -258,12 +262,12 @@
                         <div class="mt-3">
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Founded:</span>
-                                <span>{{$user->company->founded}}</span>
+                                <span>{{ $user->company->founded }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Founder:</span>
-                                <span>{{$user->company->founder}}</span>
+                                <span>{{ $user->company->founder }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">

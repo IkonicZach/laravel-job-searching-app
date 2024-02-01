@@ -10,7 +10,7 @@
 </style>
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
-    aria-labelledby="offcanvasWithBothOptionsLabel" style="transition: 0.3s; width: ">
+    aria-labelledby="offcanvasWithBothOptionsLabel" style="transition: 0.3s; width: 350px !important">
     <div class="wrapper">
         <div class="header-top">
             <a @auth href="{{ route('user.profile', auth()->user()->id) }}" @endauth class="user-account">
@@ -32,10 +32,10 @@
                             <span class="text-primary">{{ auth()->user()->name }}</span>
                         </h5>
                     @else
-                        <div class="buttons-group">
-                            <a href="{{ route('user.login') }}" class="btn">Sign in</a>
-                            <a href="{{ route('user.register') }}" class="btn">Sign up</a>
-                        </div>
+                        {{-- <div class="buttons-group"> --}}
+                            <a href="{{ route('user.login') }}" class="btn btn-primary">Sign in</a>
+                            {{-- <a href="{{ route('user.register') }}" class="btn">Sign up</a> --}}
+                        {{-- </div> --}}
                     @endauth
                     {{-- <p class="font-xs text-muted m-0">You have 2 new messages</p> --}}
                 </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\File;
 
 class Company extends Model
 {
@@ -26,21 +27,21 @@ class Company extends Model
         'updated_by',
     ];
 
-    protected static function boot()
+    public function forceDelete()
     {
-        parent::boot();
+        // Delete associated photo from storage
+        $thumbnailPath = public_path('uploads/') . $this->thumbnail;
+        if (File::exists($thumbnailPath)) {
+            File::delete($thumbnailPath);
+        }
 
-        static::deleting(function ($company) {
-            // Delete associated image when the company is deleted
-            if ($company->img) {
-                // Assuming 'uploads' is the directory where your images are stored
-                $imagePath = public_path('uploads/' . $company->img);
+        $imgPath = public_path('uploads/') . $this->img;
+        if (File::exists($imgPath)) {
+            File::delete($imgPath);
+        }
 
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-            }
-        });
+        // Continue with the regular delete
+        parent::forceDelete();
     }
 
     public function employer()

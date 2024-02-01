@@ -18,31 +18,50 @@
             </style>
 
             <div class="row shadow-lg p-5 m-3 me-5 w-100 rounder">
-                <form action="{{ route('category.store') }}" method="POST" class="col-6 needs-validation pe-4" novalidate
-                    autocomplete="off">
-                    @csrf
-                    <h4>Create a new Category</h4>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <input type="hidden" name="created_by" id="created_by" value="{{ auth()->user()->id }}">
-                            <label for="name" class="form-label">Category name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" value="{{ old('name') }}" required>
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                <div class="d-flex justify-content-between align-items-center">
+                    <form action="{{ route('category.store') }}" method="POST" class="col-5 pe-5" autocomplete="off">
+                        @csrf
+                        <h4>Create a new Category</h4>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <input type="hidden" name="created_by" id="created_by" value="{{ auth()->user()->id }}">
+                                <label for="name" class="form-label">Category name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" value="{{ old('name') }}" required>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">create</button>
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" type="submit">create</button>
-                        </div>
+                    </form>
+
+                    <div class="d-flex col-7">
+                        <a href="#categories" class="col-6 dashboard-card shadow-lg">
+                            <div>
+                                <h5>Categories</h5>
+                                <span>{{ count($all_categories) }}</span>
+                            </div>
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+
+                        <a href="#subcategories" class="col-6 dashboard-card shadow-lg ms-3">
+                            <div>
+                                <h5>Sub-categories</h5>
+                                <span>{{ count($all_subcategories) }}</span>
+                            </div>
+                            <i class="fa-solid fa-layer-group"></i>
+                        </a>
                     </div>
-                </form>
+                </div>
 
                 {{-- Categories table starts here --}}
-                <div class="col-12 my-table mt-5">
+                <div class="col-12 my-table mt-5" id="categories">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>All categories</h3>
-                        <a href="{{ route('trash.category') }}" class="btn btn-light">Trash Can <i
+                        <a href="{{ route('trash.category') }}" class="btn btn-sm btn-light">Trash Can <i
                                 class="fa-solid fa-trash-can"></i> </a>
                     </div>
                     <div class="table-head row g-0">
@@ -70,7 +89,8 @@
                                                     Are you sure you want to delete this category?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('category.destroy', $cat->id) }}" method="POST">
+                                                    <form action="{{ route('category.destroy', $cat->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary"
@@ -94,13 +114,14 @@
                                             <div class="d-flex">
                                                 <a data-bs-toggle="collapse" data-bs-target="#sub{{ $cat->id }}"
                                                     aria-expanded="true" aria-controls="sub{{ $cat->id }}"
-                                                    class="btn btn-primary me-1"><i class="fa-solid fa-plus"></i></a>
+                                                    class="btn btn-sm btn-primary me-1"><i class="fa-solid fa-plus"></i></a>
                                                 <a data-bs-toggle="collapse" data-bs-target="#cat_edit{{ $cat->id }}"
                                                     aria-expanded="true" aria-controls="cat_edit{{ $cat->id }}"
-                                                    class="btn btn-primary me-1"><i
+                                                    class="btn btn-sm btn-warning me-1"><i
                                                         class="fa-solid fa-pen-to-square"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#delete{{ $cat->id }}"
-                                                    class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></a>
+                                                    class="btn btn-sm btn-danger"><i
+                                                        class="fa-regular fa-trash-can"></i></a>
                                             </div>
                                         </div>
 
@@ -173,7 +194,7 @@
 
             <div class="row shadow-lg p-5 m-3 w-100 rounder">
                 {{-- Sub-categories table starts here --}}
-                <div class="col-12 my-table">
+                <div class="col-12 my-table" id="subcategories">
                     <h3>Sub-categories</h3>
                     <div class="table-head row g-0">
                         <div class="th col-1"><b>#</b></div>
@@ -230,10 +251,10 @@
                                                 <a data-bs-toggle="collapse"
                                                     data-bs-target="#subcat_edit{{ $cat->id }}" aria-expanded="true"
                                                     aria-controls="subcat_edit{{ $cat->id }}"
-                                                    class="btn btn-primary me-1"><i
+                                                    class="btn btn-warning me-1"><i
                                                         class="fa-solid fa-pen-to-square"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#subdelete{{ $cat->id }}"
-                                                    class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></a>
+                                                    class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                                             </div>
                                         </div>
 

@@ -47,11 +47,34 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="founded">Founded Year:</label>
+                                            <input class="form-control @error('founded') is-invalid @enderror"
+                                                type="number" name="founded" id="founded" placeholder="Company's email:"
+                                                value="{{ $company->founded ?? '1950' }}" min="1950" max="2024">
+                                            @error('founded')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-semibold" for="founder">Founder:</label>
+                                            <input class="form-control @error('founder') is-invalid @enderror"
+                                                type="text" name="founder" id="founder"
+                                                placeholder="Name of the founder: " value="{{ $company->founder }}">
+                                            @error('founder')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-12 mb-3">
                                         <label class="form-label fw-semibold" for="img">Company Picture
                                             :</label>
                                         @if ($company->img)
-                                            <b>Uploaded File: <a href="{{ asset('uploads/' . $company->img) }}">{{ $company->img }}</a></b>
+                                            <b>Uploaded File: <a
+                                                    href="{{ asset('uploads/' . $company->img) }}">{{ $company->img }}</a></b>
                                         @endif
                                         <input type="file" name="img" id="img"
                                             class="form-control @error('img') is-invalid @enderror">
@@ -104,7 +127,8 @@
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label class="form-label fw-semibold">Country:</label>
-                                            <select class="form-control form-select @error('country') is-invalid @enderror"
+                                            <select
+                                                class="form-control form-select @error('country') is-invalid @enderror"
                                                 id="Country" name="country">
                                                 <option selected disabled value="">Country</option>
                                                 @foreach ($countries as $country)
