@@ -35,8 +35,7 @@
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="delete{{ $company->id }}Label">
                                                         Confirmation
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                                    </h1>
                                                 </div>
                                                 <div class="modal-body">
                                                     Are you sure you want to delete this company?
@@ -93,7 +92,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <h4 class="text-muted">No companies registered</h4>
+                                <h4 class="text-muted">No users registered</h4>
                             @endif
                         @endif
                     </div>

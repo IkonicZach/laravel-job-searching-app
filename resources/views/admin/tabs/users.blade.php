@@ -20,7 +20,6 @@
                         <div class="th col-3"><b>Actions</b></div>
                     </div>
                     <div class="table-body" style="height: auto !important;">
-                        <?php $i = 1; ?>
                         @if (!empty($users))
                             @if (count($users) > 0)
                                 @foreach ($users as $user)
@@ -32,8 +31,9 @@
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="delete{{ $user->id }}Label">
                                                         Confirmation
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     Are you sure you want to delete this user?
@@ -54,76 +54,68 @@
                                     <!-- User Delete Confirm Modal ends here -->
 
                                     <!-- User Role Assign Modal starts here -->
-                                    <div class="modal fade" id="assign{{ $user->id }}" tabindex="-1"
-                                        aria-labelledby="assign{{ $user->id }}Label" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content p-5">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="assign{{ $user->id }}Label">
-                                                        Assign Role
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Assign a role to {{ $user->name }}.
-                                                </div>
-                                                <form action="{{ route('user.assign', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    <select class="form-select" name="role">
-                                                        @foreach ($roles as $role)
-                                                            <option value="{{ $role->name }}">{{ $role->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Delete</button>
-                                                </form>
+                                    <x-admin-user-role-assign :user="$user" :roles="$roles" />
+                                    <!-- User Role Assign Modal ends here -->
+
+                                    {{-- User edit Modal starts here  --}}
+                                    <x-admin-user-edit :user="$user" :categories="$categories" :skills="$skills" />
+                                    {{-- User edit Modal ends here  --}}
+
+                                    {{-- User Deactivate Modal Starts Here  --}}
+                                    <x-admin-user-deactivate :user="$user" />
+                                    {{-- User Deactivate Modal Ends Here  --}}
+
+                                    <div class="table-data w-100 align-items-center g-0">
+                                        <div class="td col-1">
+                                            <p>{{ $user->id }}.</p>
+                                        </div>
+                                        <div class="td col-2">
+                                            <p>{{ $user->name }}</p>
+                                        </div>
+                                        <div class="td col-4">
+                                            <p>{{ $user->email }}</p>
+                                        </div>
+                                        <div class="td col-2">
+                                            @foreach ($user->roles as $user_role)
+                                                <p>{{ $user_role->name ?? '-' }}</p>
+                                            @endforeach
+                                        </div>
+                                        <div class="td col-3">
+                                            <div class="d-flex">
+                                                <a href="{{ route('user.profile', $user->id) }}" class="btn btn-info me-1"
+                                                    data-bs-toggle="tooltip" data-bs-title="View profile">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </a>
+                                                <a data-bs-toggle="tooltip" data-bs-title="Assign role">
+                                                    <button class="btn btn-icon btn-primary me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#assign{{ $user->id }}">
+                                                        <i class="fa-solid fa-user-plus"></i>
+                                                    </button>
+                                                </a>
+                                                <a data-bs-toggle="tooltip" data-bs-title="Edit">
+                                                    <button class="btn btn-icon btn-warning me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#edit{{ $user->id }}">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                </a>
+                                                <a data-bs-toggle="tooltip" data-bs-title="Ban">
+                                                    <button class="btn btn-danger btn-icon" data-bs-toggle="modal"
+                                                        data-bs-target="#deactivate{{ $user->id }}">
+                                                        <i class="fa-solid fa-user-slash"></i>
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            @else
+                                <h4 class="text-muted">No category available</h4>
+                            @endif
+                        @endif
+                        {{ $users->links() }}
                     </div>
-                    <!-- User Role Assign Modal ends here -->
-
-                    <div class="table-data w-100 align-items-center g-0">
-                        <div class="td col-1">
-                            <p>{{ $user->id }}.</p>
-                        </div>
-                        <div class="td col-2">
-                            <p>{{ $user->name }}</p>
-                        </div>
-                        <div class="td col-4">
-                            <p>{{ $user->email }}</p>
-                        </div>
-                        <div class="td col-2">
-                            @foreach ($user->roles as $user_role)
-                                <p>{{ $user_role->name ?? '-' }}</p>
-                            @endforeach
-                        </div>
-                        <div class="td col-3">
-                            <div class="d-flex">
-                                <a data-bs-toggle="modal" data-bs-target="#assign{{ $user->id }}"
-                                    class="btn btn-primary me-1"><i class="fa-solid fa-user-plus"></i></a>
-                                <a data-bs-toggle="collapse" data-bs-target="#cat_edit{{ $user->id }}"
-                                    aria-expanded="true" aria-controls="cat_edit{{ $user->id }}"
-                                    class="btn btn-primary me-1">
-                                    <i class="fa-solid fa-pen-to-square"></i></a>
-                                <a data-bs-toggle="modal" data-bs-target="#delete{{ $user->id }}"
-                                    class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php $i++; ?>
-                    @endforeach
-                @else
-                    <h4 class="text-muted">No category available</h4>
-                    @endif
-                    @endif
-                    {{ $users->links() }}
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

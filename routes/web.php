@@ -52,6 +52,26 @@ Route::resource('candidate', CandidateController::Class)->only('index');
 
 Route::resource('company', CompanyController::Class)->only('index');
 
+// ---------------------------------------- User routes ---------------------------------------- //
+Route::get('/user/login', [UserController::class, 'showLogin'])->name('user.login')->middleware('remember_token');
+Route::post('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('remember_token');
+Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
+Route::get('/user/setup', [UserController::class, 'setup'])->name('user.setup');
+Route::put('/user/setup', [UserController::class, 'doSetup'])->name('user.doSetup');
+Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
+Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+
+Route::delete('/user/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
+Route::get('/user/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
+Route::post('/user/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
+
+Route::get('/forgot-password', [PasswordController::class, 'create'])->name('password.forgot'); // Show Password Reset Page
+Route::post('/forgot-password', [PasswordController::class, 'send'])->name('password.send'); // Send Email
+Route::get('/reset-password/{token}', [PasswordController::class, 'resetPage'])->name('password.reset.page'); // Show Reset Password
+Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.reset'); // Reset Password
+// ---------------------------------------- User routes ---------------------------------------- //
+
+// ---------------------------------------- Authenticated User routes ---------------------------------------- //
 Route::middleware('auth')->group(function () {
     Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
     Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
@@ -81,26 +101,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/experience/{id}/delete', [ExperienceController::class, 'delete'])->name('experience.delete');
     Route::resource('experience', ExperienceController::class);
 });
-
-// ---------------------------------------- User routes ---------------------------------------- //
-Route::get('/user/login', [UserController::class, 'showLogin'])->name('user.login')->middleware('remember_token');
-Route::post('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('remember_token');
-Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
-Route::get('/user/setup', [UserController::class, 'setup'])->name('user.setup');
-Route::put('/user/setup', [UserController::class, 'doSetup'])->name('user.doSetup');
-Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
-Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-
-Route::delete('/user/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
-Route::get('/user/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
-Route::post('/user/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
-
-Route::get('/forgot-password', [PasswordController::class, 'create'])->name('password.forgot'); // Show Password Reset Page
-Route::post('/forgot-password', [PasswordController::class, 'send'])->name('password.send'); // Send Email
-Route::get('/reset-password/{token}', [PasswordController::class, 'resetPage'])->name('password.reset.page'); // Show Reset Password
-Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.reset'); // Reset Password
-
-// ---------------------------------------- User routes ---------------------------------------- //
+// ---------------------------------------- Authenticated User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //
 Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function () {
@@ -148,6 +149,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
 
     Route::resource('/user-management', \App\Http\Controllers\Admin\UserController::class);
     Route::post('/user/{id}/assign', [\App\Http\Controllers\Admin\UserController::class, 'assign'])->name('user.assign');
+    Route::delete('/user/{id}/deactivate', [\App\Http\Controllers\Admin\UserController::class, 'deactivate'])->name('user-management.deactivate');
 
     Route::resource('/role', RoleController::class);
     Route::post('/role/{id}/assign', [RoleController::class, 'assign'])->name('role.assign');
