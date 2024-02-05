@@ -1,4 +1,4 @@
-@section('title', 'Experiences Trash Can | Skilltrack')
+@section('title', 'Experiences Trash Can | Jobnova')
 @extends('layout.trash-can')
 @section('table')
     <h3>Experiences</h3>

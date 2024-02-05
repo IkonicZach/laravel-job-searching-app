@@ -1,4 +1,4 @@
-@section('title', 'Forgot Account | Skilltrack')
+@section('title', 'Forgot Account | Jobnova')
 @extends('layout.master')
 @section('content')
     <section class="bg-home d-flex align-items-center" style="background: url('images/hero/bg3.jpg') center;">

@@ -1,4 +1,4 @@
-@section('title', 'About Us | Skilltrack')
+@section('title', 'About Us | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -68,7 +68,7 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Here's why you'll love it Skilltrack</h4>
+                        <h4 class="title mb-3">Here's why you'll love it Jobnova</h4>
                         <p class="text-muted para-desc mx-auto mb-0">Search all the open positions on the web. Get your own
                             personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                     </div>
@@ -360,7 +360,7 @@
                     <div class="d-flex">
                         <i class=" fa-regular fa-circle-question text-primary me-2" style="font-size: x-large"></i>
                         <div class="flex-1">
-                            <h5 class="mt-0">How our <span class="text-primary">Skilltrack</span> work ?</h5>
+                            <h5 class="mt-0">How our <span class="text-primary">Jobnova</span> work ?</h5>
                             <p class="answer text-muted mb-0">Due to its widespread use as filler text for layouts,
                                 non-readability is of great importance: human perception is tuned to recognize certain
                                 patterns and repetitions in texts.</p>
@@ -395,7 +395,7 @@
                     <div class="d-flex">
                         <i class=" fa-regular fa-circle-question text-primary me-2" style="font-size: x-large"></i>
                         <div class="flex-1">
-                            <h5 class="mt-0"> Is <span class="text-primary">Skilltrack</span> safer to use with my account
+                            <h5 class="mt-0"> Is <span class="text-primary">Jobnova</span> safer to use with my account
                                 ?</h5>
                             <p class="answer text-muted mb-0">The most well-known dummy text is the 'Lorem Ipsum', which is
                                 said to have originated in the 16th century. Lorem Ipsum is composed in a pseudo-Latin
@@ -410,7 +410,7 @@
                     <div class="section-title">
                         <h4 class="title mb-4">Have Question ? Get in touch!</h4>
                         <p class="text-muted para-desc mx-auto">Start working with <span
-                                class="text-primary fw-bold">Skilltrack</span> that can provide everything you need to
+                                class="text-primary fw-bold">Jobnova</span> that can provide everything you need to
                             generate awareness, drive traffic, connect.</p>
                         <a href="contactus.html" class="btn btn-primary mt-3">
                             <i class="uil uil-phone"></i> Contact

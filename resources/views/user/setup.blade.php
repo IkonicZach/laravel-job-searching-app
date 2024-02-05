@@ -1,4 +1,4 @@
-@section('title', 'Setup Account | Skilltrack')
+@section('title', 'Setup Account | Jobnova')
 @extends('layout.master')
 @section('content')
     <style>

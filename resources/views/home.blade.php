@@ -1,4 +1,4 @@
-@section('title', 'Home | Skilltrack')
+@section('title', 'Home | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -385,14 +385,21 @@
                                     <i data-feather="map-pin" class="fa-solid fa-location-dot me-1"></i>
                                     {{ $job->country }}
                                 </span>
+                                @if ($job->limit !== null)
+                                    <?php $percentage = (count($job->applications) / $job->limit) * 100; ?>
+                                    <div class="progress-box mt-3">
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar position-relative bg-primary"
+                                                style="width:{{ $percentage }}%;">
+                                            </div>
+                                        </div>
 
-                                <div class="progress-box mt-3">
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar position-relative bg-primary" style="width:50%;"></div>
+                                        <span class="text-">
+                                            {{ count($job->applications) }} applied of
+                                            <span class="text-muted">{{ $job->limit }} vacancy</span>
+                                        </span>
                                     </div>
-
-                                    <span class="text-">20 applied of <span class="text-muted">40 vacancy</span></span>
-                                </div>
+                                @endif
                             </div>
                         </div><!--end job post-->
                     </div><!--end col-->
@@ -410,7 +417,7 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Here's why you'll love it Skilltrack</h4>
+                        <h4 class="title mb-3">Here's why you'll love it Jobnova</h4>
                         <p class="text-muted para-desc mx-auto mb-0">Search all the open positions on the web. Get your own
                             personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                     </div>

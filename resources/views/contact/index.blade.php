@@ -18,7 +18,7 @@
             <div class="position-middle-bottom">
                 <nav aria-label="breadcrumb" class="d-block">
                     <ul class="breadcrumb breadcrumb-muted mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="/">Skilltrack</a></li>
+                        <li class="breadcrumb-item"><a href="/">Jobnova</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Contact us</li>
                     </ul>
                 </nav>
@@ -121,7 +121,7 @@
 
                         <div class="mt-4">
                             <h5 class="mb-3">Phone</h5>
-                            <p class="text-muted">Start working with Skilltrack that can provide everything</p>
+                            <p class="text-muted">Start working with Jobnova that can provide everything</p>
                             <a href="tel:+152534-468-854" class="text-primary">+152 534-468-854</a>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
 
                         <div class="mt-4">
                             <h5 class="mb-3">Email</h5>
-                            <p class="text-muted">Start working with Skilltrack that can provide everything</p>
+                            <p class="text-muted">Start working with Jobnova that can provide everything</p>
                             <a href="mailto:contact@example.com" class="text-primary">contact@example.com</a>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-@section('title', "User's Saved Jobs | Skilltrack")
+@section('title', "User's Saved Jobs | Jobnova")
 @extends('layout.master')
 @section('content')
     @include('layout.nav')

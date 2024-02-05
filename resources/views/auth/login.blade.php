@@ -1,4 +1,4 @@
-@section('title', 'Login to Account | Skilltrack')
+@section('title', 'Login to Account | Jobnova')
 @extends('layout.master')
 @section('content')
     <section class="bg-home d-flex align-items-center" style="background: url('{{ asset('images/hero/bg3.jpg') }}') center;">

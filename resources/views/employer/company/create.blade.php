@@ -1,4 +1,4 @@
-@section('title', 'Create Your Company Profile | Skilltrack')
+@section('title', 'Create Your Company Profile | Jobnova')
 @extends('layout.master')
 @section('content')
     <!-- Company create form Start -->

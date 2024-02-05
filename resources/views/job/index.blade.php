@@ -162,9 +162,9 @@
                 {{-- Jobs Listing Starts Here  --}}
                 <div class="col-lg-9 col-md-6 col-12">
                     <div class="row g-4">
-                        @role('employer')
+                        @can('post jobs')
                             <a href="{{ route('job.create') }}" class="btn btn-primary mt-5">Post a job</a>
-                        @endrole
+                        @endcan
                         <a href="{{ route('job.index') }}"
                             class="btn btn-light w-auto @role('candidate') mt-5 ms-3 @endrole">Refresh</a>
                         @foreach ($jobs as $job)
@@ -303,10 +303,8 @@
                                             @csrf
                                             <button type="submit"
                                                 class="btn btn-sm btn-icon btn-pills @role('employer') disabled @endrole @auth @if (auth()->user()->bookmarkedJobs->contains($job)) btn-primary @else btn-soft-primary @endif @endauth bookmark"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-title="Add to your jobs">
-                                                <i class="fa-regular
-                                                fa-bookmark"></i>
+                                                data-bs-toggle="tooltip" data-bs-title="Add to your jobs">
+                                                <i class="fa-regular fa-bookmark"></i>
                                             </button>
                                         </form>
                                         <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"
@@ -342,7 +340,7 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Here's why you'll love it at Skilltrack</h4>
+                        <h4 class="title mb-3">Here's why you'll love it at Jobnova</h4>
                         <p class="text-muted para-desc mx-auto mb-0">Search all the open positions on the web. Get your own
                             personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                     </div>

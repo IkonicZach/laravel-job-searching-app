@@ -1,4 +1,4 @@
-@section('title', 'Register New Account | Skilltrack')
+@section('title', 'Register New Account | Jobnova')
 @extends('layout.master')
 @section('content')
     {{-- <style>

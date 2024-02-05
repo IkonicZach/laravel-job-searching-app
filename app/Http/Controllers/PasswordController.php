@@ -32,7 +32,7 @@ class PasswordController extends Controller
 
         Mail::send('emails.forgot-password', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
-            $message->subject('Reset Your Password | Skilltrack');
+            $message->subject('Reset Your Password | Jobnova');
         });
 
         $message = "Email sent successfully!";

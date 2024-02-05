@@ -131,7 +131,7 @@
                         <a href="#" class="col-2"><img src="{{ asset('/images/logo/telegram.svg') }}"></a>
                     </div>
                 </div>
-                <div class="site-copyright text-muted text-center py-5">Copyright 2023 © Skilltrack.</div>
+                <div class="site-copyright text-muted text-center py-5">Copyright 2023 © Jobnova.</div>
             </div>
         </div>
     </div>

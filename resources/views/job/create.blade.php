@@ -1,4 +1,4 @@
-@section('title', 'Post a Job | Skilltrack')
+@section('title', 'Post a Job | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -16,7 +16,7 @@
             <div class="position-middle-bottom">
                 <nav aria-label="breadcrumb" class="d-block">
                     <ul class="breadcrumb breadcrumb-muted mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="/">Skilltrack</a></li>
+                        <li class="breadcrumb-item"><a href="/">Jobnova</a></li>
                         <li class="breadcrumb-item"><a href="/jobs/listing">Job</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Job Post</li>
                     </ul>

@@ -79,7 +79,7 @@
                         <p class="mb-0 fw-medium">©
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Skilltrack. Made with <i
+                            </script> Jobnova. Made with <i
                                 class="fa-solid fa-heart text-danger"></i></i>.
                         </p>
                     </div>

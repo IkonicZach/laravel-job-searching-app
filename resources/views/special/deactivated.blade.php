@@ -1,4 +1,4 @@
-@section('title', 'Error page | Skilltrack')
+@section('title', 'Error page | Jobnova')
 @extends('layout.master')
 @section('content')
     <!-- Start -->
@@ -103,7 +103,7 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                Skilltrack
+                                Jobnova
                             </p>
                         </div>
                     </div>

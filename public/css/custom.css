@@ -51,9 +51,12 @@ header .img-fluid {
 }
 
 .avatar.avatar-medium,
-.avatar.avatar-md-md {
+.avatar.avatar-md-md,
+.avatar.avatar-md-sm,
+.avatar.avatar-small {
     object-fit: cover;
 }
+
 
 .accordion-collapse {
     transition: 0.3s !important;

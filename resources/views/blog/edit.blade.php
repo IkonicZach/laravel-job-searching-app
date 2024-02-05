@@ -1,4 +1,4 @@
-@section('title', 'Edit Blog | Skilltrack')
+@section('title', 'Edit Blog | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
