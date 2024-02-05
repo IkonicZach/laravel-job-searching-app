@@ -32,8 +32,9 @@ return new class extends Migration
             $table->integer('min_salary')->default(0);
             $table->integer('max_salary')->default(0);
             $table->longText('notification_preferences')->nullable();
-            $table->string('remember_token', 100)->nullable();
+            // $table->string('remember_token', 100)->nullable();
             $table->boolean('is_active')->default(true);
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

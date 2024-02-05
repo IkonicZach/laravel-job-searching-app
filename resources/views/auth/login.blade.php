@@ -37,10 +37,11 @@
                             <div class="d-flex justify-content-between">
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault">
-                                        <label class="form-label form-check-label text-muted"
-                                            for="flexCheckDefault">Remember me</label>
+                                        <input class="form-check-input" type="checkbox" id="remember" name="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-label form-check-label text-muted" for="remember">
+                                            Remember me
+                                        </label>
                                     </div>
                                 </div>
                                 <span class="forgot-pass text-muted small mb-0">

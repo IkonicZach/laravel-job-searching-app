@@ -88,7 +88,7 @@ class UserController extends Controller
                     return view('special.deactivated', compact('user'));
                 }
 
-                if (auth()->attempt($credentials)) {
+                if (auth()->attempt($credentials, $request->filled('remember'))) {
 
                     $user = auth()->user();
 
