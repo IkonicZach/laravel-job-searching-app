@@ -177,8 +177,8 @@
                                             Myanmar</option>
                                         <option value="Japan" @if ($user->country == 'Japan') selected @endif>Japan
                                         </option>
-                                        <option value="Singapore" @if ($user->country == 'Singapore') selected @endif>
-                                            Singapore
+                                        <option value="United States" @if ($user->country == 'United States') selected @endif>
+                                            United States
                                         </option>
                                     </select>
                                     @error('country')
@@ -195,8 +195,8 @@
                                         </option>
                                         <option value="Nagoya" @if ($user->city == 'Nagoya') selected @endif>Nagoya
                                         </option>
-                                        <option value="Kashima" @if ($user->city == 'Kashima') selected @endif>
-                                            Kashima</option>
+                                        <option value="New York" @if ($user->city == 'New York') selected @endif>
+                                            New York</option>
                                     </select>
                                     @error('city')
                                         <div class="invalid-feedback">{{ $message }}</div>

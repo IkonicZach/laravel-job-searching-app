@@ -238,7 +238,7 @@
                                                     <option value="Japan"
                                                         @if (old('country') == 'Japan') selected @endif>Japan</option>
                                                     <option value="Singapore"
-                                                        @if (old('country') == 'Singapore') selected @endif>Singapore
+                                                        @if (old('country') == 'United States') selected @endif>United States
                                                     </option>
                                                 </select>
                                                 @error('country')
@@ -259,7 +259,7 @@
                                                     <option value="Nagoya"
                                                         @if (old('city') == 'Nagoya') selected @endif>Nagoya</option>
                                                     <option value="Kashima"
-                                                        @if (old('city') == 'Kashima') selected @endif>Kashima</option>
+                                                        @if (old('city') == 'New York') selected @endif>New York</option>
                                                 </select>
                                                 @error('city')
                                                     <div class="invalid-feedback">{{ $message }}</div>
