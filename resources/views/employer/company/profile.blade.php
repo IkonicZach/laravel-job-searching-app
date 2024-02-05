@@ -122,7 +122,7 @@
                                                         </div>
 
                                                         <div class="mt-3 mt-md-0">
-                                                            @role('candidate')
+                                                            @can('save-job')
                                                                 <form action="{{ route('job.bookmark', $job->id) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
@@ -131,7 +131,7 @@
                                                                         <i class="fa-regular fa-bookmark"></i>
                                                                     </button>
                                                                 </form>
-                                                            @endrole
+                                                            @endcan
                                                             @if ($user->id == auth()->user()->id)
                                                                 <a href="{{ route('job.applications', $job->id) }}"
                                                                     class="btn btn-sm ms-1 btn-primary">

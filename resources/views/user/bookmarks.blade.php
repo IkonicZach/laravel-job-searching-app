@@ -5,7 +5,7 @@
     <div class="white-space"></div>
     <section class="section">
 
-        @role('candidate')
+        @can('save-job')
             {{-- Bookmarked Jobs Starts Here --}}
             <div class="container mt-60">
                 <h3>Bookmarked Jobs</h3>
@@ -79,9 +79,9 @@
                 </div>
             </div>
             {{-- Bookmarked Jobs Ends Here --}}
-        @endrole
+        @endcan
 
-        @role('employer')
+        @can('save-user')
             {{-- Bookmarked Candidates Starts Here --}}
             <div class="container">
                 <h3>Bookmarked Candidates</h3>
@@ -164,7 +164,7 @@
                 </div>
             </div>
             {{-- Bookmarked Candidates Ends Here --}}
-        @endrole
+        @endcan
     </section>
     @include('layout.footer')
 @endsection

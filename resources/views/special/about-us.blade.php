@@ -17,7 +17,7 @@
                             <img src="images/about/ab02.jpg" class="img-fluid rounded" alt="work-image">
 
                             <div class="position-absolute top-0 start-50 translate-middle">
-                                <a href="#!" data-type="youtube" data-id="yba7hPeTSjk"
+                                <a href="{{ route('aboutus.index') }}!" data-type="youtube" data-id="yba7hPeTSjk"
                                     class="avatar avatar-md-md rounded-pill shadow card d-flex justify-content-center align-items-center lightbox">
                                     <i class="fa-solid fa-play text-primary"></i>
                                 </a>
@@ -54,7 +54,7 @@
                         </ul>
 
                         <div class="mt-4">
-                            <a href="{{route('contact.index')}}" class="btn btn-primary">
+                            <a href="{{ route('contact.index') }}" class="btn btn-primary">
                                 Contact Us
                                 <i class="fa-solid fa-arrow-right align-middle"></i>
                             </a>
@@ -80,14 +80,14 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="phone" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-phone fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">24/7 Support</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">24/7 Support</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -98,14 +98,14 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="cpu" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-microchip fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Tech & Startup Jobs</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Tech & Startup Jobs</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -116,14 +116,14 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="activity" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-wave-square fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Quick & Easy</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Quick & Easy</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -134,14 +134,14 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="clock" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-clock fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Save Time</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Save Time</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -152,15 +152,15 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="file-text" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-file-text fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Apply with confidence</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Apply with confidence</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -170,15 +170,15 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="codesandbox" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-cube fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Reduce Hiring Bias</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Reduce Hiring Bias</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -188,15 +188,15 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="users" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-users fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Proactive Employers</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">Proactive Employers</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -206,15 +206,15 @@
                     <div class="position-relative features text-center p-4 rounded shadow bg-white">
                         <div
                             class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                            <i data-feather="user-check" class="fea icon-ex-md"></i>
+                            <i class="fa-solid fa-user-check fea h3"></i>
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">No Missed Opportunities</a>
+                            <a href="{{ route('aboutus.index') }}" class="title h5 text-dark">No Missed Opportunities</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="fa-solid fa-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -244,13 +244,13 @@
                             <ul class="list-unstyled team-social mb-0">
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="facebook" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-facebook icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="instagram" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-instagram icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="twitter" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-twitter icons fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div>
 
@@ -271,13 +271,13 @@
                             <ul class="list-unstyled team-social mb-0">
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="facebook" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-facebook icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="instagram" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-instagram icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="twitter" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-twitter icons fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div>
 
@@ -298,13 +298,13 @@
                             <ul class="list-unstyled team-social mb-0">
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="facebook" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-facebook icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="instagram" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-instagram icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="twitter" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-twitter icons fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div>
 
@@ -325,13 +325,13 @@
                             <ul class="list-unstyled team-social mb-0">
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="facebook" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-facebook icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="instagram" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-instagram icons fea-social"></i></a></li>
                                 <li class="list-inline-item"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-pills btn-icon">
-                                        <i data-feather="twitter" class="icons fea-social"></i></a></li>
+                                        <i class="fa-brands fa-twitter icons fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div>
 
@@ -412,9 +412,10 @@
                         <p class="text-muted para-desc mx-auto">Start working with <span
                                 class="text-primary fw-bold">Jobnova</span> that can provide everything you need to
                             generate awareness, drive traffic, connect.</p>
-                        <a href="contactus.html" class="btn btn-primary mt-3">
-                            <i class="uil uil-phone"></i> Contact
-                            us</a>
+                        <a href="{{ route('contact.index') }}" class="btn btn-primary mt-3">
+                            <i class="uil uil-phone"></i>
+                            Contact us
+                        </a>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->

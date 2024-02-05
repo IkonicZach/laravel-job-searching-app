@@ -1,4 +1,4 @@
-@section('title', 'Settings')
+@section('title', 'Settings | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')

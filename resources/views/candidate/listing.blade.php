@@ -58,7 +58,7 @@
                                 </div>
 
                                 @auth
-                                    @role('employer')
+                                    @can('save-user')
                                     <form action="{{ route('user.bookmark', $candidate->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         <button type="submit"
@@ -67,7 +67,7 @@
                                             <i class="fa-solid fa-bookmark align-middle fs-4"></i>
                                         </button>
                                     </form>
-                                    @endrole
+                                    @endcan
                                 @endauth
 
                                 {{-- <a href="" class="like">

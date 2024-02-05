@@ -1,4 +1,4 @@
-@section('title', 'Profile')
+@section('title', 'User Profile | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
@@ -255,6 +255,22 @@
                     {{-- Applied Jobs Section Ends Here  --}}
 
                     {{-- Posted Blogs Section Starts Here  --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <h5>Posted Blogs:</h5>
+                        @if (auth()->user()->id == request()->route()->id)
+                            <div class="d-flex align-items-center" style="gap: 0.5rem">
+                                <a href="{{ route('blog.create') }}" class="btn btn-sm btn-primary icon-link">
+                                    <i class="fa-regular fa-plus"></i>
+                                    <span>New Blog</span>
+                                </a>
+                                <a href="{{ route('blog.trash', $user->id) }}" class="btn btn-sm btn-light icon-link"
+                                    data-bs-toggle="tooltip" data-bs-title="Trash Can">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    <span>Trash Can</span>
+                                </a>
+                            </div>
+                        @endif
+                    </div>
                     @if (count($blogs) > 0)
                         <style>
                             .position-relative .img-fluid {
@@ -270,23 +286,6 @@
                             }
                         </style>
                         <x-profile-blog-all :allBlogs="$allBlogs" />
-
-
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                            <h5>Posted Blogs:</h5>
-                            @if (auth()->user()->id == request()->route()->id)
-                                <div class="d-flex align-items-center" style="gap: 0.5rem">
-                                    <a href="{{ route('blog.create') }}" class="btn btn-sm btn-primary icon-link">
-                                        <i class="fa-regular fa-plus"></i>
-                                        <span>New Blog</span>
-                                    </a>
-                                    <a href="{{ route('blog.trash', $user->id) }}" class="btn btn-sm btn-light btn-icon"
-                                        data-bs-toggle="tooltip" data-bs-title="Trash Can">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
 
                         <div class="row g-4 mt-4">
                             @foreach ($blogs as $blog)
@@ -522,7 +521,7 @@
                             </div>
 
                             <div class="p-3 rounded shadow bg-white mt-2">
-                                @role('candidate')
+                                @can('build-resume')
                                     <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#resumeShow">
                                         @if (auth()->user()->id == request()->route()->id)
                                             Your Resume
@@ -530,7 +529,7 @@
                                             <i class="fa-solid fa-download"></i> Download CV
                                         @endif
                                     </a>
-                                @endrole
+                                @endcan
                             </div>
                         </div>
                     </div>

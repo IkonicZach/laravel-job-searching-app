@@ -66,7 +66,7 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu nav-right nav-light">
 
-                {{-- <li class="has-submenu parent-menu-item">
+                <li class="has-submenu parent-menu-item">
                     <a>Browse</a><span class="menu-arrow"></span>
                     <ul class="submenu">
                         <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
@@ -74,16 +74,17 @@
                         <li><a href="{{ route('company.index') }}" class="sub-menu-item">Companies</a></li>
                         <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blogs</a></li>
                     </ul>
-                </li> --}}
+                </li>
 
-                <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
+                {{-- <li><a href="{{ route('job.index') }}" class="sub-menu-item">Jobs</a></li>
                 <li><a href="{{ route('candidate.index') }}" class="sub-menu-item">Candidates</a></li>
                 <li><a href="{{ route('company.index') }}" class="sub-menu-item">Companies</a></li>
-                <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blogs</a></li>
+                <li><a href="{{ route('blog.index') }}" class="sub-menu-item">Blogs</a></li> --}}
 
                 @auth
-                    <li class="position-relative">
-                        @role('candidate')
+                    @can('save-job')
+                        <li class="sub-menu-item">
+
                             <a href="{{ route('user.bookmark.list') }}" class="sub-menu-item">My Jobs</a>
                             @if ($countJobs > 0)
                                 <span class="position-absolute translate-middle badge rounded-pill bg-danger"
@@ -94,8 +95,12 @@
                                     @endif
                                 </span>
                             @endif
-                        @endrole
-                        @role('employer')
+                        </li>
+                    @endcan
+
+                    @can('save-user')
+                        <li class="sub-menu-item">
+
                             <a href="{{ route('user.bookmark.list') }}" class="sub-menu-item">Bookmarks</a>
                             @if ($countUsers > 0)
                                 <span class="position-absolute translate-middle badge rounded-pill bg-danger"
@@ -106,8 +111,8 @@
                                     @endif
                                 </span>
                             @endif
-                        @endrole
-                    </li>
+                        </li>
+                    @endcan
                 @endauth
 
                 <li><a href="{{ route('contact.index') }}" class="sub-menu-item">Contact Us</a></li>

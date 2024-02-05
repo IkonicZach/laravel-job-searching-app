@@ -116,7 +116,7 @@
                         </ul>
 
                         <div class="mt-4">
-                            <a href="" class="btn btn-primary">About Us <i
+                            <a href="{{ route('aboutus.index') }}" class="btn btn-primary">About Us <i
                                     class="fa-solid fa-arrow-right align-middle"></i></a>
                         </div>
                     </div>
@@ -407,7 +407,7 @@
                 <div class="col-12 d-md-none d-block">
                     <div class="text-center">
                         <a href="job-grid-one.html" class="btn btn-link primary text-muted">See More Jobs <i
-                                class="mdi mdi-arrow-right"></i></a>
+                                class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
@@ -443,7 +443,7 @@
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
                                 <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="mdi mdi-arrow-right"></i></a>
+                                        class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -473,8 +473,8 @@
                             <a href="#" class="title h5 text-dark">Tech &amp; Startup Jobs</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="mdi mdi-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -495,8 +495,8 @@
                             <a href="#" class="title h5 text-dark">Quick &amp; Easy</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="mdi mdi-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -518,8 +518,8 @@
                             <a href="#" class="title h5 text-dark">Save Time</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
-                                        class="mdi mdi-arrow-right"></i></a>
+                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                    <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>

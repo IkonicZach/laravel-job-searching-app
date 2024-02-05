@@ -33,8 +33,8 @@
                         </h5>
                     @else
                         {{-- <div class="buttons-group"> --}}
-                            <a href="{{ route('user.login') }}" class="btn btn-primary">Sign in</a>
-                            {{-- <a href="{{ route('user.register') }}" class="btn">Sign up</a> --}}
+                        <a href="{{ route('user.login') }}" class="btn btn-primary">Sign in</a>
+                        {{-- <a href="{{ route('user.register') }}" class="btn">Sign up</a> --}}
                         {{-- </div> --}}
                     @endauth
                     {{-- <p class="font-xs text-muted m-0">You have 2 new messages</p> --}}
@@ -60,7 +60,7 @@
                                         <i class="fi-rr-angle-small-down"></i>
                                     </span>
                                     <a class="link position-relative" href="{{ route('user.bookmark.list') }}">
-                                        @role('candidate')
+                                        @can('save-job')
                                             My Jobs
                                             @if ($countJobs > 0)
                                                 <span class="position-absolute translate-middle badge rounded-pill bg-danger"
@@ -71,8 +71,8 @@
                                                     @endif
                                                 </span>
                                             @endif
-                                        @endrole
-                                        @role('employer')
+                                        @endcan
+                                        @can('save-user')
                                             Bookmarks
                                             @if ($countUsers > 0)
                                                 <span class="position-absolute translate-middle badge rounded-pill bg-danger"
@@ -83,7 +83,7 @@
                                                     @endif
                                                 </span>
                                             @endif
-                                        @endrole
+                                        @endcan
                                     </a>
                                 </li>
                             @endauth
