@@ -96,10 +96,12 @@ Flexible work hours.";
         ];
         $limit = [null, 10, 20, 30, 40, 50];
         $j = 0;
+
+        // Used 2 variables. $i for seeding 24 job titles, description and $j for seeding columns that has only 12 values.
         for ($i = 0; $i < 24; $i++) {
-            $randomLimit = rand(0, count($limit) - 1);
-            $randomEmpType = rand(0, count($employment_type) - 1);
-            $randomType = rand(0, count($type) - 1);
+            $randomLimit = rand(0, count($limit) - 1); // random limit
+            $randomEmpType = rand(0, count($employment_type) - 1); // random employment type
+            $randomType = rand(0, count($type) - 1); // random type
             $startDate = Carbon::parse('2022-01-01');
             $endDate = Carbon::parse('2022-12-31');
 
