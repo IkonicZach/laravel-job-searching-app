@@ -201,7 +201,7 @@
                                                     <i class="fa-regular fa-clock text-primary me-1"></i>
                                                     Posted {{ $job->created_at->diffForHumans() }}
                                                 </p>
-                                                <a href="{{ route('job.applications', $job->id) }}"
+                                                <a @if ($user->id == auth()->user()->id) href="{{ route('job.applications', $job->id) }}" @endif
                                                     class="text-muted small" id="applications" data-bs-toggle="tooltip"
                                                     data-bs-title="View Applicants">
                                                     Applications:

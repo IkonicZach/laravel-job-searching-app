@@ -54,6 +54,9 @@
                             <div
                                 class="job-post job-post-list rounded shadow p-4 d-md-flex align-items-center justify-content-between position-relative">
                                 <div class="d-flex align-items-center">
+                                    <span class="me-4">
+                                        <b>#{{ $job->id }}</b>
+                                    </span>
                                     <img src="{{ asset('uploads/' . $job->company->img) }}"
                                         class="avatar avatar-small rounded-circle shadow p-2 bg-white" alt="">
                                     <div class="ms-3">
@@ -101,6 +104,9 @@
                         </div><!--end col-->
                     @endforeach
                 </div><!--end row-->
+                <div class="d-flex justify-content-center mt-5">
+                    {{ $jobs->links() }}
+                </div>
             </div>
         </div>
     </div>

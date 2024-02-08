@@ -293,8 +293,8 @@
                                     <div class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
                                         <a class="text-muted d-flex align-items-center"><i
                                                 class="fa-solid fa-location-dot pe-1"></i>{{ $job->country }}</a>
-                                        <span class="d-flex fw-medium mt-md-2">${{ $job->min_salary }} -
-                                            ${{ $job->max_salary }}/mo</span>
+                                        <small class="d-flex fw-medium mt-md-2">${{ $job->min_salary }} -
+                                            ${{ $job->max_salary }}/mo</small>
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between d-md-block mt-2 mt-md-0">
@@ -330,7 +330,9 @@
                             </div><!--end col-->
                         @endforeach
                     </div><!--end row-->
-                    {{ $jobs->links() }}
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $jobs->links() }}
+                    </div>
                 </div>
                 {{-- Jobs Listing Ends Here  --}}
             </div>

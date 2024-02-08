@@ -45,12 +45,14 @@
                     <div class="sidebar border-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Job Information:</h5>
-                            @if ($job->created_by == auth()->user()->id)
-                                <a href="{{ route('job.edit', $job->id) }}" class="btn icon-link btn-warning">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Edit job details
-                                </a>
-                            @endif
+                            @auth
+                                @if ($job->created_by == auth()->user()->id)
+                                    <a href="{{ route('job.edit', $job->id) }}" class="btn btn-sm icon-link btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        Edit job details
+                                    </a>
+                                @endif
+                            @endauth
                         </div>
 
                         <ul class="list-unstyled mb-0 mt-4">
@@ -218,7 +220,7 @@
 
                         <div class="mt-4">
                             <a data-bs-toggle="modal" data-bs-target="#jobApplyModal{{ $job->id }}"
-                                class="btn btn-outline-primary @role('employer') disabled @endrole"">Apply Now <i
+                                class="btn btn-outline-primary">Apply Now <i
                                     class="fa-regular fa-paper-plane"></i></a>
                         </div>
                     </div>
@@ -255,7 +257,7 @@
                                             class="d-inline">
                                             @csrf
                                             <button type="submit"
-                                                class="btn btn-sm btn-icon btn-pills @if (auth()->user()->bookmarkedJobs->contains($similarJob)) btn-primary @else btn-soft-primary @endif bookmark"><i
+                                                class="btn btn-sm btn-icon btn-pills @auth @if (auth()->user()->bookmarkedJobs->contains($similarJob)) btn-primary @else btn-soft-primary @endif @endauth bookmark"><i
                                                     class="fa-regular fa-bookmark"></i></button>
                                         </form>
                                     </li>

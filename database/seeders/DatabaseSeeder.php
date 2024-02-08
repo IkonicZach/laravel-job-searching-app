@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SubcategoriesTableSeeder::class);
         $this->call(BlogCategorySeeder::class);
         $this->call(CandidateSeeder::class);
+        $this->call(EmployerSeeder::class);
         $this->call(UserSkillSeeder::class);
+        $this->call(CompanySeeder::class);
+        $this->call(EmployerCompanySeeder::class);
+        $this->call(JobSeeder::class);
     }
 }

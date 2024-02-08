@@ -559,7 +559,7 @@
                                         class="avatar avatar-md-md rounded-pill shadow-md" alt="">
 
                                     <div class="mt-3">
-                                        <a href="candidate-profile.html"
+                                        <a href="{{ route('user.profile', $candidate->id) }}"
                                             class="title h5 text-dark">{{ $candidate->name }}</a>
                                         <p class="text-muted mt-1">{{ $candidate->country }}</p>
                                         @foreach ($candidate->user_skill as $skill)

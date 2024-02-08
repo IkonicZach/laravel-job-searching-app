@@ -19,7 +19,7 @@ class CompanyController extends Controller
     public function index()
     {
         $categories = Category::select('id', 'name')->get();
-        $companies = Company::with('employer', 'jobs')->get();
+        $companies = Company::with('employer', 'jobs')->paginate(12);
         return view('employer.company.listing', compact('companies', 'categories'));
     }
 
