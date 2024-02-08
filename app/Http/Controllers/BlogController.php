@@ -44,24 +44,13 @@ class BlogController extends Controller
                 $thumbnail = null;
             }
 
-            if ($request->hasFile('img')) {
-                $img = time() . '_img.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $img);
-            } else {
-                $img = null;
-            }
-
             $blog = Blog::create([
                 'user_id' => $user->id,
                 'company_id' => $user->company_id ?? null,
                 'title' => $request->input('title'),
                 'read_time' => $request->input('read_time'),
                 'thumbnail' => $thumbnail,
-                'img' => $img,
-                'intro' => $request->input('intro'),
-                'body' => $request->input('body'),
-                'visual' => $request->input('visual'),
-                'conclusion' => $request->input('conclusion'),
+                'content' => $request->content,
             ]);
 
             $blog->blogcategories()->attach($request->input('category'));
@@ -72,6 +61,22 @@ class BlogController extends Controller
             return redirect()->route('blog.index')->with(compact('message', 'messageBody'));
         } catch (Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+            $request->file('upload')->move(public_path('media'), $fileName);
+
+            $url = asset('media/' . $fileName);
+
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
         }
     }
 
@@ -121,28 +126,12 @@ class BlogController extends Controller
                 $blog->thumbnail = $thumbnailName;
             }
 
-            if ($request->hasFile('img')) {
-                // Delete old photo from storage
-                $imgPath = public_path('uploads/') . $blog->img;
-                if (File::exists($imgPath)) {
-                    File::delete($imgPath);
-                }
-
-                // Update new photo
-                $imgName = time() . '.' . $request->img->extension();
-                $request->img->move(public_path('uploads'), $imgName);
-                $blog->img = $imgName;
-            }
-
             $blog->update([
                 'user_id' => $user->id,
                 'company_id' => $user->company_id ?? null,
                 'title' => $request->input('title'),
                 'read_time' => $request->input('read_time'),
-                'intro' => $request->input('intro'),
-                'body' => $request->input('body'),
-                'visual' => $request->input('visual'),
-                'conclusion' => $request->input('conclusion'),
+                'content' => $request->input('content'),
             ]);
             $blog->blogcategories()->sync($request->input('category'));
 

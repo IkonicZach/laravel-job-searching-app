@@ -1,26 +1,8 @@
-@section('title', 'Blogs Page')
+@section('title', 'Post a Blog | Jobnova')
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
     <div class="white-space"></div>
-    <!-- Start -->
-    {{-- <section class="section pt-5">
-        <div class="container">
-            <form action="" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    <label for="title" class="form-label fw-semibold">Blog Title: </label>
-                    <input type="text" class="form-control @error('titile') is-invaild @enderror" name="title"
-                        id="title" placeholder="Name your blog">
-                    @error('title')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </form>
-        </div><!--end container-->
-    </section><!--end section--> --}}
     <section class="section pt-5">
         <div class="container">
             <div class="row g-4">
@@ -77,7 +59,7 @@
                                 {{-- Read Time  --}}
 
                                 {{-- Thumbnail  --}}
-                                <div class="col-6 mb-3">
+                                <div class="col-12 mb-3">
                                     <label for="thumbnail" class="form-label fw-semibold">Thumbnail Photo: </label>
                                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
                                         name="thumbnail" id="thumbnail">
@@ -89,78 +71,22 @@
                                 </div>
                                 {{-- Thumbnail  --}}
 
-                                {{-- Image  --}}
-                                <div class="col-6 mb-3">
-                                    <label for="img" class="form-label fw-semibold">Main Photo: </label>
-                                    <input type="file" class="form-control @error('img') is-invalid @enderror"
-                                        name="img" id="img">
-                                    @error('img')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Image  --}}
-
-                                {{-- Intro  --}}
                                 <div class="col-12 mb-3">
-                                    <label for="intro" class="form-label fw-semibold">Blog Intro: </label>
-                                    <textarea class="form-control @error('intro') is-invalid @enderror" name="intro" id="intro" rows="5">{{ old('intro') }}</textarea>
-                                    @error('intro')
+                                    <label for="description" class="form-label fw-semibold">Blog Content: </label>
+                                    <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="description"
+                                        rows="5">{{ old('content') }}</textarea>
+                                    @error('content')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-                                {{-- Intro  --}}
-
-                                {{-- Body --}}
-                                <div class="col-12 mb-3">
-                                    <label for="body" class="form-label fw-semibold">Blog Body: </label>
-                                    <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" rows="5">{{ old('intro') }}</textarea>
-                                    @error('body')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Body --}}
-
-                                {{-- Visual Text  --}}
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="enableVisual"
-                                            name="enableVisual">
-                                        <label class="form-check-label fw-semibold" for="enableVisual">Include a visual
-                                            text</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-0 mb-3">
-                                    <label for="visual" class="form-label fw-semibold">Visual Text: </label>
-                                    <input type="text" class="form-control @error('visual') is-invaild @enderror"
-                                        name="visual" id="visual" placeholder="Enter your visual text"
-                                        value="{{ old('visual') }}" disabled>
-                                    @error('visual')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Visual Text  --}}
-
-                                {{-- Conclusion  --}}
-                                <div class="col-12 mb-3">
-                                    <label for="conclusion" class="form-label fw-semibold">Blog Conclusion: </label>
-                                    <textarea class="form-control @error('conclusion') is-invalid @enderror" name="conclusion" id="conclusion"
-                                        rows="5">{{ old('conclusion') }}</textarea>
-                                    @error('conclusion')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Conclusion  --}}
                             </div>
+                            <style type="text/css">
+                                .ck.ck-editor__editable_inline>:last-child {
+                                    height: 250px !important;
+                                }
+                            </style>
                             <div class="d-flex justify-content-end m-5">
                                 <input type="submit" class="btn btn-primary" value="Post">
                             </div>
@@ -174,6 +100,18 @@
     </section><!--end section-->
     <!-- End -->
     @include('layout.footer')
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
     <script>
         // Get references to the checkbox and the visual text input

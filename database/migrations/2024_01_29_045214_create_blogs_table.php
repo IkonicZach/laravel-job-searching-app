@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('read_time');
             $table->string('thumbnail');
-            $table->string('img');
-            $table->mediumText('intro');
-            $table->longText('body');
-            $table->text('visual');
-            $table->mediumText('conclusion');
+            $table->longText('content');
             $table->timestamps();
             $table->softDeletes();
 

@@ -95,6 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/blog/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
     Route::delete('/blog/{id}/delete', [BlogController::class, 'delete'])->name('blog.delete');
     Route::resource('blog', BlogController::class)->except('index');
+    Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
 
     Route::get('/{id}/experience/trash-can', [TrashPageController::class, 'experience'])->name('experience.trash');
     Route::post('/experience/{id}/restore', [ExperienceController::class, 'restore'])->name('experience.restore');

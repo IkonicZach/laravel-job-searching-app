@@ -2,6 +2,13 @@
 @extends('layout.master')
 @section('content')
     @include('layout.nav')
+    <style>
+        .card-body img {
+            max-width: 100% !important;
+            height: auto !important;
+            ;
+        }
+    </style>
 
     <!-- Hero Start -->
     <section class="bg-half-170 d-table w-100" style="background: url('{{ asset('uploads/' . $blog->thumbnail) }}');">
@@ -20,7 +27,8 @@
                         <ul class="list-inline text-center mb-0">
                             <li class="list-inline-item mx-4 mt-4">
                                 <span class="text-white-50 d-block">Author</span>
-                                <a href="javascript:void(0)" class="text-white title-dark">{{ $blog->user->name }}</a>
+                                <a href="{{ route('user.profile', $blog->user_id) }}"
+                                    class="text-white title-dark">{{ $blog->user->name }}</a>
                             </li>
 
                             <li class="list-inline-item mx-4 mt-4">
@@ -69,7 +77,7 @@
                                 <span>Edit</span>
                             </a>
 
-                            <!-- Delete Confirmation Modal -->
+                            <!-- Delete Confirmation Modal Starts -->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
@@ -96,42 +104,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Delete Confirmation Modal Ends -->
                             <a class="btn btn-sm icon-link btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 <i class="fa-regular fa-trash-can"></i>
                                 <span>Move to trash</span>
                             </a>
-                            {{-- <form action="{{ route('blog.destroy', $blog->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm icon-link btn-danger">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                    <span>Move to trash</span>
-                                </button>
-                            </form> --}}
                         </div>
                     @endif
+
                     <div class="card border-0 shadow rounded overflow-hidden">
-                        <img src="{{ asset('uploads/' . $blog->img) }}" class="img-fluid" alt="">
-
                         <div class="card-body">
-                            <p class="">
-                                {!! nl2br(e($blog->intro)) !!}
-                            </p>
-                            <p class="">
-                                {!! nl2br(e($blog->body)) !!}
-                            </p>
-
-                            @if ($blog->visual !== null)
-                                <blockquote class="text-center mx-auto blockquote">
-                                    <i class="fa-solid fa-quote-left text-muted opacity-2 d-block"
-                                        style="font-size: 48px"></i>
-                                    {!! nl2br(e($blog->visual)) !!}
-                                </blockquote>
-                            @endif
-
-                            <p class="">
-                                {!! nl2br(e($blog->conclusion)) !!}
-                            </p>
+                            {!! $blog->content !!}
                         </div>
                     </div>
                 </div><!--end col-->

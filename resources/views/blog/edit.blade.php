@@ -10,7 +10,8 @@
                     <div class="card bg-white p-4 rounded shadow sticky-bar">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4>Edit your <span class="text-primary">blog</span></h4>
-                            <small class="text-muted">Last updated at {{ $blog->updated_at->format('d-M-Y / H:m:s') }}</small>
+                            <small class="text-muted">Last updated at
+                                {{ $blog->updated_at->format('d-M-Y / H:m:s') }}</small>
                         </div>
                         <form action="{{ route('blog.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -68,7 +69,7 @@
                                 {{-- Read Time  --}}
 
                                 {{-- Thumbnail  --}}
-                                <div class="col-6 mb-3">
+                                <div class="col-12 mb-3">
                                     <label for="thumbnail" class="form-label fw-semibold">Thumbnail Photo: </label>
                                     <a href="{{ asset('uploads/' . $blog->thumbnail) }}">{{ $blog->thumbnail }}</a>
                                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
@@ -81,78 +82,15 @@
                                 </div>
                                 {{-- Thumbnail  --}}
 
-                                {{-- Image  --}}
-                                <div class="col-6 mb-3">
-                                    <label for="img" class="form-label fw-semibold">Main Photo: </label>
-                                    <a href="{{ asset('uploads/' . $blog->img) }}">{{ $blog->img }}</a>
-                                    <input type="file" class="form-control @error('img') is-invalid @enderror"
-                                        name="img" id="img">
-                                    @error('img')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Image  --}}
-
-                                {{-- Intro  --}}
                                 <div class="col-12 mb-3">
-                                    <label for="intro" class="form-label fw-semibold">Blog Intro: </label>
-                                    <textarea class="form-control @error('intro') is-invalid @enderror" name="intro" id="intro" rows="5">{{ $blog->intro }}</textarea>
-                                    @error('intro')
+                                    <label for="description" class="form-label fw-semibold">Blog Content: </label>
+                                    <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="description" rows="5">{{ $blog->content }}</textarea>
+                                    @error('content')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-                                {{-- Intro  --}}
-
-                                {{-- Body --}}
-                                <div class="col-12 mb-3">
-                                    <label for="body" class="form-label fw-semibold">Blog Body: </label>
-                                    <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" rows="5">{{ $blog->intro }}</textarea>
-                                    @error('body')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Body --}}
-
-                                {{-- Visual Text  --}}
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="enableVisual"
-                                            name="enableVisual" @if ($blog->visual !== null) checked @endif>
-                                        <label class="form-check-label fw-semibold" for="enableVisual">Include a visual
-                                            text</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-0 mb-3">
-                                    <label for="visual" class="form-label fw-semibold">Visual Text: </label>
-                                    <input type="text" class="form-control @error('visual') is-invaild @enderror"
-                                        name="visual" id="visual" placeholder="Enter your visual text"
-                                        value="{{ $blog->visual }}" @if ($blog->visual == null) disabled @endif>
-                                    @error('visual')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Visual Text  --}}
-
-                                {{-- Conclusion  --}}
-                                <div class="col-12 mb-3">
-                                    <label for="conclusion" class="form-label fw-semibold">Blog Conclusion: </label>
-                                    <textarea class="form-control @error('conclusion') is-invalid @enderror" name="conclusion" id="conclusion"
-                                        rows="5">{{ $blog->conclusion }}</textarea>
-                                    @error('conclusion')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                {{-- Conclusion  --}}
                             </div>
                             <div class="d-flex justify-content-end m-5">
                                 <input type="submit" class="btn btn-primary" value="Confirm Changes">
@@ -167,6 +105,18 @@
     </section><!--end section-->
     <!-- End -->
     @include('layout.footer')
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
     <script>
         // Get references to the checkbox and the visual text input
