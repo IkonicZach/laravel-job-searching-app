@@ -23,18 +23,18 @@
                     <div class="features-absolute">
                         <div class="d-md-flex justify-content-between align-items-center bg-white shadow rounded p-4">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('uploads/' . $user->company->img) }}"
+                                <img src="{{ asset('uploads/' . $company->img) }}"
                                     class="avatar avatar-md-md rounded-circle shadow rounder bg-white">
                                 <div class="ms-3">
-                                    <h5>{{ $user->company->name }}</h5>
+                                    <h5>{{ $company->name }}</h5>
                                     <span class="text-muted d-flex align-items-center"><i
-                                            class="fa-solid fa-location-dot me-1"></i>{{ $user->company->city }},
-                                        {{ $user->company->country }}</span>
+                                            class="fa-solid fa-location-dot me-1"></i>{{ $company->city }},
+                                        {{ $company->country }}</span>
                                 </div>
                             </div>
 
                             <div class="mt-4 mt-md-0">
-                                @if ($user->id !== auth()->user()->id)
+                                @if ($company->created_by !== auth()->user()->id)
                                     <a href="#" class="btn btn-sm btn-primary me-1">Follow</a>
                                 @else
                                     <a href="{{ route('job.create') }}" class="btn btn-sm btn-primary me-1">Post Job</a>
@@ -51,7 +51,7 @@
                 <div class="col-lg-8 col-md-7 col-12">
                     <h4 class="mb-4">Company Story:</h4>
 
-                    <p class="text-muted">{!! nl2br(e($user->company->bio)) !!}</p>
+                    <p class="text-muted">{!! nl2br(e($company->bio)) !!}</p>
 
                     <div class="row g-4">
                         <div class="col-12"><img src="{{ asset('images/company/1.jpg') }}" class="rounded shadow img-fluid"
@@ -74,7 +74,7 @@
                                 <div class="modal-content p-5">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="JobListModalLabel">
-                                            All vacancies by <span class="text-primary">{{ $user->company->name }}</span>
+                                            All vacancies by <span class="text-primary">{{ $company->name }}</span>
                                         </h1>
                                         <a href="{{ route('job.trash') }}" class="btn icon-link btn-light">
                                             <i class="fa-regular fa-trash-can"></i>
@@ -88,7 +88,7 @@
                                                     <div
                                                         class="job-post job-post-list rounded shadow p-4 d-md-flex align-items-center justify-content-between position-relative">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="{{ asset('uploads/' . $user->company->img) }}"
+                                                            <img src="{{ asset('uploads/' . $company->img) }}"
                                                                 class="avatar avatar-small rounded shadow p-3 bg-white"
                                                                 alt="">
 
@@ -132,7 +132,7 @@
                                                                     </button>
                                                                 </form>
                                                             @endcan
-                                                            @if ($user->id == auth()->user()->id)
+                                                            @if ($company->created_by == auth()->user()->id)
                                                                 <a href="{{ route('job.applications', $job->id) }}"
                                                                     class="btn btn-sm ms-1 btn-primary">
                                                                     View Applicants
@@ -201,7 +201,7 @@
                                                     <i class="fa-regular fa-clock text-primary me-1"></i>
                                                     Posted {{ $job->created_at->diffForHumans() }}
                                                 </p>
-                                                <a @if ($user->id == auth()->user()->id) href="{{ route('job.applications', $job->id) }}" @endif
+                                                <a @if ($company->created_by == auth()->user()->id) href="{{ route('job.applications', $job->id) }}" @endif
                                                     class="text-muted small" id="applications" data-bs-toggle="tooltip"
                                                     data-bs-title="View Applicants">
                                                     Applications:
@@ -262,27 +262,27 @@
                         <div class="mt-3">
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Founded:</span>
-                                <span>{{ $user->company->founded }}</span>
+                                <span>{{ $company->founded }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Founder:</span>
-                                <span>{{ $user->company->founder }}</span>
+                                <span>{{ $company->founder }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Headquarters:</span>
-                                <span>{{ $user->company->country }}</span>
+                                <span>{{ $company->country }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Number of employees:</span>
-                                <span>+ {{ $user->company->size }}</span>
+                                <span>+ {{ $company->size }}</span>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <span class="text-muted fw-medium">Website:</span>
-                                <a href="https://{{ $user->company->socials }}">{{ $user->company->socials }}</a>
+                                <a href="https://{{ $company->socials }}">{{ $company->socials }}</a>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
@@ -307,7 +307,7 @@
                             </div>
                         </div>
 
-                        @if ($user->id !== auth()->user()->id)
+                        @if ($company->created_by !== auth()->user()->id)
                             <div class="mt-4 pt-4 border-top">
                                 <h5>Get in touch !</h5>
                                 <form class="mt-4" method="post" name="myForm" onsubmit="return validateForm()">
@@ -359,8 +359,8 @@
                                 </form>
                             </div>
                         @else
-                            <a href="{{ route('company.edit', $user->company->id) }}"
-                                class="btn btn-sm btn-primary me-1">Edit company
+                            <a href="{{ route('company.edit', $company->id) }}" class="btn btn-sm btn-primary me-1">Edit
+                                company
                                 details</a>
                         @endif
                     </div>
@@ -391,7 +391,7 @@
                                 </div>
 
                                 <div class="content mt-3">
-                                    <a href="{{ route('company.profile', $company->created_by) }}"
+                                    <a href="{{ route('company.profile', $company->id) }}"
                                         class="title text-dark h5">{{ $company->name }}</a>
 
                                     <p class="text-muted mt-2 mb-0">

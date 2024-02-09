@@ -134,7 +134,7 @@ class CompanyController extends Controller
 
             $message = "Updated Successfully!";
             $messageBody = "Company details updated successfully.";
-            
+
             return redirect()->route('company.profile', $user->id)->with(compact('message', 'messageBody'));
         } catch (Exception $e) {
             return $e->getMessage();
@@ -161,12 +161,11 @@ class CompanyController extends Controller
 
     public function profile(String $id)
     {
-        $user = User::with('company')->findOrFail($id);
+        $company = Company::findOrFail($id);
 
-        $jobs = Job::where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->get();
-        $showJobs = Job::with('applications')->where('created_by', '=', $user->id)->orderBy('created_at', 'desc')->take(2)->get();
-        
-        $company = $user->company;
+        $jobs = Job::where('company_id', '=', $company->id)->orderBy('created_at', 'desc')->get();
+        $showJobs = Job::with('applications')->where('company_id', '=', $company->id)->orderBy('created_at', 'desc')->take(2)->get();
+
         $similarCompanies = Company::where('id', '!=', $company->id)
             ->where(function ($query) use ($company) {
                 $query->where('category_id', $company->category_id)
@@ -177,6 +176,6 @@ class CompanyController extends Controller
             ->take(4)
             ->get();
 
-        return view('employer.company.profile', compact('user', 'jobs', 'showJobs', 'similarCompanies'));
+        return view('employer.company.profile', compact('company', 'jobs', 'showJobs', 'similarCompanies'));
     }
 }

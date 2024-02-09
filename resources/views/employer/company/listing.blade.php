@@ -9,7 +9,7 @@
     </style>
     <div class="white-space"></div>
     <!-- Hero Start -->
-    <section class="bg-half-170 d-table w-100" style="background: url('images/hero/bg.jpg');">
+    <section class="bg-half-170 d-table w-100" style="background: url('{{ asset('images/hero/bg.jpg') }}');">
         <div class="bg-overlay bg-gradient-overlay"></div>
         <div class="container">
             <div class="row mt-5 justify-content-center">
@@ -113,7 +113,7 @@
                             </div>
 
                             <div class="content mt-3">
-                                <a href="{{ route('company.profile', $company->created_by) }}"
+                                <a href="{{ route('company.profile', $company->id) }}"
                                     class="title text-dark h5">{{ $company->name }}</a>
 
                                 <p class="text-muted mt-2 mb-0">
@@ -142,11 +142,11 @@
                 <div class="col-lg-6 col-md-6 mb-5">
                     <div class="about-left">
                         <div class="position-relative shadow rounded img-one">
-                            <img src="images/about/ab01.jpg" class="img-fluid rounded" alt="work-image">
+                            <img src="{{ asset('images/about/ab01.jpg') }}" class="img-fluid rounded" alt="work-image">
                         </div>
 
                         <div class="img-two shadow rounded p-2 bg-white">
-                            <img src="images/about/ab02.jpg" class="img-fluid rounded" alt="work-image">
+                            <img src="{{ asset('images/about/ab02.jpg') }}" class="img-fluid rounded" alt="work-image">
 
                             <div class="position-absolute top-0 start-50 translate-middle">
                                 <a href="#!" data-type="youtube" data-id="yba7hPeTSjk"

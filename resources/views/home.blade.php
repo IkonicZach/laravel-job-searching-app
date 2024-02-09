@@ -373,7 +373,7 @@
                                         class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                                     <div class="ms-3">
-                                        <a href="{{ route('company.profile', $job->company->created_by) }}"
+                                        <a href="{{ route('company.profile', $job->company->id) }}"
                                             class="h5 company text-">{{ $job->company->name }}</a>
                                         <span class="text-muted d-flex align-items-center small mt-2">
                                             <i data-feather="clock" class="fa-regular fa-clock me-1"></i>

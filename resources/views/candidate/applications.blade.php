@@ -68,7 +68,7 @@
                                 class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
 
                             <div class="ms-3">
-                                <a href="{{ route('company.profile', $application->job->company->created_by) }}"
+                                <a href="{{ route('company.profile', $application->job->company->id) }}"
                                     class="h5 company text-dark">
                                     {{ $application->job->company->name }}
                                 </a>

@@ -1,4 +1,4 @@
-@section('title', 'Jobs page')
+@section('title', 'View Jobs Details | Jobnova')
 @extends('layout.master')
 @section('content')
     <style>
@@ -21,7 +21,7 @@
                             </div>
                             <ul class="list-unstyled mb-0 col-7">
                                 <li class="d-flex align-items-center me-2 fw-semibold">
-                                    <a href="{{ route('company.profile', $job->company->created_by) }}" class="text-dark">
+                                    <a href="{{ route('company.profile', $job->company->id) }}" class="text-dark">
                                         <i class="fa-regular fa-building text-primary me-1"></i>
                                         {{ $job->company->name }}
                                     </a>
@@ -248,7 +248,7 @@
                                 <div>
                                     <img src="{{ asset('uploads/' . $similarJob->company->img) }}"
                                         class="avatar avatar-small rounded shadow p-3 bg-white" alt="">
-                                    <a href="{{ route('company.profile', $similarJob->company->created_by) }}"
+                                    <a href="{{ route('company.profile', $similarJob->company->id) }}"
                                         class="h5 company text-dark d-block mt-2">{{ $similarJob->company->name }}</a>
                                 </div>
                                 <ul class="list-unstyled align-items-center mb-0">

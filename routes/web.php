@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -11,7 +10,6 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
@@ -58,62 +56,74 @@ Route::resource('candidate', CandidateController::Class)->only('index');
 Route::resource('company', CompanyController::Class)->only('index');
 
 // ---------------------------------------- User routes ---------------------------------------- //
-Route::get('/user/login', [UserController::class, 'showLogin'])->name('user.login')->middleware('remember_token');
-Route::post('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('remember_token');
-Route::get('/user/register', [UserController::class, 'showRegister'])->name('user.register');
-Route::get('/user/setup', [UserController::class, 'setup'])->name('user.setup');
-Route::put('/user/setup', [UserController::class, 'doSetup'])->name('user.doSetup');
-Route::post('/user/register', [UserController::class, 'register'])->name('user.store');
-Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::prefix('user')->group(function () {
+    Route::get('/login', [UserController::class, 'showLogin'])->name('user.login')->middleware('remember_token');
+    Route::post('/login', [UserController::class, 'login'])->name('user.login')->middleware('remember_token');
+    Route::get('/register', [UserController::class, 'showRegister'])->name('user.register');
+    Route::get('/setup', [UserController::class, 'setup'])->name('user.setup');
+    Route::put('/setup', [UserController::class, 'doSetup'])->name('user.doSetup');
+    Route::post('/register', [UserController::class, 'register'])->name('user.store');
+    Route::get('/logout', [UserController::class, 'logout'])->name('user.logout');
 
-Route::delete('/user/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
-Route::get('/user/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
-Route::post('/user/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
+    Route::delete('/{id}/deactivate', [UserController::class, 'deactivate'])->name('user.deactivate'); // Deactivate account
+    Route::get('/deactivate', [UserController::class, 'deactivatePage'])->name('deactivated.account'); // Show deactivated page
+    Route::post('/activate', [UserController::class, 'activate'])->name('user.activate'); // Re-activated account
 
-Route::get('/forgot-password', [PasswordController::class, 'create'])->name('password.forgot'); // Show Password Reset Page
-Route::post('/forgot-password', [PasswordController::class, 'send'])->name('password.send'); // Send Email
-Route::get('/reset-password/{token}', [PasswordController::class, 'resetPage'])->name('password.reset.page'); // Show Reset Password
-Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.reset'); // Reset Password
+    Route::get('/forgot-password', [PasswordController::class, 'create'])->name('password.forgot'); // Show Password Reset Page
+    Route::post('/forgot-password', [PasswordController::class, 'send'])->name('password.send'); // Send Email
+    Route::get('/reset-password/{token}', [PasswordController::class, 'resetPage'])->name('password.reset.page'); // Show Reset Password
+    Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.reset'); // Reset Password
+});
 // ---------------------------------------- User routes ---------------------------------------- //
 
 // ---------------------------------------- Authenticated User routes ---------------------------------------- //
 Route::middleware('auth')->group(function () {
-    Route::get('/trash/category', [TrashPageController::class, 'category'])->name('trash.category');
-    Route::get('/trash/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
-    Route::get('/trash/job', [TrashPageController::class, 'job'])->name('trash.job');
-    Route::get('/trash/application', [TrashPageController::class, 'application'])->name('trash.application');
+    Route::prefix('user')->group(function () {
+        Route::get('/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
+        Route::get('/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
+        Route::put('/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
+    });
 
-    Route::get('/user/{id}/profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::get('/user/{id}/settings', [UserController::class, 'settings'])->name('user.settings');
-    Route::put('/user/{id}/password/update', [UserController::class, 'passwordUpdate'])->name('profile.password.update');
+    Route::prefix('bookmark')->group(function () {
+        Route::post('/bookmark/{id}/job', [UserController::class, 'bookmark'])->name('job.bookmark');
+        Route::get('/bookmark', [UserController::class, 'getBookmarkedItems'])->name('user.bookmark.list');
+        Route::post('/bookmark/{id}/user', [UserController::class, 'bookmarkUser'])->name('user.bookmark');
+    });
 
-    Route::post('/bookmark/{id}/job', [UserController::class, 'bookmark'])->name('job.bookmark');
-    Route::get('/bookmarks', [UserController::class, 'getBookmarkedItems'])->name('user.bookmark.list');
+    Route::prefix('trash')->group(function () {
+        Route::get('/category', [TrashPageController::class, 'category'])->name('trash.category');
+        Route::get('/permission', [TrashPageController::class, 'permission'])->name('trash.permission');
+        Route::get('/job', [TrashPageController::class, 'job'])->name('trash.job');
+        Route::get('/application', [TrashPageController::class, 'application'])->name('trash.application');
+    });
 
-    Route::post('/bookmark/{id}/user', [UserController::class, 'bookmarkUser'])->name('user.bookmark');
-
-    Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
+    // Route::resource('profile', CandidateController::class, ['parameters' => ['profile' => 'id']])->except('index');
 
     Route::get('/{id}/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
 
-    Route::get('/{id}/blog/trash', [TrashPageController::class, 'blog'])->name('blog.trash');
-    Route::post('/blog/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
-    Route::delete('/blog/{id}/delete', [BlogController::class, 'delete'])->name('blog.delete');
+    Route::prefix('blog')->group(function () {
+        Route::get('/{id}/trash', [TrashPageController::class, 'blog'])->name('blog.trash');
+        Route::post('/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
+        Route::delete('/{id}/delete', [BlogController::class, 'delete'])->name('blog.delete');
+        Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
+    });
     Route::resource('blog', BlogController::class)->except('index');
-    Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
 
-    Route::get('/{id}/experience/trash-can', [TrashPageController::class, 'experience'])->name('experience.trash');
-    Route::post('/experience/{id}/restore', [ExperienceController::class, 'restore'])->name('experience.restore');
-    Route::delete('/experience/{id}/delete', [ExperienceController::class, 'delete'])->name('experience.delete');
+    Route::prefix('experience')->group(function () {
+        Route::get('/{id}/trash-can', [TrashPageController::class, 'experience'])->name('experience.trash');
+        Route::post('/{id}/restore', [ExperienceController::class, 'restore'])->name('experience.restore');
+        Route::delete('/{id}/delete', [ExperienceController::class, 'delete'])->name('experience.delete');
+    });
     Route::resource('experience', ExperienceController::class);
+
 });
 // ---------------------------------------- Authenticated User routes ---------------------------------------- //
 
 // ---------------------------------------- Employer routes ---------------------------------------- //
 Route::middleware(['role:employer', 'auth'])->prefix('employer')->group(function () {
-    Route::get('/profile', [EmployerController::class, 'profile'])->name('employer.profile');
-    Route::get('/profile/setup', [EmployerController::class, 'setup'])->name('employer.profile.setup');
-    Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
+    // Route::get('/profile', [EmployerController::class, 'profile'])->name('employer.profile');
+    // Route::get('/profile/setup', [EmployerController::class, 'setup'])->name('employer.profile.setup');
+    // Route::put('/profile/setup', [EmployerController::class, 'doSetup'])->name('employer.profile.doSetup');
     Route::get('/company', [CompanyController::class, 'create'])->name('employer.company.create');
     Route::resource('company', CompanyController::class)->except('index');
 
