@@ -24,8 +24,8 @@
 
                     <div class="col-md-5 mt-4 mt-sm-0">
                         <div class="text-md-end ms-5 ms-sm-0">
-                            <a href="job-apply.html" class="btn btn-primary me-1 my-1">Apply Now</a>
-                            <a href="contactus.html" class="btn btn-soft-primary my-1">Contact Us</a>
+                            <a href="{{ route('user.login') }}" class="btn btn-primary me-1 my-1">Apply Now</a>
+                            <a href="{{ route('contact.index') }}" class="btn btn-soft-primary my-1">Contact Us</a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -45,23 +45,35 @@
 
                         <div class="col-sm-9 mt-4 mt-sm-0">
                             <ul class="list-unstyled footer-list terms-service text-center text-sm-end mb-0">
-                                <li class="list-inline-item my-2"><a href="index.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
-                                        Home</a></li>
-                                <li class="list-inline-item my-2"><a href="services.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
-                                        How
-                                        it works</a></li>
-                                <li class="list-inline-item my-2"><a href="job-post.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
-                                        Create a job</a></li>
-                                <li class="list-inline-item my-2"><a href="aboutus.html"
-                                        class="text-foot fs-6 fw-medium me-2"><i class="fa-regular fa-circle"></i></i>
-                                        About
-                                        us</a></li>
-                                <li class="list-inline-item my-2"><a href="pricing.html"
-                                        class="text-foot fs-6 fw-medium"><i class="fa-regular fa-circle"></i></i>
-                                        Plans</a>
+                                <li class="list-inline-item my-2">
+                                    <a href="/" class="text-foot fs-6 fw-medium me-2">
+                                        <i class="fa-regular fa-circle"></i>
+                                        Home
+                                    </a>
+                                </li>
+                                <li class="list-inline-item my-2">
+                                    <a href="{{ route('services') }}" class="text-foot fs-6 fw-medium me-2">
+                                        <i class="fa-regular fa-circle"></i>
+                                        How it works
+                                    </a>
+                                </li>
+                                <li class="list-inline-item my-2">
+                                    <a href="{{ route('job.create') }}" class="text-foot fs-6 fw-medium me-2">
+                                        <i class="fa-regular fa-circle"></i>
+                                        Create a job
+                                    </a>
+                                </li>
+                                <li class="list-inline-item my-2">
+                                    <a href="{{ route('aboutus.index') }}" class="text-foot fs-6 fw-medium me-2">
+                                        <i class="fa-regular fa-circle"></i>
+                                        About us
+                                    </a>
+                                </li>
+                                <li class="list-inline-item my-2">
+                                    <a href="pricing.html" class="text-foot fs-6 fw-medium">
+                                        <i class="fa-regular fa-circle"></i>
+                                        Plans
+                                    </a>
                                 </li>
                             </ul>
                         </div><!--end col-->

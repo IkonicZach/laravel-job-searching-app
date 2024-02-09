@@ -79,7 +79,7 @@
                                 <input class="form-check-input @error('check') is-invalid @enderror" type="checkbox"
                                     name="check" id="check">
                                 <label class="form-label form-check-label text-muted" for="check">I Accept <a
-                                        href="" class="text-primary">Terms And Condition</a></label>
+                                        href="{{ route('terms') }}" class="text-primary">Terms And Condition</a></label>
                                 @error('check')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

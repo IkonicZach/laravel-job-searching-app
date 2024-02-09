@@ -2,51 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Company;
-
 class PageController extends Controller
 {
-    public function checkpoint()
-    {
-        return view('auth.register_checkpoint');
-    }
-
-    public function job()
-    {
-        return view('job.index');
-    }
-
-    public function admin()
-    {
-        return view('admin.index');
-    }
-
-    public function categories()
-    {
-    }
-
-    public function companies()
-    {
-        $countries = ['United States', 'Japan', 'Myanmar', 'South Korea', 'United Kingdom'];
-        $cities = ['Florida', 'Osaka', 'Yangon', 'Seoul', 'Birmingham'];
-        $categories = Category::select('id', 'name')->get();
-        $companies = Company::with('category')->get();
-        return view('admin.tabs.companies', compact('companies', 'countries', 'cities', 'categories'));
-    }
-
     public function mail()
     {
         return view('mails.job-application-noti');
     }
 
-    public function error404()
+    public function terms()
     {
-        return view('special.404');
+        return view('special.terms-and-conditions');
     }
 
     public function aboutUs()
     {
         return view('special.about-us');
+    }
+
+    public function services()
+    {
+        return view('special.services');
+    }
+
+    public function helpCenter()
+    {
+        return view('helpcenter.overview');
+    }
+
+    public function faqs()
+    {
+        return view('helpcenter.faqs');
+    }
+
+    public function guides()
+    {
+        return view('helpcenter.guides');
+    }
+
+    public function support()
+    {
+        return view('helpcenter.support');
     }
 }

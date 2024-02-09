@@ -40,13 +40,18 @@ Route::resource('blog', BlogController::class)->only('index');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index'); // Contact us page
 Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit'); // Sending mail
 
-Route::get('aboutus', [PageController::class, 'aboutUs'])->name('aboutus.index');
-
 Route::resource('job', JobController::class)->only('index', 'show');
 
 Route::get('/search', [JobController::class, 'search'])->name('job.search');
 
+Route::get('aboutus', [PageController::class, 'aboutUs'])->name('aboutus.index');
 Route::get('/mail/test', [PageController::class, 'mail']);
+Route::get('terms-and-conditions', [PageController::class, 'terms'])->name('terms');
+Route::get('services', [PageController::class, 'services'])->name('services');
+Route::get('help-center', [PageController::class, 'helpCenter'])->name('help-center');
+Route::get('faqs', [PageController::class, 'faqs'])->name('faqs');
+Route::get('guides', [PageController::class, 'guides'])->name('guides');
+Route::get('support', [PageController::class, 'support'])->name('support');
 
 Route::resource('candidate', CandidateController::Class)->only('index');
 

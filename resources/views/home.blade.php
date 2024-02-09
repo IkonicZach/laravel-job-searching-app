@@ -166,7 +166,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Business <br> Development</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Business <br>
+                                                    Development</a>
                                                 <p class="text-muted mb-0 mt-3">74 Jobs</p>
                                             </div>
                                         </div>
@@ -187,7 +188,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Marketing &amp; <br>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Marketing &amp;
+                                                    <br>
                                                     Communication</a>
                                                 <p class="text-muted mb-0 mt-3">20 Jobs</p>
                                             </div>
@@ -209,7 +211,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Project <br> Management</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Project <br>
+                                                    Management</a>
                                                 <p class="text-muted mb-0 mt-3">35 Jobs</p>
                                             </div>
                                         </div>
@@ -237,7 +240,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Customer <br> Service</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Customer <br>
+                                                    Service</a>
                                                 <p class="text-muted mb-0 mt-3">46 Jobs</p>
                                             </div>
                                         </div>
@@ -264,7 +268,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Software <br> Engineering</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Software <br>
+                                                    Engineering</a>
                                                 <p class="text-muted mb-0 mt-3">60 Jobs</p>
                                             </div>
                                         </div>
@@ -287,7 +292,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">Human Resource <br> HR</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">Human Resource
+                                                    <br> HR</a>
                                                 <p class="text-muted mb-0 mt-3">74 Jobs</p>
                                             </div>
                                         </div>
@@ -325,7 +331,8 @@
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="#" class="title h5 text-">It &amp; <br> Networking</a>
+                                                <a href="{{ route('job.index') }}" class="title h5 text-">It &amp; <br>
+                                                    Networking</a>
                                                 <p class="text-muted mb-0 mt-3">20 Jobs</p>
                                             </div>
                                         </div>
@@ -379,7 +386,8 @@
                             </div>
 
                             <div class="mt-4">
-                                <a href="{{ route('job.show', $job->id) }}" class="text- title h5">{{ $job->title }}</a>
+                                <a href="{{ route('job.show', $job->id) }}"
+                                    class="text- title h5">{{ $job->title }}</a>
 
                                 <span class="text-muted d-flex align-items-center mt-2">
                                     <i data-feather="map-pin" class="fa-solid fa-location-dot me-1"></i>
@@ -439,10 +447,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">24/7 Support</a>
+                            <a href="{{ route('services') }}" class="title h5 text-dark">24/7 Support</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="#" class="btn btn-link primary text-dark">Read More <i
+                                <a href="{{ route('services') }}" class="btn btn-link primary text-dark">Read More <i
                                         class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -470,10 +478,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Tech &amp; Startup Jobs</a>
+                            <a href="{{ route('services') }}" class="title h5 text-dark">Tech &amp; Startup Jobs</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                <a href="{{ route('services') }}}" class="btn btn-link primary text-dark">Read More
                                     <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -492,10 +500,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Quick &amp; Easy</a>
+                            <a href="{{ route('services') }}" class="title h5 text-dark">Quick &amp; Easy</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                <a href="{{ route('services') }}" class="btn btn-link primary text-dark">Read More
                                     <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -515,10 +523,10 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="#" class="title h5 text-dark">Save Time</a>
+                            <a href="{{ route('services') }}" class="title h5 text-dark">Save Time</a>
                             <p class="text-muted mt-3 mb-0">Many desktop publishing now use and a search for job.</p>
                             <div class="mt-3">
-                                <a href="{{ route('aboutus.index') }}" class="btn btn-link primary text-dark">Read More
+                                <a href="{{ route('services') }}" class="btn btn-link primary text-dark">Read More
                                     <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>

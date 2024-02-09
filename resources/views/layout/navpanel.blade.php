@@ -44,7 +44,8 @@
         </div>
         <div class="header-content-area">
             <div class="perfect-scroll">
-                <div class="mobile-menu-wrap header-border">
+                <div class="mobile-menu-wrap header-border"
+                    @unless (Auth::check()) style="margin-bottom: 100px" @endunless>
                     <!-- mobile menu start -->
                     <nav>
                         <ul class="mobile-menu font-heading">
@@ -94,7 +95,7 @@
                                 <a class="link" href="{{ route('candidate.index') }}">Candidates</a>
                             </li>
                             <li class="has-children">
-                                <a class="link" href="#">Blogs</a>
+                                <a class="link" href="{{ route('blog.index') }}">Blogs</a>
                             </li>
                             <li class="has-children">
                                 <a class="link" href="{{ route('contact.index') }}">Contact Us</a>
@@ -102,6 +103,11 @@
                             <li class="has-children">
                                 <a class="link" href="{{ route('aboutus.index') }}">About Us</a>
                             </li>
+                            @unless (Auth::check())
+                                <li class="has-children">
+                                    <a class="link" href="{{ route('help-center') }}">Help</a>
+                                </li>
+                            @endunless
                         </ul>
                     </nav>
                     <!-- mobile menu end -->
@@ -110,13 +116,14 @@
                     <div class="account">
                         <h5 class="mb-3">Your Account</h5>
                         <ul class="mobile-menu font-heading">
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="{{ route('user.profile', auth()->user()->id) }}">Profile</a></li>
                             <li><a href="#">Work Preferences</a></li>
                             <li><a href="#">My Boosted Shots</a></li>
                             <li><a href="#">My Collections</a></li>
                             <li><a href="{{ route('user.settings', auth()->user()->id) }}">Account Settings</a></li>
                             <li><a href="#">Go Pro</a></li>
-                            <li><a href="/user/logout">Sign Out</a></li>
+                            <li><a href="{{ route('help-center') }}">Help</a></li>
+                            <li><a href="{{ route('user.logout') }}">Sign Out</a></li>
                         </ul>
                     </div>
                 @endauth
@@ -124,11 +131,16 @@
                 <div class="mobile-social-icon mb-50">
                     <h5 class="mb-25">Follow Us</h5>
                     <div class="row g-0 justify-content-between align-items-center">
-                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/facebook.svg') }}"></a>
-                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/instagram.svg') }}"></a>
-                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/twitter.svg') }}"></a>
-                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/discord.svg') }}"></a>
-                        <a href="#" class="col-2"><img src="{{ asset('/images/logo/telegram.svg') }}"></a>
+                        <a href="www.facebook.com" class="col-2"><img
+                                src="{{ asset('/images/logo/facebook.svg') }}"></a>
+                        <a href="www.instagram.com" class="col-2"><img
+                                src="{{ asset('/images/logo/instagram.svg') }}"></a>
+                        <a href="www.twitter.com" class="col-2"><img
+                                src="{{ asset('/images/logo/twitter.svg') }}"></a>
+                        <a href="www.discord.com" class="col-2"><img
+                                src="{{ asset('/images/logo/discord.svg') }}"></a>
+                        <a href="www.telegram.com" class="col-2"><img
+                                src="{{ asset('/images/logo/telegram.svg') }}"></a>
                     </div>
                 </div>
                 <div class="site-copyright text-muted text-center py-5">Copyright 2023 © Jobnova.</div>
