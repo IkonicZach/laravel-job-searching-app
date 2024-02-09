@@ -572,7 +572,7 @@
                                             class="avatar avatar-md-sm rounded shadow p-2 bg-white" alt="">
 
                                         <div class="content ms-3">
-                                            <a href="employer-profile.html"
+                                            <a href="{{ route('company.profile', $company->id) }}"
                                                 class="h5 title text-">{{ $company->name }}</a>
                                             <span
                                                 class="text-muted d-flex align-items-center small mt-1">{{ count($company->jobs) }}
