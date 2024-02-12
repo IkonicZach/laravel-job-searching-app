@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Job;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class CompanyController extends Controller
@@ -16,10 +17,39 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Company::query();
+        $query->select(
+            'companies.id as id',
+            'companies.name',
+            'companies.category_id',
+            'companies.bio',
+            'companies.img',
+            'companies.country',
+            'companies.city',
+            'companies.address',
+        );
+
+        if ($request->filled('input')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('companies.name', 'like', '%' . $request->input('input') . '%')
+                    ->orWhere('companies.country', 'like', '%' . $request->input('input') . '%')
+                    ->orWhere('companies.city', 'like', '%' . $request->input('input') . '%')
+                    ->orWhere('companies.address', 'like', '%' . $request->input('input') . '%');
+            });
+        }
+
+        if ($request->filled('country')) {
+            $query->where('companies.country', $request->input('country'));
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('companies.category_id', $request->input('category_id'));
+        }
+
         $categories = Category::select('id', 'name')->get();
-        $companies = Company::with('employer', 'jobs')->paginate(12);
+        $companies = $query->with('employer', 'jobs')->paginate(12);
         return view('employer.company.listing', compact('companies', 'categories'));
     }
 

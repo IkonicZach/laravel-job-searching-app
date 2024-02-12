@@ -39,8 +39,7 @@ Route::get('contact', [ContactController::class, 'contact'])->name('contact.inde
 Route::post('contact/submit', [ContactController::class, 'submitForm'])->name('contact.submit'); // Sending mail
 
 Route::resource('job', JobController::class)->only('index', 'show');
-
-Route::get('/search', [JobController::class, 'search'])->name('job.search');
+Route::get('search', [JobController::class, 'search'])->name('job.search');
 
 Route::get('aboutus', [PageController::class, 'aboutUs'])->name('aboutus.index');
 Route::get('/mail/test', [PageController::class, 'mail']);

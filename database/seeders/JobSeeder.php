@@ -104,6 +104,42 @@ Flexible work hours.";
             $randomType = rand(0, count($type) - 1); // random type
             $startDate = Carbon::parse('2022-01-01');
             $endDate = Carbon::parse('2022-12-31');
+            $cat = rand(1, 11);
+            switch ($cat) {
+                case 1:
+                    $subcat = rand(1, 3);
+                    break;
+                case 2:
+                    $subcat = rand(4, 5);
+                    break;
+                case 3:
+                    $subcat = rand(6, 8);
+                    break;
+                case 4:
+                    $subcat = rand(9, 11);
+                    break;
+                case 5:
+                    $subcat = rand(12, 13);
+                    break;
+                case 6:
+                    $subcat = 14;
+                    break;
+                case 7:
+                    $subcat = 15;
+                    break;
+                case 8:
+                    $subcat = rand(16, 17);
+                    break;
+                case 9:
+                    $subcat = rand(18, 19);
+                    break;
+                case 10:
+                    $subcat = rand(20, 21);
+                    break;
+                case 11:
+                    $subcat = rand(22, 23);
+                    break;
+            }
 
             Job::create([
                 'company_id' => $j + 1,
@@ -112,8 +148,8 @@ Flexible work hours.";
                 'responsibilities' => $responsibilities,
                 'benefits' => $benefits,
                 'requirements' => $requirements,
-                'category_id' => rand(1, 11),
-                'subcategory_id' => rand(1, 23),
+                'category_id' => $cat,
+                'subcategory_id' => $subcat,
                 'min_salary' => rand(1, 5) * 1000,
                 'max_salary' => rand(5.5, 10) * 1000,
                 'employment_type' => $employment_type[$randomEmpType],

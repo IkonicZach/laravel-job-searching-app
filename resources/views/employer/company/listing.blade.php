@@ -38,14 +38,15 @@
                 <div class="col-12 mt-4">
                     <div class="features-absolute">
                         <div class="d-md-flex justify-content-between align-items-center bg-white shadow rounded p-4">
-                            <form class="card-body text-start">
+                            <form action="{{ route('company.index') }}" method="GET" class="card-body text-start">
+                                @csrf
                                 <div class="registration-form text-dark text-start">
                                     <div class="row g-lg-0">
                                         <div class="col-lg-3 col-md-6 col-12">
                                             <div class="mb-3 mb-sm-0">
                                                 <div class="filter-search-form position-relative filter-border">
                                                     <i class="fa-solid fa-magnifying-glass icons"></i>
-                                                    <input name="name" type="text" id="job-keyword"
+                                                    <input name="input" type="text" id="job-keyword"
                                                         class="form-control filter-input-box bg-light border-0"
                                                         placeholder="Search your keywords">
                                                 </div>
@@ -57,12 +58,12 @@
                                                 <label class="form-label d-none fs-6">Location:</label>
                                                 <div class="filter-search-form position-relative filter-border">
                                                     <i class="fa-solid fa-location-dot icons"></i>
-                                                    <select class="form-select search-select">
-                                                        <option class="search-select-item" value="" disabled selected>
+                                                    <select class="form-select search-select" name="country">
+                                                        <option class="search-select-item" disabled selected>
                                                             Country</option>
-                                                        @foreach ($cities as $city)
-                                                            <option class="search-select-item" value="{{ $city }}">
-                                                                {{ $city }}
+                                                        @foreach ($countries as $country)
+                                                            <option class="search-select-item" value="{{ $country }}">
+                                                                {{ $country }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -74,7 +75,7 @@
                                             <div class="mb-3 mb-sm-0">
                                                 <div class="filter-search-form relative filter-border">
                                                     <i class="fa-solid fa-briefcase icons"></i>
-                                                    <select class="form-select search-select">
+                                                    <select class="form-select search-select" name="category_id">
                                                         <option class="search-select-item" value="" disabled selected>
                                                             Field</option>
                                                         @foreach ($categories as $category)
@@ -87,10 +88,14 @@
                                             </div>
                                         </div><!--end col-->
 
-                                        <div class="col-lg-3 col-md-6 col-12">
-                                            <input type="submit" id="search" name="search"
-                                                style="border-radius: 6px !important;height: 60px;"
+                                        <div class="col-lg-3 col-md-6 col-12 d-flex align-items-center">
+                                            <input type="submit" style="border-radius: 6px !important;height: 60px;"
                                                 class="btn btn-primary searchbtn w-100" value="Search">
+                                            <a href="{{ route('company.index') }}" data-bs-toggle="tooltip"
+                                                data-bs-title="Refresh" style="border-radius: 6px !important;height: 60px;"
+                                                class="btn btn-light searchbtn d-flex align-items-center">
+                                                <i class="fa-solid fa-rotate-right"></i>
+                                            </a>
                                         </div><!--end col-->
                                     </div><!--end row-->
                                 </div>
