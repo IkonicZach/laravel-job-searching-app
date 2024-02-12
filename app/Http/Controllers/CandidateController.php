@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CandidateCreateRequest;
 use App\Models\Category;
-use App\Models\Experiences;
-use App\Models\Skill;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,10 +13,42 @@ class CandidateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $candidates = User::role('candidate')->with('user_skill')->paginate(12);
-        return view('candidate.listing', compact('candidates'));
+        try {
+            $query = User::query();
+            $query->select([
+                'users.id as id',
+                'users.img',
+                'users.name',
+                'users.min_salary',
+                'users.max_salary',
+                'users.experience',
+            ]);
+
+            if ($request->filled('search')) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('users.name', 'like', '%' . $request->input('search') . '%')
+                        ->orWhere('users.position', 'like', '%' . $request->input('search') . '%')
+                        ->orWhere('users.country', 'like', '%' . $request->input('search') . '%')
+                        ->orWhere('users.city', 'like', '%' . $request->input('search') . '%');
+                });
+            }
+
+            if ($request->filled('country')) {
+                $query->orWhere('users.country', $request->input('country'));
+            }
+
+            if ($request->filled('category_id')) {
+                $query->orWhere('users.preferred_category', $request->input('category_id'));
+            }
+
+            $categories = Category::select('id', 'name')->get();
+            $candidates = $query->role('candidate')->with('user_skill')->paginate(12);
+            return view('candidate.listing', compact('candidates', 'categories'));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
