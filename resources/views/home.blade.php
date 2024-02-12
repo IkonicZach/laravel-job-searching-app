@@ -88,7 +88,8 @@
                             <img src="images/about/ab02.jpg" class="img-fluid rounded" alt="work-image">
 
                             <div class="position-absolute top-0 start-50 translate-middle">
-                                <a href="#!" data-type="youtube" data-id="yba7hPeTSjk"
+                                <a href="https://youtu.be/dQw4w9WgXcQ?si=7Ze2mxQ_dj0zJ-39" data-type="youtube"
+                                    data-id="yba7hPeTSjk"
                                     class="avatar avatar-md-md rounded-pill shadow card d-flex justify-content-center align-items-center lightbox">
                                     <i class="fa-solid fa-play text-primary"></i>
                                 </a>
@@ -128,222 +129,45 @@
             <div class="row justify-content-center mb-4 pb-2">
                 <div class="col-12">
                     <div class="section-title text-center">
-                        <h4 class="title mb-3">Popular Categories</h4>
+                        <h4 class="title mb-3">Browse by Categories</h4>
                         <p class="text-muted para-desc mx-auto mb-0">Search all the open positions on the web. Get your own
                             personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
 
-            <div class="row">
-                <div class="col-12 mt-4">
-                    <div class="tns-outer" id="tns1-ow">
-                        <div class="tns-controls" aria-label="Carousel Navigation" tabindex="0"><button type="button"
-                                data-controls="prev" tabindex="-1" aria-controls="tns1"><i
-                                    class="mdi mdi-chevron-left "></i></button><button type="button"
-                                data-controls="next" tabindex="-1" aria-controls="tns1"><i
-                                    class="mdi mdi-chevron-right"></i></button></div>
-                        <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span
-                                class="current">2 to 6</span> of 7</div>
-                        <div id="tns1-mw" class="tns-ovh">
-                            <div class="tns-inner" id="tns1-iw">
-                                <div class="tiny-five-item  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                                    id="tns1" style="transform: translate3d(-14.2857%, 0px, 0px);">
-                                    <div class="tiny-slide tns-item" id="tns1-item0" aria-hidden="true" tabindex="-1">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-airplay fea icon-ex-md">
-                                                    <path
-                                                        d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1">
-                                                    </path>
-                                                    <polygon points="12 15 17 21 7 21 12 15"></polygon>
-                                                </svg>
-                                            </div>
+            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4 mt-0">
+                @foreach ($categories as $category)
+                    <div class="col">
+                        <div class="job-category job-category-two rounded shadow bg-light p-3">
+                            <h5 class="mb-1">{{ $category->name }}</h5>
+                            <p class="text-muted para mb-2">
+                                {{ App\Models\Job::where('category_id', $category->id)->count() }}
+                                Jobs Available</p>
 
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Business <br>
-                                                    Development</a>
-                                                <p class="text-muted mb-0 mt-3">74 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item1">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-award fea icon-ex-md">
-                                                    <circle cx="12" cy="8" r="7"></circle>
-                                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Marketing &amp;
-                                                    <br>
-                                                    Communication</a>
-                                                <p class="text-muted mb-0 mt-3">20 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item2">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-at-sign fea icon-ex-md">
-                                                    <circle cx="12" cy="12" r="4"></circle>
-                                                    <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Project <br>
-                                                    Management</a>
-                                                <p class="text-muted mb-0 mt-3">35 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item3">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-codesandbox fea icon-ex-md">
-                                                    <path
-                                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                                    </path>
-                                                    <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                                                    <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                                                    <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                                    <line x1="12" y1="22.08" x2="12" y2="12">
-                                                    </line>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Customer <br>
-                                                    Service</a>
-                                                <p class="text-muted mb-0 mt-3">46 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item4">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-chrome fea icon-ex-md">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <circle cx="12" cy="12" r="4"></circle>
-                                                    <line x1="21.17" y1="8" x2="12" y2="8">
-                                                    </line>
-                                                    <line x1="3.95" y1="6.06" x2="8.54" y2="14">
-                                                    </line>
-                                                    <line x1="10.88" y1="21.94" x2="15.46" y2="14">
-                                                    </line>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Software <br>
-                                                    Engineering</a>
-                                                <p class="text-muted mb-0 mt-3">60 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item tns-slide-active" id="tns1-item5">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-copy fea icon-ex-md">
-                                                    <rect x="9" y="9" width="13" height="13" rx="2"
-                                                        ry="2"></rect>
-                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
-                                                    </path>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">Human Resource
-                                                    <br> HR</a>
-                                                <p class="text-muted mb-0 mt-3">74 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="tiny-slide tns-item" id="tns1-item6" aria-hidden="true" tabindex="-1">
-                                        <div
-                                            class="position-relative job-category text-center px-4 py-5 rounded shadow m-2">
-                                            <div
-                                                class="feature-icon bg-soft-primary rounded shadow mx-auto position-relative overflow-hidden d-flex justify-content-center align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-cpu fea icon-ex-md">
-                                                    <rect x="4" y="4" width="16" height="16" rx="2"
-                                                        ry="2"></rect>
-                                                    <rect x="9" y="9" width="6" height="6"></rect>
-                                                    <line x1="9" y1="1" x2="9" y2="4">
-                                                    </line>
-                                                    <line x1="15" y1="1" x2="15" y2="4">
-                                                    </line>
-                                                    <line x1="9" y1="20" x2="9" y2="23">
-                                                    </line>
-                                                    <line x1="15" y1="20" x2="15" y2="23">
-                                                    </line>
-                                                    <line x1="20" y1="9" x2="23" y2="9">
-                                                    </line>
-                                                    <line x1="20" y1="14" x2="23" y2="14">
-                                                    </line>
-                                                    <line x1="1" y1="9" x2="4" y2="9">
-                                                    </line>
-                                                    <line x1="1" y1="14" x2="4" y2="14">
-                                                    </line>
-                                                </svg>
-                                            </div>
-
-                                            <div class="mt-4">
-                                                <a href="{{ route('job.index') }}" class="title h5 text-">It &amp; <br>
-                                                    Networking</a>
-                                                <p class="text-muted mb-0 mt-3">20 Jobs</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-                                </div>
-                            </div>
+                            <form action="{{ route('job.index') }}" method="GET">
+                                <input type="hidden" name="category_id" value="{{ $category->id }}">
+                                <button type="submit" class="btn text-primary fw-medium link">
+                                    Explore Jobs
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </form>
                         </div>
+                    </div><!--end col-->
+                @endforeach
+            </div><!--end row-->
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="text-center">
+                        <a href="{{ route('job.index') }}" class="btn btn-link primary text-muted">
+                            See More Categories
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
-                </div>
+                </div><!--end col-->
             </div>
-        </div><!--end container-->
+        </div>
 
         <div class="container mt-100 mt-60">
             <div class="row align-items-end mb-4 pb-2">

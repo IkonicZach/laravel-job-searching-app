@@ -20,15 +20,17 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TrashPageController;
 use App\Http\Controllers\UserController;
 use App\Models\Blog;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    $categories = Category::select('id', 'name')->take(10)->get();
     $companies = Company::with('createdBy', 'jobs')->take(6)->get();
     $jobs = Job::with('company')->orderBy('created_at', 'desc')->take(6)->get();
     $blogs = Blog::with('blogcategories')->orderBy('created_at', 'desc')->take(3)->get();
-    return view('home', compact('jobs', 'companies', 'blogs'));
+    return view('home', compact('jobs', 'companies', 'blogs', 'categories'));
 }); // Home Route
 
 Route::get('/get-subcategories', [JobController::class, 'getSubcategories']); // For dynamically showing subcategories

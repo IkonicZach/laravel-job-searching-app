@@ -37,12 +37,9 @@
             border-right: 0.08em solid transparent
         }
     </style>
-    @livewireStyles
-    @livewireScripts
 </head>
 
 <body>
     @yield('content')
     <x-flash />
-    <livewire:scripts />
 </body>
